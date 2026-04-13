@@ -1,0 +1,13 @@
+---
+layout: base.njk
+title: "Articles"
+---
+<ul style="list-style:none; padding:0;">
+  {%- for post in collections.all -%}
+  {%- if post.url != "/" and post.url != "/articles/" -%}
+  <li style="margin-bottom: var(--cac-space-sm); border-bottom: 1px solid var(--cac-light-grey); padding-bottom: var(--cac-space-sm);">
+    <a href="{{ post.url }}" style="font-family: var(--cac-font-editorial); font-size: 22px; font-weight: 300; color: var(--cac-ink); text-decoration: none;">{{ post.data.title }}</a>
+  </li>
+  {%- endif -%}
+  {%- endfor -%}
+</ul>

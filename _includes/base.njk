@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ title }} — CAC</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --cac-near-black:    #141414;
+      --cac-ink:           #1F1F1F;
+      --cac-surface-white: #F8F7F4;
+      --cac-mid-grey:      #8A8A8A;
+      --cac-light-grey:    #E2E0DC;
+      --cac-cold-red:      #C0392B;
+      --cac-system-blue:   #1A3A5C;
+      --cac-font-editorial: 'Cormorant Garamond', Georgia, serif;
+      --cac-font-mono:      'JetBrains Mono', 'Courier New', monospace;
+      --cac-space-xs:  8px;
+      --cac-space-sm:  16px;
+      --cac-space-md:  32px;
+      --cac-space-lg:  64px;
+      --cac-space-xl:  120px;
+      --cac-max-width:   1280px;
+      --cac-reading-col: 680px;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--cac-surface-white);
+      color: var(--cac-ink);
+      font-family: var(--cac-font-mono);
+      font-size: 13px;
+      font-weight: 300;
+      line-height: 1.8;
+      -webkit-font-smoothing: antialiased;
+    }
+    nav {
+      border-bottom: 1px solid var(--cac-light-grey);
+      padding: var(--cac-space-sm) var(--cac-space-md);
+      display: flex;
+      gap: var(--cac-space-md);
+      align-items: center;
+    }
+    nav .logo { height: 36px; width: auto; margin-right: auto; }
+    nav a {
+      color: var(--cac-ink);
+      text-decoration: none;
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+    }
+    nav a:hover { color: var(--cac-cold-red); }
+    .article-wrap {
+      max-width: var(--cac-reading-col);
+      margin: var(--cac-space-lg) auto;
+      padding: 0 var(--cac-space-md);
+    }
+    .article-title {
+      font-family: var(--cac-font-editorial);
+      font-size: clamp(28px, 4vw, 52px);
+      font-weight: 300;
+      letter-spacing: -0.01em;
+      line-height: 1.1;
+      margin-bottom: var(--cac-space-md);
+    }
+    .article-body h2 {
+      font-family: var(--cac-font-editorial);
+      font-size: clamp(20px, 2.5vw, 28px);
+      font-weight: 400;
+      margin: var(--cac-space-md) 0 var(--cac-space-sm);
+    }
+    .article-body p { margin-bottom: var(--cac-space-sm); }
+    .article-body a { color: var(--cac-cold-red); }
+    .cta-block {
+      text-align: center;
+      margin: var(--cac-space-lg) 0;
+    }
+    .cta-block a {
+      display: inline-block;
+      background: var(--cac-cold-red);
+      color: #fff;
+      font-family: var(--cac-font-mono);
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      padding: 16px 32px;
+      text-decoration: none;
+    }
+    footer {
+      border-top: 1px solid var(--cac-light-grey);
+      padding: var(--cac-space-md);
+      text-align: center;
+      font-size: 10px;
+      letter-spacing: 0.1em;
+      color: var(--cac-mid-grey);
+      margin-top: var(--cac-space-lg);
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="/"><img src="/CAC_LOGO_2026_shadow.png" class="logo" alt="CAC"></a>
+    <a href="/articles/">Articles</a>
+  </nav>
+  <div class="article-wrap">
+    <h1 class="article-title">{{ title }}</h1>
+    <div class="article-body">
+      {{ content | safe }}
+    </div>
+  </div>
+  <div class="cta-block">
+    <a href="/register/">Register for the Programme</a>
+  </div>
+  <footer>© CAC · <a href="/privacy-policy.html">Privacy Policy</a></footer>
+</body>
+</html>
