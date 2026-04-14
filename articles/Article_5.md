@@ -1,4 +1,9 @@
-The New Frontier: Why Technical Professionals Are More Valuable Than Ever in an AI‑Driven World (And What’s Still Holding Them Back)
+---
+title: "The New Frontier: Why Technical Professionals Are More Valuable Than Ever in an AI‑Driven World (And What’s Still Holding Them Back)"
+layout: "base.njk"
+---
+
+
 
 You’re technically brilliant. You understand systems, solve complex problems, and deliver results. But when it comes to selling—whether it’s your expertise, your product, or your vision—something gets in the way.
 

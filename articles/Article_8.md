@@ -1,4 +1,9 @@
-TELL ME WHAT YOU KNOW ABOUT AI SALES AGENT & AI FOR SALES AND AUTOMATION
+---
+title: "Tell Me What You Know About AI And Sales Agents and Sales Automation?"
+layout: "base.njk"
+---
+
+Tell Me What You Know About AI And Sales Agents and Sales Automation?
 
 Put in those two prompts. “*Tell me what you know about AI Sales Agents”*  and “*AI for sales automation”* . And you have your answers.
 

@@ -1,4 +1,7 @@
-The Structureless Potential: Why Sales Is an Engineering Problem, Not a Persuasion Problem
+---
+title: "The Structureless Potential: Why Sales Is an Engineering Problem, Not a Persuasion Problem"
+layout: "base.njk"
+---
 
 You’ve been told that sales is about persuasion. About enthusiasm. About closing techniques that get people to say yes. And if you’re a technical professional, that framing has probably felt wrong.
 

@@ -1,4 +1,8 @@
-The Hidden Blocks That Cost You Sales (And How to Spot Them)
+---
+title: "The Hidden Blocks That Cost You Sales (And How to Spot Them)"
+layout: "base.njk"
+---
+
 
 
 You’ve read the books. You’ve attended the courses. You know what you’re supposed to do. But when it’s time to have the conversation, something holds you back. You hesitate. You over‑explain. You wait for the perfect moment that never comes.

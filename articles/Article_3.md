@@ -1,4 +1,9 @@
-How AI Changes What Buyers Want – And Why Your Human Skills Matter Even More
+---
+title: "How AI Changes What Buyers Want – And Why Your Human Skills Matter Even More"
+layout: "base.njk"
+---
+
+
 
 
 There’s a quiet shift happening in how people buy. And if you’re in a technical or non‑sales role, it affects you more than you might realise.

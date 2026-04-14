@@ -1,4 +1,9 @@
-Selling With Integrity: What It Really Means
+---
+title: "Selling With Integrity: What It Really Means"
+layout: "base.njk"
+---
+
+
 
 
 If you’re like most technical and non‑sales professionals, the word “selling” sits uncomfortably. You’ve seen the stereotypes—the aggressive closer, the scripted pitch, the person who will say anything to get a signature. You’ve probably told yourself: I don’t want to be that person.

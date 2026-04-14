@@ -1,4 +1,9 @@
-Why Traditional Sales Training Fails Technical People
+---
+title: "Why Traditional Sales Training Fails Technical People"
+layout: "base.njk"
+---
+
+
 
 
 You’ve sat through it before. The high‑energy sales training. The charismatic trainer telling you to “just be yourself” while also teaching you closing techniques that feel manipulative. The room is full of people who seem to love it. You leave feeling like you’ve just tried on a personality that doesn’t fit.

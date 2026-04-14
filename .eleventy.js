@@ -1,14 +1,19 @@
 module.exports = function(eleventyConfig) {
-eleventyConfig.addPassthroughCopy("about");  eleventyConfig.addPassthroughCopy("*.png");
+eleventyConfig.addPassthroughCopy("assets");  // ONLY passthrough static assets, NOT folders with templates
+  eleventyConfig.addPassthroughCopy("*.png");
   eleventyConfig.addPassthroughCopy("*.jpg");
   eleventyConfig.addPassthroughCopy("*.css");
+  
+  // Explicitly ignore backup files and scripts
+  eleventyConfig.ignores.add("*.bak*");
+  eleventyConfig.ignores.add("*.sh");
+  eleventyConfig.ignores.add("*.py");
 
   return {
     dir: {
       input: ".",
-      output: "_site",
       includes: "_includes",
-      data: "_data"
+      output: "_site"
     }
   };
 };

@@ -631,14 +631,31 @@ document.addEventListener("DOMContentLoaded", () => {
 </div>
 
 <!-- FOOTER -->
-<footer>
-  <div class="t6">Clarity Awareness Cognitive Architecture Systems</div>
-  <div class="t6">
-    <a href="/articles/" style="color:var(--cac-mid-grey);text-decoration:none;margin-right:var(--cac-space-md);"></a>
-    <a href="/privacy-policy.html" style="color:var(--cac-mid-grey);text-decoration:none;">Privacy Policy</a>
-  </div>
-  <div class="t6">v<span data-f="version">1.0</span></div>
-</footer>
 
+	
+
+<section id="archive" style="padding: 80px 20px; background: #080808; border-top: 1px solid #1a1a1a;">
+  <div style="max-width: 1200px; margin: 0 auto;">
+    <h2 style="font-family: var(--cac-font-editorial); color: #ffffff; font-size: 28px; margin-bottom: 40px; letter-spacing: -0.02em;">Knowledge Archive</h2>
+    <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 25px;">
+      {% for post in collections.all %}
+        {% if post.url contains "/articles/" and post.url != "/articles/" %}
+          <a href="{{ post.url }}" style="text-decoration: none; padding: 24px; border: 1px solid #1a1a1a; background: #0a0a0a; display: block; transition: all 0.3s ease;">
+            <div style="font-family: var(--cac-font-mono); font-size: 10px; color: var(--cac-cold-red); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1px;">Knowledge Insight</div>
+            <div style="font-family: var(--cac-font-editorial); color: #ffffff; font-size: 18px; line-height: 1.4;">{{ post.data.title | default: "Untitled Article" }} →</div>
+          </a>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<footer style="padding: 60px 20px; text-align: center; background: #050505; border-top: 1px solid #111;">
+  <div style="font-family: var(--cac-font-mono); font-size: 11px; color: #666; margin-bottom: 15px;">Clarity Awareness Cognitive Architecture Systems</div>
+  <div>
+    <a href="/privacy-policy/" style="color: #888; text-decoration: none; margin: 0 15px; font-size: 11px; font-family: var(--cac-font-mono);">Privacy Policy</a>
+    <a href="/about/" style="color: #888; text-decoration: none; margin: 0 15px; font-size: 11px; font-family: var(--cac-font-mono);">About</a>
+  </div>
+</footer>
 </body>
 </html>

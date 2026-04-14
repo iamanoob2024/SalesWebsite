@@ -1,4 +1,9 @@
-The Spreadsheet Is Just the Coping Mechanism
+---
+title: "The Spreadsheet Is Just the Coping Mechanism"
+layout: "base.njk"
+---
+
+
 
 The CFO has a fiduciary duty. They have a spreadsheet. ROI projections. Integration cost analysis. A weighted vendor comparison matrix.
 Surely this is the rational buyer.

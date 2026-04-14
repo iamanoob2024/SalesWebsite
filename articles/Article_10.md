@@ -1,4 +1,9 @@
-Why B2B Buyers Are More Emotional Than B2C Buyers — And What To Do About It.
+---
+title: "Why B2B Buyers Are More Emotional Than B2C Buyers — And What To Do About It."
+layout: "base.njk"
+---
+
+
 
 There is a belief so embedded in corporate culture that almost nobody questions it anymore.
 B2C buyers are emotional. B2B buyers are rational.

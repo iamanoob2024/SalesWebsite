@@ -1,4 +1,9 @@
-The Real Reason Your Engineers (and Professionals) Resist Sales Training
+---
+title: "The Real Reason Your Engineers (and Professionals) Resist Sales Training"
+layout: "base.njk"
+---
+
+
 
 It is not stubbornness. It is not arrogance. It is not a lack of commercial awareness.
 When a technical expert resists sales training, they are protecting something. And until you understand what they are protecting, no training programme will work.
