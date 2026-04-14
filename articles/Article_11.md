@@ -1,9 +1,10 @@
 ---
 title: "What a Newborn Baby Teaches Us About B2B Sales"
+panel_image: "/assets/img/articles/placeholder.jpg"
+panel_type: "image"
+title: "Untitled Article"
 layout: "base.njk"
 ---
-
-
 
 There is a scene that every parent recognises.
 You are holding a newborn. Three weeks old. You have not slept properly since before they arrived. You are standing in a car dealership because the car you drove before this baby is no longer the car you need.

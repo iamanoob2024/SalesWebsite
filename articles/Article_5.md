@@ -1,8 +1,12 @@
 ---
-title: "The New Frontier: Why Technical Professionals Are More Valuable Than Ever in an AI‑Driven World (And What’s Still Holding Them Back)"
+panel_image: "/assets/img/articles/Article_5.jpg"
+panel_type: "image"
+title: "Why Technical Professionals Are More Valuable Than Ever in an AI‑Driven World"
+panel_image: "/assets/img/articles/placeholder.jpg"
+panel_type: "image"
+title: "Untitled Article"
 layout: "base.njk"
 ---
-
 
 
 You’re technically brilliant. You understand systems, solve complex problems, and deliver results. But when it comes to selling—whether it’s your expertise, your product, or your vision—something gets in the way.
@@ -11,11 +15,11 @@ If you’ve felt this, you’re not alone. And here’s what’s changing: the v
 
 Let’s look at what’s really holding technical professionals back, what organisations are struggling with, and why the window for getting unstuck has never been more urgent.
 
-What Keeps Technical People Stuck in Sales
+**What Keeps Technical People Stuck in Sales?**
 
 1. Fear of “Losing Face”
 
-A 2026 study from ESMT Berlin reveals a hidden psychological barrier: salespeople—especially those with high self‑expectations and strong identities as experts—fear “losing face” in front of customers .
+A 2026 study from ESMT Berlin reveals a hidden psychological barrier: salespeople—especially those with high self‑expectations and strong identities as experts—fear “losing face” in front of customers.
 
 This isn’t about lacking knowledge. It’s about the fear of being seen as incompetent. Of being unable to answer a question. Of making a promise you can’t keep.
 

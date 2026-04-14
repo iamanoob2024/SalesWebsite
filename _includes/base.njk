@@ -392,13 +392,13 @@ const ARTICLE_CONFIG = {
 
   // ── VISUAL (left panel) ─────────────────────────────
   // To use a still image: set type to "image" and put the filename in src
-  //   e.g.  type: "image",  src: "my-photo.jpg"
+  //   e.g.  type: "{{ panel_type or "image" }}",  src: "my-photo.jpg"
   // To use a video:       set type to "video" and put the filename or URL in src
   //   e.g.  type: "video",  src: "https://www.youtube.com/embed/XXXXX"
   // Leave src as "" to show the placeholder until you have an asset.
   visual: {
-    type: "image",   // "image" | "video" | ""
-    src:  "",        // ← PUT YOUR IMAGE FILENAME OR VIDEO URL HERE
+    type: "{{ panel_type or "image" }}",   // "image" | "video" | ""
+    src: "{{ panel_image }}",        // ← PUT YOUR IMAGE FILENAME OR VIDEO URL HERE
   },
 
   // ── CTA LINK ────────────────────────────────────────

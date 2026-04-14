@@ -1,5 +1,8 @@
 ---
-title: "The Structureless Potential: Why Sales Is an Engineering Problem, Not a Persuasion Problem"
+title: "Why Sales Is an Engineering Problem, Not a Persuasion Problem"
+panel_image: "/assets/img/articles/placeholder.jpg"
+panel_type: "image"
+title: "Untitled Article"
 layout: "base.njk"
 ---
 

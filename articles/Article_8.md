@@ -1,9 +1,10 @@
 ---
 title: "Tell Me What You Know About AI And Sales Agents and Sales Automation?"
+panel_image: "/assets/img/articles/placeholder.jpg"
+panel_type: "image"
+title: "Untitled Article"
 layout: "base.njk"
 ---
-
-Tell Me What You Know About AI And Sales Agents and Sales Automation?
 
 Put in those two prompts. “*Tell me what you know about AI Sales Agents”*  and “*AI for sales automation”* . And you have your answers.
 

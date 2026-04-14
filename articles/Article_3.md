@@ -1,11 +1,10 @@
 ---
 title: "How AI Changes What Buyers Want – And Why Your Human Skills Matter Even More"
+panel_image: "/assets/img/articles/placeholder.jpg"
+panel_type: "image"
+title: "Untitled Article"
 layout: "base.njk"
 ---
-
-
-
-
 There’s a quiet shift happening in how people buy. And if you’re in a technical or non‑sales role, it affects you more than you might realise.
 
 Not long ago, the buyer’s journey was simple: they identified a problem, looked for solutions, and eventually talked to a salesperson who helped them decide. The salesperson controlled the information. The salesperson was the expert.

@@ -1,10 +1,10 @@
 ---
 title: "Why 86% of B2B Deals Stall — And It's Not Your Product"
+panel_image: "/assets/img/articles/placeholder.jpg"
+panel_type: "image"
+title: "Untitled Article"
 layout: "base.njk"
 ---
-
-
-
 86% of B2B deals don't go to a competitor. They don't get outbid. They don't lose on price.
 They just die during the conversation. No decision. No feedback. No closure. Billions of dollars in enterprise value evaporating because something broke down in the room — and nobody in that room could name what it was. If your pipeline has deals that started strong and went quiet, this is the conversation you need to have.
 
