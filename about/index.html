@@ -152,7 +152,7 @@
       overflow: hidden;
       cursor: pointer;
       border-left: 2px solid var(--cac-light-grey);
-      padding-left: var(--cac-space-md);
+      padding-left: var(--cac-space-md); padding-right: var(--cac-space-lg);
       /* Fade top and bottom edges */
       -webkit-mask-image: linear-gradient(
         to bottom,
@@ -177,6 +177,8 @@
     }
 
     .teleprompter-inner p {
+text-align: left;
+max-width: 95%;
       font-size: 14px;
       line-height: 1.9;
       color: var(--cac-mid-grey);
