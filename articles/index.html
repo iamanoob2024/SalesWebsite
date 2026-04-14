@@ -1,13 +1,539 @@
----
-layout: base.njk
-title: "Articles"
----
-<ul style="list-style:none; padding:0;">
-  {%- for post in collections.all -%}
-  {%- if post.url != "/" and post.url != "/articles/" -%}
-  <li style="margin-bottom: var(--cac-space-sm); border-bottom: 1px solid var(--cac-light-grey); padding-bottom: var(--cac-space-sm);">
-    <a href="{{ post.url }}" style="font-family: var(--cac-font-editorial); font-size: 22px; font-weight: 300; color: var(--cac-ink); text-decoration: none;">{{ post.data.title }}</a>
-  </li>
-  {%- endif -%}
-  {%- endfor -%}
-</ul>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Articles — CAC</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --cac-near-black:    #141414;
+      --cac-ink:           #1F1F1F;
+      --cac-surface-white: #F8F7F4;
+      --cac-mid-grey:      #8A8A8A;
+      --cac-light-grey:    #E2E0DC;
+      --cac-cold-red:      #C0392B;
+      --cac-font-editorial: 'Cormorant Garamond', Georgia, serif;
+      --cac-font-mono:      'JetBrains Mono', 'Courier New', monospace;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--cac-near-black);
+      color: var(--cac-surface-white);
+      font-family: var(--cac-font-mono);
+      font-size: 13px;
+      font-weight: 300;
+      line-height: 1.8;
+      -webkit-font-smoothing: antialiased;
+      min-height: 100vh;
+    }
+
+    /* ── NAV ── */
+    .site-nav {
+      border-bottom: 1px solid #1e1e1e;
+      padding: 16px 32px;
+      display: flex;
+      gap: 32px;
+      align-items: center;
+    }
+    .site-nav .logo { height: 36px; width: auto; margin-right: auto; }
+    .site-nav a {
+      color: var(--cac-mid-grey);
+      text-decoration: none;
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      transition: color 0.15s;
+    }
+    .site-nav a:hover { color: var(--cac-cold-red); }
+
+    /* ── HEADER ── */
+    .catalogue-header {
+      padding: 64px 64px 32px;
+      border-bottom: 1px solid #1e1e1e;
+    }
+    .catalogue-label {
+      font-size: 9px;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--cac-cold-red);
+      display: block;
+      margin-bottom: 16px;
+    }
+    .catalogue-title {
+      font-family: var(--cac-font-editorial);
+      font-size: clamp(36px, 6vw, 80px);
+      font-weight: 300;
+      letter-spacing: -0.02em;
+      line-height: 1.0;
+      color: var(--cac-surface-white);
+    }
+    .catalogue-sub {
+      margin-top: 16px;
+      font-size: 11px;
+      color: var(--cac-mid-grey);
+      letter-spacing: 0.08em;
+    }
+
+    /* ── CAROUSEL ── */
+    .carousel-section {
+      padding: 48px 0 64px;
+      position: relative;
+    }
+    .carousel-outer {
+      position: relative;
+      height: 520px;
+      overflow: hidden;
+    }
+    /* Edge fade */
+    .carousel-outer::before,
+    .carousel-outer::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      width: 180px;
+      height: 100%;
+      z-index: 10;
+      pointer-events: none;
+    }
+    .carousel-outer::before {
+      left: 0;
+      background: linear-gradient(to right, var(--cac-near-black), transparent);
+    }
+    .carousel-outer::after {
+      right: 0;
+      background: linear-gradient(to left, var(--cac-near-black), transparent);
+    }
+
+    .carousel-track {
+      display: flex;
+      gap: 32px;
+      height: 100%;
+      align-items: center;
+      cursor: grab;
+      padding: 0 200px;
+      user-select: none;
+      transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+    .carousel-track.dragging {
+      cursor: grabbing;
+      transition: none;
+    }
+
+    /* ── CARD ── */
+    .card {
+      flex: 0 0 300px;
+      height: 400px;
+      position: relative;
+      border: 1px solid #1e1e1e;
+      overflow: hidden;
+      cursor: pointer;
+      transform: scale(0.82);
+      filter: brightness(0.45);
+      transition: transform 0.5s ease, filter 0.5s ease;
+      text-decoration: none;
+    }
+    .card.active {
+      transform: scale(1.05);
+      filter: brightness(1);
+    }
+    .card-visual {
+      width: 100%;
+      height: 55%;
+      background: #1a1a1a;
+      overflow: hidden;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .card-visual img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .card-visual-placeholder {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #111;
+    }
+    .card-visual-placeholder span {
+      font-size: 9px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #2a2a2a;
+    }
+    .card-body {
+      padding: 20px;
+      background: var(--cac-near-black);
+      height: 45%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      border-top: 1px solid #1e1e1e;
+    }
+    .card-title {
+      font-family: var(--cac-font-editorial);
+      font-size: 18px;
+      font-weight: 300;
+      line-height: 1.3;
+      color: var(--cac-surface-white);
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    .card-teaser {
+      font-size: 10px;
+      color: var(--cac-mid-grey);
+      line-height: 1.6;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      margin-top: 8px;
+    }
+    .card-cta {
+      font-size: 9px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--cac-cold-red);
+      margin-top: 12px;
+    }
+
+    /* ── CAROUSEL CONTROLS ── */
+    .carousel-controls {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 24px;
+      margin-top: 32px;
+    }
+    .carr-btn {
+      background: none;
+      border: 1px solid #2a2a2a;
+      color: var(--cac-mid-grey);
+      font-family: var(--cac-font-mono);
+      font-size: 16px;
+      width: 44px;
+      height: 44px;
+      cursor: pointer;
+      transition: all 0.15s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .carr-btn:hover { border-color: var(--cac-cold-red); color: var(--cac-cold-red); }
+    .carr-dots {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+    .carr-dot {
+      width: 4px;
+      height: 4px;
+      background: #2a2a2a;
+      border-radius: 50%;
+      transition: all 0.3s;
+      cursor: pointer;
+    }
+    .carr-dot.active {
+      background: var(--cac-cold-red);
+      width: 20px;
+      border-radius: 2px;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid #1e1e1e;
+      padding: 32px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 10px;
+      letter-spacing: 0.1em;
+      color: var(--cac-mid-grey);
+    }
+    footer a { color: var(--cac-mid-grey); text-decoration: none; }
+    footer a:hover { color: var(--cac-cold-red); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      .catalogue-header { padding: 40px 24px 24px; }
+      .carousel-outer { height: 420px; }
+      .carousel-outer::before, .carousel-outer::after { width: 60px; }
+      .carousel-track { padding: 0 80px; gap: 20px; }
+      .card { flex: 0 0 240px; height: 340px; }
+      footer { flex-direction: column; gap: 12px; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="site-nav">
+    <a href="/"><img src="/CAC_LOGO_2026_shadow.png" class="logo" alt="CAC"></a>
+    <a href="/">← Programme</a>
+  </nav>
+
+  <div class="catalogue-header">
+    <span class="catalogue-label">CAC — Reading Room</span>
+    <h1 class="catalogue-title">Articles</h1>
+    <p class="catalogue-sub">Drag or flick to browse · Click to read</p>
+  </div>
+
+  <div class="carousel-section">
+    <div class="carousel-outer" id="carousel-outer">
+      <div class="carousel-track" id="carousel-track">
+        <!-- Cards injected by JS -->
+      </div>
+    </div>
+    <div class="carousel-controls">
+      <button class="carr-btn" id="btn-prev">←</button>
+      <div class="carr-dots" id="carr-dots"></div>
+      <button class="carr-btn" id="btn-next">→</button>
+    </div>
+  </div>
+
+  <footer>
+    <span>Clarity Awareness Cognitive Architecture Systems</span>
+    <span>
+      <a href="/">Programme</a>&nbsp;&nbsp;·&nbsp;&nbsp;
+      <a href="/privacy-policy.html">Privacy Policy</a>
+    </span>
+  </footer>
+
+
+<!-- ═══════════════════════════════════════════════════
+     ARTICLES CATALOGUE CONFIG
+     ─────────────────────────────────────────────────
+     TO ADD A NEW ARTICLE:
+     Copy one block below (from the opening { to the closing },)
+     Paste it at the end of the array (before the final ] )
+     Fill in: title, teaser, slug, image (or leave "" for placeholder)
+
+     slug = the folder name Eleventy creates.
+     e.g. Article_1.md → slug: "/articles/Article_1/"
+
+     image = filename in the same folder, or a full URL.
+     Leave as "" until you have an asset.
+════════════════════════════════════════════════════ -->
+<script>
+const ARTICLES = [
+  {
+    title:  "Why Traditional Sales Training Fails Technical People",
+    teaser: "You've sat through it before. The high-energy sales training. The charismatic trainer telling you to just be yourself.",
+    slug:   "/articles/Article_1/",
+    image:  "",   // ← e.g. "/articles/article1-cover.jpg"
+  },
+  {
+    title:  "The Hidden Blocks That Cost You Sales (And How to Spot Them)",
+    teaser: "",
+    slug:   "/articles/Article_2/",
+    image:  "",
+  },
+  {
+    title:  "How AI Changes What Buyers Want – And Why Your Human Skills Matter Even More",
+    teaser: "",
+    slug:   "/articles/Article_3/",
+    image:  "",
+  },
+  {
+    title:  "Selling With Integrity: What It Really Means",
+    teaser: "",
+    slug:   "/articles/Article_4/",
+    image:  "",
+  },
+  {
+    title:  "The New Frontier: Why Technical Professionals Are More Valuable Than Ever in an AI-Driven World",
+    teaser: "",
+    slug:   "/articles/Article_5/",
+    image:  "",
+  },
+  {
+    title:  "The Structureless Potential: Why Sales Is an Engineering Problem, Not a Persuasion Problem",
+    teaser: "You've been told that sales is about persuasion. About enthusiasm. About closing techniques that get people to say yes.",
+    slug:   "/articles/Article_6/",
+    image:  "",
+  },
+  {
+    title:  "The Person Who Completes This Training Is Not The Same Person Who Started It",
+    teaser: "The sales leader, the entrepreneur and decision-maker who completes this training is no longer able to play the same level.",
+    slug:   "/articles/Article_7/",
+    image:  "",
+  },
+  {
+    title:  "What AI Sales Agents Actually Do — And What They Can't Replace",
+    teaser: "Put in those two prompts. Tell me what you know about AI Sales Agents and AI for sales automation.",
+    slug:   "/articles/Article_8/",
+    image:  "",
+  },
+  {
+    title:  "The Spreadsheet Is Just the Coping Mechanism",
+    teaser: "The CFO has a fiduciary duty. They have a spreadsheet. ROI projections. Integration cost analysis.",
+    slug:   "/articles/Article_9/",
+    image:  "",
+  },
+  {
+    title:  "Why B2B Buyers Are More Emotional Than B2C Buyers — And What To Do About It",
+    teaser: "There is a belief so embedded in corporate culture that almost nobody questions it anymore.",
+    slug:   "/articles/Article_10/",
+    image:  "",
+  },
+  {
+    title:  "What a Newborn Baby Teaches Us About B2B Sales",
+    teaser: "There is a scene that every parent recognises. You are holding a newborn. Three weeks old.",
+    slug:   "/articles/Article_11/",
+    image:  "",
+  },
+  {
+    title:  "Why 86% of B2B Deals Stall — And It's Not Your Product",
+    teaser: "86% of B2B deals don't go to a competitor. They don't get outbid. They don't lose on price.",
+    slug:   "/articles/Article_12/",
+    image:  "",
+  },
+  {
+    title:  "The Real Reason Your Engineers (and Professionals) Resist Sales Training",
+    teaser: "It is not stubbornness. It is not arrogance. It is not a lack of commercial awareness.",
+    slug:   "/articles/Article_13/",
+    image:  "",
+  },
+];
+</script>
+<!-- ═══════════════════════════════════════════════════
+     END ARTICLES CONFIG
+════════════════════════════════════════════════════ -->
+
+<script>
+(function () {
+
+  // ── SHUFFLE (random order on each load) ─────────────
+  function shuffle(arr) {
+    const a = [...arr];
+    for (let i = a.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
+  }
+
+  const articles = shuffle(ARTICLES);
+  const track    = document.getElementById('carousel-track');
+  const dotsWrap = document.getElementById('carr-dots');
+
+  // ── BUILD CARDS ─────────────────────────────────────
+  articles.forEach((art, i) => {
+    const card = document.createElement('a');
+    card.className = 'card' + (i === 0 ? ' active' : '');
+    card.href = art.slug;
+
+    const visual = art.image
+      ? `<div class="card-visual"><img src="${art.image}" alt=""></div>`
+      : `<div class="card-visual"><div class="card-visual-placeholder"><span>Visual Coming</span></div></div>`;
+
+    card.innerHTML = `
+      ${visual}
+      <div class="card-body">
+        <div>
+          <div class="card-title">${art.title}</div>
+          ${art.teaser ? `<div class="card-teaser">${art.teaser}</div>` : ''}
+        </div>
+        <div class="card-cta">Read →</div>
+      </div>`;
+
+    track.appendChild(card);
+  });
+
+  // ── BUILD DOTS ───────────────────────────────────────
+  articles.forEach((_, i) => {
+    const dot = document.createElement('div');
+    dot.className = 'carr-dot' + (i === 0 ? ' active' : '');
+    dot.addEventListener('click', () => goTo(i));
+    dotsWrap.appendChild(dot);
+  });
+
+  // ── CAROUSEL STATE ───────────────────────────────────
+  const CARD_W   = 300 + 32; // card width + gap
+  const FLICK    = 3;        // cards per arrow click
+  let current    = 0;
+  const cards    = () => track.querySelectorAll('.card');
+  const dots     = () => dotsWrap.querySelectorAll('.carr-dot');
+
+  function goTo(index) {
+    const total = articles.length;
+    current = Math.max(0, Math.min(index, total - 1));
+
+    cards().forEach((c, i) => c.classList.toggle('active', i === current));
+    dots().forEach((d, i)  => d.classList.toggle('active', i === current));
+
+    // Centre active card
+    const outerW = document.getElementById('carousel-outer').clientWidth;
+    const offset = (outerW / 2) - (current * CARD_W) - (CARD_W / 2) + 200;
+    track.style.transform = `translateX(${offset}px)`;
+  }
+
+  goTo(0);
+
+  document.getElementById('btn-prev').addEventListener('click', () => goTo(current - FLICK));
+  document.getElementById('btn-next').addEventListener('click', () => goTo(current + FLICK));
+
+  // ── DRAG / SWIPE ─────────────────────────────────────
+  let dragStart = null;
+  let dragX     = 0;
+
+  track.addEventListener('mousedown', (e) => {
+    dragStart = e.clientX;
+    track.classList.add('dragging');
+  });
+  window.addEventListener('mousemove', (e) => {
+    if (dragStart === null) return;
+    dragX = e.clientX - dragStart;
+  });
+  window.addEventListener('mouseup', () => {
+    if (dragStart === null) return;
+    track.classList.remove('dragging');
+    if (Math.abs(dragX) > 60) {
+      goTo(dragX < 0 ? current + FLICK : current - FLICK);
+    }
+    dragStart = null;
+    dragX = 0;
+  });
+
+  // Touch
+  let touchX = null;
+  track.addEventListener('touchstart', (e) => { touchX = e.touches[0].clientX; }, { passive: true });
+  track.addEventListener('touchend', (e) => {
+    if (touchX === null) return;
+    const diff = touchX - e.changedTouches[0].clientX;
+    if (Math.abs(diff) > 50) goTo(diff > 0 ? current + FLICK : current - FLICK);
+    touchX = null;
+  }, { passive: true });
+
+  // Click on non-active card → focus it first
+  track.addEventListener('click', (e) => {
+    const card = e.target.closest('.card');
+    if (!card) return;
+    const idx = [...cards()].indexOf(card);
+    if (idx !== current) {
+      e.preventDefault();
+      goTo(idx);
+    }
+  });
+
+  // Keyboard
+  window.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowLeft')  goTo(current - 1);
+    if (e.key === 'ArrowRight') goTo(current + 1);
+  });
+
+})();
+</script>
+
+</body>
+</html>
