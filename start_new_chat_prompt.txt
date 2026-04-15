@@ -1,0 +1,7 @@
+Provide the output from this command to start every chat to work on the websites project
+
+
+
+
+
+cd ~/Documents/github/SalesWebsite && ls -F
