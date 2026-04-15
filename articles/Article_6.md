@@ -2,9 +2,9 @@
 title: "Why Sales Is an Engineering Problem, Not a Persuasion Problem"
 panel_image: "/assets/img/articles/placeholder.jpg"
 panel_type: "image"
-title: "Untitled Article"
 layout: "base.njk"
 ---
+
 
 You’ve been told that sales is about persuasion. About enthusiasm. About closing techniques that get people to say yes. And if you’re a technical professional, that framing has probably felt wrong.
 

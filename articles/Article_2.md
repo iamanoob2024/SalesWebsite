@@ -2,9 +2,9 @@
 title: "The Hidden Blocks That Cost You Sales (And How to Spot Them)"
 panel_image: "/assets/img/articles/placeholder.jpg"
 panel_type: "image"
-title: "Untitled Article"
 layout: "base.njk"
 ---
+
 You’ve read the books. You’ve attended the courses. You know what you’re supposed to do. But when it’s time to have the conversation, something holds you back. You hesitate. You over‑explain. You wait for the perfect moment that never comes.
 
 The common explanation is “mindset.” But that’s a fuzzy word that doesn’t tell you where to look or what to fix.

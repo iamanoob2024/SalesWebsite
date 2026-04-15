@@ -2,9 +2,9 @@
 title: "The Person Who Completes."
 panel_image: "/assets/img/articles/placeholder.jpg"
 panel_type: "image"
-title: "Untitled Article"
 layout: "base.njk"
 ---
+
 
 The person who completes this 2-days of training is not the same person as the person who was looking for a sales training to attend.  The sales leader, the entrepreneur and decision-maker who completes this 2-days of training is no longer able to play the same level they were playing at.  They start looking at hiring, training and revenue goals in a different way. Their vision will change. And at some level, they know this. They know they want to up their level. That is why they were looking for a sales training course. 
 
