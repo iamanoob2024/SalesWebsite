@@ -1,6 +1,6 @@
 ---
 title: "The Real Reason Your Engineers (and Professionals) Resist Sales Training"
-panel_image: "/assets/img/articles/placeholder.jpg"
+panel_image: "/assets/img/articles/Article_13.jpg"
 panel_type: "image"
 layout: "base.njk"
 ---
