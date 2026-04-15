@@ -1,0 +1,85 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2513
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww10800\viewh8400\viewkind0
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 To ensure this system remains stable and reduces your cognitive load, follow this atomic protocol.\
+\
+### 1. The Directory Structure\
+The system relies on specific "Capture" points. \
+\
+* **Markdown Files:** `~/Documents/github/SalesWebsite/articles/`\
+* **Images:** `~/Documents/github/SalesWebsite/assets/img/articles/`\
+\
+---\
+\
+### 2. The `.md` File Template\
+Every article must start with "Frontmatter" (the block between `---`). Without this, the article will not appear in the carousel.\
+\
+**File Name:** Use underscores, no spaces. (e.g., `Article_14_Title.md`)\
+\
+```markdown\
+---\
+title: "The Exact Title for the Carousel"\
+teaser: "A one-sentence hook that appears under the title."\
+panel_image: "/assets/img/articles/your_image_name.jpg"\
+panel_type: "image"\
+layout: "base.njk"\
+---\
+\
+Your article content starts here. \
+```\
+\
+---\
+\
+### 3. The Image Protocol\
+* **Format:** `.jpg` or `.png`.\
+* **Naming:** Keep it lowercase and simple. (e.g., `sales-logic.jpg`)\
+* **Drop Point:** Move the image into the assets folder before deploying.\
+\
+---\
+\
+### 4. The Execution Protocol (CLI)\
+Run these steps in order from your terminal. Move into the project root first:\
+```bash\
+cd ~/Documents/github/SalesWebsite\
+```\
+\
+#### Step A: Build the Site\
+This "renders" your new Markdown into the actual website files.\
+```bash\
+npx @11ty/eleventy\
+```\
+\
+#### Step B: Stage the Changes\
+This tells Git to track your new article and image.\
+```bash\
+git add .\
+```\
+\
+#### Step C: Commit the Work\
+This logs the change.\
+```bash\
+git commit -m "Add Article 14 and assets"\
+```\
+\
+#### Step D: Push to GitHub\
+This sends the files to your repository and (if configured) triggers the live site update.\
+```bash\
+git push origin main\
+```\
+\
+---\
+\
+### Summary of Atomic Actions\
+| Action | Detail |\
+| :--- | :--- |\
+| **Name File** | `Article_X.md` |\
+| **Drop .md** | `/articles/` |\
+| **Drop Image** | `/assets/img/articles/` |\
+| **Build** | `npx @11ty/eleventy` |\
+| **Deploy** | `git add . && git commit -m "msg" && git push` |\
+\
+> **Note:** If you add an image but forget to update the `panel_image` path in the `.md` file, the card will show a broken link. Always ensure the path in the text matches the file name in the folder.}
