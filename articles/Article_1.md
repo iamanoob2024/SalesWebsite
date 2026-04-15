@@ -1,6 +1,6 @@
 ---
-title: "Why Traditional Sales Training Fails Technical People"
-panel_image: "/assets/img/articles/placeholder.jpg"
+title: "The Reason Traditional Sales Training Fails Technical People"
+panel_image: "/assets/img/articles/Article_1.jpg"
 panel_type: "image"
 layout: "base.njk"
 ---

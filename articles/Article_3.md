@@ -1,6 +1,6 @@
 ---
 title: "How AI Changes What Buyers Want – And Why Your Human Skills Matter Even More"
-panel_image: "/assets/img/articles/placeholder.jpg"
+panel_image: "/assets/img/articles/Article_3.jpg"
 panel_type: "image"
 layout: "base.njk"
 ---

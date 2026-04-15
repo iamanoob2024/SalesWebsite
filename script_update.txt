@@ -1,0 +1,75 @@
+<script>
+    (function() {
+      const track = document.getElementById('carousel-track');
+      const outer = document.getElementById('carousel-outer');
+      const CARD_W = 332;
+      let current = 0;
+      let isDown = false;
+      let startX;
+      let scrollLeft;
+      let currentTransform = 0;
+
+      function goTo(index) {
+        current = Math.max(0, Math.min(index, ARTICLES.length - 1));
+        const offset = (window.innerWidth / 2) - (current * CARD_W) - (300 / 2);
+        currentTransform = offset;
+        track.style.transition = "transform 0.6s cubic-bezier(0.23, 1, 0.32, 1)";
+        track.style.transform = `translateX(${offset}px)`;
+        
+        document.querySelectorAll('.card').forEach((c, i) => c.classList.toggle('active', i === current));
+        document.querySelectorAll('.carr-dot').forEach((d, i) => d.classList.toggle('active', i === current));
+      }
+
+      // Re-build UI (Same as before)
+      track.innerHTML = '';
+      const dotsWrap = document.getElementById('carr-dots');
+      dotsWrap.innerHTML = '';
+      
+      ARTICLES.forEach((art, i) => {
+        const card = document.createElement('a');
+        card.className = 'card' + (i === 0 ? ' active' : '');
+        card.href = art.slug;
+        card.innerHTML = `<div class="card-visual"><img src="${art.image}" onerror="this.style.display='none'"></div>
+          <div class="card-body"><div><div class="card-title">${art.title}</div><div class="card-teaser">${art.teaser}</div></div></div>`;
+        track.appendChild(card);
+        const dot = document.createElement('div');
+        dot.className = 'carr-dot' + (i === 0 ? ' active' : '');
+        dot.onclick = () => goTo(i);
+        dotsWrap.appendChild(dot);
+      });
+
+      // New Fluid Drag Logic
+      track.addEventListener('mousedown', e => {
+        isDown = true;
+        startX = e.pageX;
+        track.style.transition = "none";
+        track.classList.add('dragging');
+      });
+
+      window.addEventListener('mousemove', e => {
+        if (!isDown) return;
+        const x = e.pageX;
+        const walk = x - startX;
+        track.style.transform = `translateX(${currentTransform + walk}px)`;
+      });
+
+      window.addEventListener('mouseup', e => {
+        if (!isDown) return;
+        isDown = false;
+        track.classList.remove('dragging');
+        const endX = e.pageX;
+        const diff = startX - endX;
+        
+        if (Math.abs(diff) > 100) {
+          goTo(diff > 0 ? current + 1 : current - 1);
+        } else {
+          goTo(current); // Snap back if drag was too short
+        }
+      });
+
+      document.getElementById('btn-prev').onclick = () => goTo(current - 1);
+      document.getElementById('btn-next').onclick = () => goTo(current + 1);
+      window.onresize = () => goTo(current);
+      goTo(0);
+    })();
+</script>

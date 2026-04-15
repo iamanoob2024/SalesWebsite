@@ -1,5 +1,5 @@
 ---
-title: "Why B2B Buyers Are More Emotional Than B2C Buyers — And What To Do About It."
+title: "B2B Buyers Are More Emotional Than B2C Buyers — And What To Do About It."
 panel_image: "/assets/img/articles/placeholder.jpg"
 panel_type: "image"
 layout: "base.njk"

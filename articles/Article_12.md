@@ -1,5 +1,5 @@
 ---
-title: "Why 86% of B2B Deals Stall — And It's Not Your Product"
+title: "86% of B2B Deals Stall — And It's Not Your Product"
 panel_image: "/assets/img/articles/placeholder.jpg"
 panel_type: "image"
 layout: "base.njk"

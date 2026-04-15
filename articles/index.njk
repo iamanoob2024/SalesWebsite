@@ -9,290 +9,102 @@
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
   <style>
     :root {
-      --cac-near-black:    #141414;
-      --cac-ink:           #1F1F1F;
+      --cac-near-black: #141414;
       --cac-surface-white: #F8F7F4;
-      --cac-mid-grey:      #8A8A8A;
-      --cac-light-grey:    #E2E0DC;
-      --cac-cold-red:      #C0392B;
+      --cac-mid-grey: #8A8A8A;
+      --cac-cold-red: #C0392B;
       --cac-font-editorial: 'Cormorant Garamond', Georgia, serif;
-      --cac-font-mono:      'JetBrains Mono', 'Courier New', monospace;
+      --cac-font-mono: 'JetBrains Mono', monospace;
     }
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
     body {
       background: var(--cac-near-black);
       color: var(--cac-surface-white);
       font-family: var(--cac-font-mono);
-      font-size: 13px;
-      font-weight: 300;
-      line-height: 1.8;
-      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
       min-height: 100vh;
     }
+    .site-nav { border-bottom: 1px solid #1e1e1e; padding: 16px 32px; display: flex; align-items: center; justify-content: space-between; }
+    .catalogue-header { padding: 64px 64px 32px; border-bottom: 1px solid #1e1e1e; }
+    .catalogue-label { font-size: 9px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--cac-cold-red); display: block; margin-bottom: 16px; }
+    .catalogue-title { font-family: var(--cac-font-editorial); font-size: 80px; font-weight: 300; line-height: 1.0; }
 
-    /* ── NAV ── */
-    .site-nav {
-      border-bottom: 1px solid #1e1e1e;
-      padding: 16px 32px;
-      display: flex;
-      gap: 32px;
-      align-items: center;
-    }
-    .site-nav .logo { height: 36px; width: auto; margin-right: auto; }
-    .site-nav a {
-      color: var(--cac-mid-grey);
-      text-decoration: none;
-      font-size: 10px;
-      font-weight: 500;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      transition: color 0.15s;
-    }
-    .site-nav a:hover { color: var(--cac-cold-red); }
-
-    /* ── HEADER ── */
-    .catalogue-header {
-      padding: 64px 64px 32px;
-      border-bottom: 1px solid #1e1e1e;
-    }
-    .catalogue-label {
-      font-size: 9px;
-      letter-spacing: 0.3em;
-      text-transform: uppercase;
-      color: var(--cac-cold-red);
-      display: block;
-      margin-bottom: 16px;
-    }
-    .catalogue-title {
-      font-family: var(--cac-font-editorial);
-      font-size: clamp(36px, 6vw, 80px);
-      font-weight: 300;
-      letter-spacing: -0.02em;
-      line-height: 1.0;
-      color: var(--cac-surface-white);
-    }
-    .catalogue-sub {
-      margin-top: 16px;
-      font-size: 11px;
-      color: var(--cac-mid-grey);
-      letter-spacing: 0.08em;
-    }
-
-    /* ── CAROUSEL ── */
-    .carousel-section {
-      padding: 48px 0 64px;
-      position: relative;
-    }
+    .carousel-section { padding: 60px 0; position: relative; overflow: hidden; }
+    
+    /* The "Ribbon" Container */
     .carousel-outer {
-      position: relative;
-      height: 520px;
-      overflow: hidden;
+      width: 100%;
+      height: 600px;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      scrollbar-width: none;
+      display: flex;
+      align-items: center;
+      /* Padding ensures the "active" zone is hit for clones too */
+      padding: 0 calc(50vw - 150px);
+      scroll-behavior: auto; /* Managed by JS for loops */
     }
-    /* Edge fade */
-    .carousel-outer::before,
-    .carousel-outer::after {
-      content: "";
-      position: absolute;
-      top: 0;
-      width: 180px;
-      height: 100%;
-      z-index: 10;
-      pointer-events: none;
-    }
-    .carousel-outer::before {
-      left: 0;
-      background: linear-gradient(to right, var(--cac-near-black), transparent);
-    }
-    .carousel-outer::after {
-      right: 0;
-      background: linear-gradient(to left, var(--cac-near-black), transparent);
-    }
+    .carousel-outer::-webkit-scrollbar { display: none; }
 
     .carousel-track {
       display: flex;
-      gap: 32px;
-      height: 100%;
+      gap: 80px;
       align-items: center;
-      cursor: grab;
-      padding: 0 200px;
-      user-select: none;
-      transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    }
-    .carousel-track.dragging {
-      cursor: grabbing;
-      transition: none;
     }
 
-    /* ── CARD ── */
     .card {
       flex: 0 0 300px;
       height: 400px;
-      position: relative;
-      border: 1px solid #1e1e1e;
-      overflow: hidden;
-      cursor: pointer;
-      transform: scale(0.82);
-      filter: brightness(0.45);
-      transition: transform 0.5s ease, filter 0.5s ease;
-      text-decoration: none;
-    }
-    .card.active {
-      transform: scale(1.05);
-      filter: brightness(1);
-    }
-    .card-visual {
-      width: 100%;
-      height: 55%;
       background: #1a1a1a;
-      overflow: hidden;
-      position: relative;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .card-visual img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-    .card-visual-placeholder {
-      width: 100%;
-      height: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: #111;
-    }
-    .card-visual-placeholder span {
-      font-size: 9px;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: #2a2a2a;
-    }
-    .card-body {
-      padding: 20px;
-      background: var(--cac-near-black);
-      height: 45%;
+      border: 1px solid #222;
+      text-decoration: none;
+      scroll-snap-align: center;
+      transform: scale(0.85);
+      filter: brightness(0.2);
+      transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1), 
+                  filter 0.6s ease, 
+                  border-color 0.6s ease,
+                  box-shadow 0.6s ease;
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
-      border-top: 1px solid #1e1e1e;
-    }
-    .card-title {
-      font-family: var(--cac-font-editorial);
-      font-size: 18px;
-      font-weight: 300;
-      line-height: 1.3;
-      color: var(--cac-surface-white);
-      display: -webkit-box;
-      -webkit-line-clamp: 3;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
-    }
-    .card-teaser {
-      font-size: 10px;
-      color: var(--cac-mid-grey);
-      line-height: 1.6;
-      display: -webkit-box;
-      -webkit-line-clamp: 2;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
-      margin-top: 8px;
-    }
-    .card-cta {
-      font-size: 9px;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--cac-cold-red);
-      margin-top: 12px;
     }
 
-    /* ── CAROUSEL CONTROLS ── */
-    .carousel-controls {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 24px;
-      margin-top: 32px;
+    .card.active { 
+      transform: scale(1.2) !important; 
+      filter: brightness(1) !important; 
+      z-index: 10; 
+      border-color: rgba(255, 255, 255, 0.8); 
+      box-shadow: 
+        0 0 15px rgba(255, 255, 255, 0.2), 
+        0 0 30px rgba(255, 255, 255, 0.15), 
+        0 0 60px rgba(255, 255, 255, 0.1), 
+        0 30px 100px rgba(0, 0, 0, 0.9);
     }
-    .carr-btn {
-      background: none;
-      border: 1px solid #2a2a2a;
-      color: var(--cac-mid-grey);
-      font-family: var(--cac-font-mono);
-      font-size: 16px;
-      width: 44px;
-      height: 44px;
-      cursor: pointer;
-      transition: all 0.15s;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .carr-btn:hover { border-color: var(--cac-cold-red); color: var(--cac-cold-red); }
-    .carr-dots {
-      display: flex;
-      gap: 8px;
-      align-items: center;
-    }
-    .carr-dot {
-      width: 4px;
-      height: 4px;
-      background: #2a2a2a;
-      border-radius: 50%;
-      transition: all 0.3s;
-      cursor: pointer;
-    }
-    .carr-dot.active {
-      background: var(--cac-cold-red);
-      width: 20px;
-      border-radius: 2px;
-    }
+    
+    .card-visual { width: 100%; height: 55%; background: #000; overflow: hidden; }
+    .card-visual img { width: 100%; height: 100%; object-fit: cover; }
+    .card-body { padding: 24px; flex-grow: 1; border-top: 1px solid #222; }
+    .card-title { font-family: var(--cac-font-editorial); font-size: 18px; color: white; line-height: 1.3; }
+    .card-teaser { font-size: 10px; color: var(--cac-mid-grey); margin-top: 8px; line-height: 1.5; }
 
-    /* ── FOOTER ── */
-    footer {
-      border-top: 1px solid #1e1e1e;
-      padding: 32px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-size: 10px;
-      letter-spacing: 0.1em;
-      color: var(--cac-mid-grey);
-    }
-    footer a { color: var(--cac-mid-grey); text-decoration: none; }
-    footer a:hover { color: var(--cac-cold-red); }
-
-    /* ── RESPONSIVE ── */
-    @media (max-width: 768px) {
-      .catalogue-header { padding: 40px 24px 24px; }
-      .carousel-outer { height: 420px; }
-      .carousel-outer::before, .carousel-outer::after { width: 60px; }
-      .carousel-track { padding: 0 80px; gap: 20px; }
-      .card { flex: 0 0 240px; height: 340px; }
-      footer { flex-direction: column; gap: 12px; text-align: center; }
-    }
+    .carousel-controls { display: flex; align-items: center; justify-content: center; gap: 24px; margin-top: 40px; }
+    .carr-btn { background: none; border: 1px solid #2a2a2a; color: var(--cac-mid-grey); width: 44px; height: 44px; cursor: pointer; transition: 0.3s; }
+    .carr-btn:hover { border-color: white; color: white; }
+    .carr-dots { display: flex; gap: 8px; }
+    .carr-dot { width: 4px; height: 4px; background: #2a2a2a; border-radius: 50%; cursor: pointer; transition: 0.3s; }
+    .carr-dot.active { background: var(--cac-cold-red); width: 20px; border-radius: 2px; }
   </style>
 </head>
 <body>
-
-  <nav class="site-nav">
-    <a href="/"><img src="/assets/img/logo.png" class="logo" alt="CAC"></a>
-    <a href="/">← Programme</a>
-  </nav>
-
+  <nav class="site-nav"><a href="/"><img src="/assets/img/logo.png" style="height:30px;" alt="CAC"></a></nav>
   <div class="catalogue-header">
-    <span class="catalogue-label">CAC — Reading Room</span>
+    <span class="catalogue-label">Reading Room</span>
     <h1 class="catalogue-title">Articles</h1>
-    <p class="catalogue-sub">Drag or flick to browse · Click to read</p>
   </div>
 
   <div class="carousel-section">
-    <div class="carousel-outer" id="carousel-outer">
-      <div class="carousel-track" id="carousel-track">
-        <!-- Cards injected by JS -->
-      </div>
+    <div class="carousel-outer" id="scroll-container">
+      <div class="carousel-track" id="carousel-track"></div>
     </div>
     <div class="carousel-controls">
       <button class="carr-btn" id="btn-prev">←</button>
@@ -301,169 +113,97 @@
     </div>
   </div>
 
-  <footer>
-    <span>Clarity Awareness Cognitive Architecture Systems</span>
-    <span>
-      <a href="/">Programme</a>&nbsp;&nbsp;·&nbsp;&nbsp;
-      <a href="/privacy-policy/">Privacy Policy</a>
-    </span>
-  </footer>
+  <script>
+    const ARTICLES = [
+      {% for art in collections.articles %}
+      { title: "{{ art.data.title }}", teaser: "{{ art.data.title }}", slug: "{{ art.url }}", image: "{{ art.data.panel_image }}" }{% if not loop.last %},{% endif %}
+      {% endfor %}
+    ];
 
+    (function() {
+      const container = document.getElementById('scroll-container');
+      const track = document.getElementById('carousel-track');
+      const dotsWrap = document.getElementById('carr-dots');
+      
+      const realCount = ARTICLES.length;
+      
+      // CREATE DOTS for real articles only
+      ARTICLES.forEach((_, i) => {
+        const dot = document.createElement('div');
+        dot.className = 'carr-dot';
+        dotsWrap.appendChild(dot);
+      });
 
-<!-- ═══════════════════════════════════════════════════
-     ARTICLES CATALOGUE CONFIG
-     ─────────────────────────────────────────────────
-     TO ADD A NEW ARTICLE:
-     Copy one block below (from the opening { to the closing },)
-     Paste it at the end of the array (before the final ] )
-     Fill in: title, teaser, slug, image (or leave "" for placeholder)
+      // RIBBON LOGIC: Clone last 3 to front, first 3 to back
+      const clonesBefore = ARTICLES.slice(-3);
+      const clonesAfter = ARTICLES.slice(0, 3);
+      const fullList = [...clonesBefore, ...ARTICLES, ...clonesAfter];
 
-     slug = the folder name Eleventy creates.
-     e.g. Article_1.md → slug: "/articles/Article_1/"
+      fullList.forEach((art, i) => {
+        const card = document.createElement('a');
+        card.className = 'card';
+        card.href = art.slug;
+        card.innerHTML = `<div class="card-visual"><img src="${art.image}" onerror="this.style.display='none'"></div>
+          <div class="card-body"><div class="card-title">${art.title}</div><div class="card-teaser">${art.teaser}</div></div>`;
+        track.appendChild(card);
+      });
 
-     image = filename in the same folder, or a full URL.
-     Leave as "" until you have an asset.
-════════════════════════════════════════════════════ -->
-<script>
-const ARTICLES = [
-  {% for art in collections.articles %}
-  {
-    title:  "{{ art.data.title }}",
-    teaser: "{{ art.data.title }}",
-    slug:   "{{ art.url }}",
-    image:  "{{ art.data.panel_image }}"
-  }{% if not loop.last %},{% endif %}
-  {% endfor %}
-];
-</script>
-<!-- ═══════════════════════════════════════════════════
-     END ARTICLES CONFIG
-════════════════════════════════════════════════════ -->
+      const allCards = document.querySelectorAll('.card');
+      const allDots = document.querySelectorAll('.carr-dot');
+      const cardWidth = 300 + 80; // Card + Gap
 
-<script>
-(function () {
+      function updateFocus() {
+        const containerRect = container.getBoundingClientRect();
+        const centerLine = containerRect.left + (containerRect.width / 2);
+        
+        let closestIndex = 0;
+        let minDistance = Infinity;
 
-  // ── SHUFFLE (random order on each load) ─────────────
-  function shuffle(arr) {
-    const a = [...arr];
-    for (let i = a.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [a[i], a[j]] = [a[j], a[i]];
-    }
-    return a;
-  }
+        allCards.forEach((card, i) => {
+          const rect = card.getBoundingClientRect();
+          const cardCenter = rect.left + (rect.width / 2);
+          const distance = Math.abs(centerLine - cardCenter);
 
-  const articles = shuffle(ARTICLES);
-  const track    = document.getElementById('carousel-track');
-  const dotsWrap = document.getElementById('carr-dots');
+          if (distance < minDistance) {
+            minDistance = distance;
+            closestIndex = i;
+          }
+        });
 
-  // ── BUILD CARDS ─────────────────────────────────────
-  articles.forEach((art, i) => {
-    const card = document.createElement('a');
-    card.className = 'card' + (i === 0 ? ' active' : '');
-    card.href = art.slug;
+        // Loop Jump Check
+        const scrollLeft = container.scrollLeft;
+        const maxScroll = container.scrollWidth - container.clientWidth;
 
-    const visual = art.image
-      ? `<div class="card-visual"><img src="${art.image}" alt=""></div>`
-      : `<div class="card-visual"><div class="card-visual-placeholder"><span>Visual Coming</span></div></div>`;
+        // Jump if at the "Fake" beginning or end
+        if (scrollLeft <= 5) {
+          container.scrollLeft = cardWidth * realCount;
+        } else if (scrollLeft >= maxScroll - 5) {
+          container.scrollLeft = cardWidth * 3;
+        }
 
-    card.innerHTML = `
-      ${visual}
-      <div class="card-body">
-        <div>
-          <div class="card-title">${art.title}</div>
-          ${art.teaser ? `<div class="card-teaser">${art.teaser}</div>` : ''}
-        </div>
-        <div class="card-cta">Read →</div>
-      </div>`;
+        // Map the focus to the correct Dot
+        let dotIndex = (closestIndex - 3) % realCount;
+        if (dotIndex < 0) dotIndex += realCount;
 
-    track.appendChild(card);
-  });
+        allCards.forEach((c, i) => c.classList.toggle('active', i === closestIndex));
+        allDots.forEach((d, i) => d.classList.toggle('active', i === dotIndex));
+      }
 
-  // ── BUILD DOTS ───────────────────────────────────────
-  articles.forEach((_, i) => {
-    const dot = document.createElement('div');
-    dot.className = 'carr-dot' + (i === 0 ? ' active' : '');
-    dot.addEventListener('click', () => goTo(i));
-    dotsWrap.appendChild(dot);
-  });
+      container.addEventListener('scroll', updateFocus);
+      
+      // Initialize at the first REAL article (index 3 because of clones)
+      window.onload = () => {
+        container.scrollLeft = cardWidth * 3;
+        setTimeout(updateFocus, 100);
+      };
 
-  // ── CAROUSEL STATE ───────────────────────────────────
-  const CARD_W   = 300 + 32; // card width + gap
-  const FLICK    = 3;        // cards per arrow click
-  let current    = 0;
-  const cards    = () => track.querySelectorAll('.card');
-  const dots     = () => dotsWrap.querySelectorAll('.carr-dot');
-
-  function goTo(index) {
-    const total = articles.length;
-    current = Math.max(0, Math.min(index, total - 1));
-
-    cards().forEach((c, i) => c.classList.toggle('active', i === current));
-    dots().forEach((d, i)  => d.classList.toggle('active', i === current));
-
-    // Centre active card
-    const outerW = document.getElementById('carousel-outer').clientWidth;
-    const offset = (outerW / 2) - (current * CARD_W) - (CARD_W / 2) + 200;
-    track.style.transform = `translateX(${offset}px)`;
-  }
-
-  goTo(0);
-
-  document.getElementById('btn-prev').addEventListener('click', () => goTo(current - FLICK));
-  document.getElementById('btn-next').addEventListener('click', () => goTo(current + FLICK));
-
-  // ── DRAG / SWIPE ─────────────────────────────────────
-  let dragStart = null;
-  let dragX     = 0;
-
-  track.addEventListener('mousedown', (e) => {
-    dragStart = e.clientX;
-    track.classList.add('dragging');
-  });
-  window.addEventListener('mousemove', (e) => {
-    if (dragStart === null) return;
-    dragX = e.clientX - dragStart;
-  });
-  window.addEventListener('mouseup', () => {
-    if (dragStart === null) return;
-    track.classList.remove('dragging');
-    if (Math.abs(dragX) > 60) {
-      goTo(dragX < 0 ? current + FLICK : current - FLICK);
-    }
-    dragStart = null;
-    dragX = 0;
-  });
-
-  // Touch
-  let touchX = null;
-  track.addEventListener('touchstart', (e) => { touchX = e.touches[0].clientX; }, { passive: true });
-  track.addEventListener('touchend', (e) => {
-    if (touchX === null) return;
-    const diff = touchX - e.changedTouches[0].clientX;
-    if (Math.abs(diff) > 50) goTo(diff > 0 ? current + FLICK : current - FLICK);
-    touchX = null;
-  }, { passive: true });
-
-  // Click on non-active card → focus it first
-  track.addEventListener('click', (e) => {
-    const card = e.target.closest('.card');
-    if (!card) return;
-    const idx = [...cards()].indexOf(card);
-    if (idx !== current) {
-      e.preventDefault();
-      goTo(idx);
-    }
-  });
-
-  // Keyboard
-  window.addEventListener('keydown', (e) => {
-    if (e.key === 'ArrowLeft')  goTo(current - 1);
-    if (e.key === 'ArrowRight') goTo(current + 1);
-  });
-
-})();
-</script>
-
+      document.getElementById('btn-next').onclick = () => {
+        container.scrollBy({ left: cardWidth, behavior: 'smooth' });
+      };
+      document.getElementById('btn-prev').onclick = () => {
+        container.scrollBy({ left: -cardWidth, behavior: 'smooth' });
+      };
+    })();
+  </script>
 </body>
 </html>

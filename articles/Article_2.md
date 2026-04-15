@@ -1,6 +1,6 @@
 ---
 title: "The Hidden Blocks That Cost You Sales (And How to Spot Them)"
-panel_image: "/assets/img/articles/placeholder.jpg"
+panel_image: "/assets/img/articles/Article_2.jpg"
 panel_type: "image"
 layout: "base.njk"
 ---

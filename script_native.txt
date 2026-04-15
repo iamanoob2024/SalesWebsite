@@ -1,0 +1,29 @@
+<script>
+    (function() {
+      const track = document.getElementById('carousel-track');
+      
+      // Build Cards
+      ARTICLES.forEach((art, i) => {
+        const card = document.createElement('a');
+        card.className = 'card' + (i === 0 ? ' active' : '');
+        card.href = art.slug;
+        card.innerHTML = `<div class="card-visual"><img src="${art.image}" onerror="this.style.display='none'"></div>
+          <div class="card-body"><div><div class="card-title">${art.title}</div><div class="card-teaser">${art.teaser}</div></div></div>`;
+        track.appendChild(card);
+      });
+
+      // Update Active State on Scroll
+      track.addEventListener('scroll', () => {
+        const center = track.scrollLeft + (track.offsetWidth / 2);
+        const cards = track.querySelectorAll('.card');
+        cards.forEach(card => {
+          const cardCenter = card.offsetLeft + (card.offsetWidth / 2);
+          if (Math.abs(center - cardCenter) < 100) {
+            card.classList.add('active');
+          } else {
+            card.classList.remove('active');
+          }
+        });
+      });
+    })();
+</script>

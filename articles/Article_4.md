@@ -1,6 +1,6 @@
 ---
 title: "Selling With Integrity: What It Really Means"
-panel_image: "/assets/img/articles/placeholder.jpg"
+panel_image: "/assets/img/articles/Article_4.jpg"
 panel_type: "image"
 layout: "base.njk"
 ---

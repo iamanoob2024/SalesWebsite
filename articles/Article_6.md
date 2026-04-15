@@ -1,6 +1,6 @@
 ---
-title: "Why Sales Is an Engineering Problem, Not a Persuasion Problem"
-panel_image: "/assets/img/articles/placeholder.jpg"
+title: "Sales Is an Engineering Problem, Not a Persuasion Problem"
+panel_image: "/assets/img/articles/Article_6.jpg"
 panel_type: "image"
 layout: "base.njk"
 ---

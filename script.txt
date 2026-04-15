@@ -1,0 +1,66 @@
+<script>
+(function () {
+  const track = document.getElementById('carousel-track');
+  const dotsWrap = document.getElementById('carr-dots');
+  const outer = document.getElementById('carousel-outer');
+  
+  // ── BUILD CARDS ─────────────────────────────────────
+  ARTICLES.forEach((art, i) => {
+    const card = document.createElement('a');
+    card.className = 'card' + (i === 0 ? ' active' : '');
+    card.href = art.slug;
+    const visual = art.image ? `<div class="card-visual"><img src="${art.image}" alt=""></div>` : `<div class="card-visual"><div class="card-visual-placeholder"><span>Visual Coming</span></div></div>`;
+    card.innerHTML = `${visual}<div class="card-body"><div><div class="card-title">${art.title}</div><div class="card-teaser">${art.teaser}</div></div><div class="card-cta">Read →</div></div>`;
+    track.appendChild(card);
+  });
+
+  // ── BUILD DOTS ───────────────────────────────────────
+  ARTICLES.forEach((_, i) => {
+    const dot = document.createElement('div');
+    dot.className = 'carr-dot' + (i === 0 ? ' active' : '');
+    dot.addEventListener('click', () => goTo(i));
+    dotsWrap.appendChild(dot);
+  });
+
+  let current = 0;
+  const CARD_W = 332; // 300 width + 32 gap
+
+  function goTo(index) {
+    current = Math.max(0, Math.min(index, ARTICLES.length - 1));
+    const cards = track.querySelectorAll('.card');
+    const dots = dotsWrap.querySelectorAll('.carr-dot');
+    
+    cards.forEach((c, i) => c.classList.toggle('active', i === current));
+    dots.forEach((d, i) => d.classList.toggle('active', i === current));
+
+    const centerOffset = outer.clientWidth / 2;
+    const scrollPos = centerOffset - (current * CARD_W) - (300 / 2);
+    track.style.transform = `translateX(${scrollPos}px)`;
+  }
+
+  // Swipe / Drag Logic
+  let isDragging = false, startX, scrollStartX;
+  track.addEventListener('mousedown', e => {
+    isDragging = true;
+    startX = e.pageX;
+    track.classList.add('dragging');
+  });
+  window.addEventListener('mousemove', e => {
+    if (!isDragging) return;
+    const moveX = e.pageX - startX;
+    if (Math.abs(moveX) > 50) {
+      if (moveX > 0) goTo(current - 1); else goTo(current + 1);
+      isDragging = false;
+    }
+  });
+  window.addEventListener('mouseup', () => {
+    isDragging = false;
+    track.classList.remove('dragging');
+  });
+
+  window.addEventListener('resize', () => goTo(current));
+  document.getElementById('btn-prev').addEventListener('click', () => goTo(current - 1));
+  document.getElementById('btn-next').addEventListener('click', () => goTo(current + 1));
+  goTo(0);
+})();
+</script>
