@@ -1,0 +1,1129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pricing & Schedule — Sales For Technical & Non-Sales Professionals · CAC</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --cac-near-black:    #141414;
+      --cac-ink:           #1F1F1F;
+      --cac-surface-white: #F8F7F4;
+      --cac-mid-grey:      #8A8A8A;
+      --cac-light-grey:    #E2E0DC;
+      --cac-cold-red:      #C0392B;
+      --cac-system-blue:   #1A3A5C;
+      --cac-font-editorial:'Cormorant Garamond', Georgia, serif;
+      --cac-font-mono:     'JetBrains Mono', 'Courier New', monospace;
+      --cac-space-xs:  8px;
+      --cac-space-sm:  16px;
+      --cac-space-md:  32px;
+      --cac-space-lg:  64px;
+      --cac-space-xl:  120px;
+      --cac-max-width: 1280px;
+      --cac-reading-col: 680px;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--cac-surface-white);
+      color: var(--cac-ink);
+      font-family: var(--cac-font-mono);
+      font-size: 13px;
+      font-weight: 300;
+      line-height: 1.8;
+      -webkit-font-smoothing: antialiased;
+    }
+    .t1 { font-family: var(--cac-font-editorial); font-size: clamp(48px,8vw,96px); font-weight:300; letter-spacing:-0.02em; line-height:1.0; }
+    .t2 { font-family: var(--cac-font-editorial); font-size: clamp(28px,4vw,52px); font-weight:300; letter-spacing:-0.01em; line-height:1.1; }
+    .t3 { font-family: var(--cac-font-editorial); font-size: clamp(20px,2.5vw,28px); font-weight:400; line-height:1.2; }
+    .t4 { font-family: var(--cac-font-mono); font-size:10px; font-weight:500; letter-spacing:0.22em; line-height:1.6; text-transform:uppercase; }
+    .t5 { font-family: var(--cac-font-mono); font-size:13px; font-weight:300; line-height:1.8; }
+    .t6 { font-family: var(--cac-font-mono); font-size:11px; font-weight:300; line-height:1.6; color:var(--cac-mid-grey); }
+    .container { max-width: var(--cac-max-width); margin:0 auto; padding:0 var(--cac-space-xl); }
+    section { padding: var(--cac-space-lg) 0; }
+    section + section { border-top: 1px solid var(--cac-light-grey); }
+    .section-label { display:block; color:var(--cac-cold-red); margin-bottom:var(--cac-space-md); }
+    .red-rule { width:48px; height:2px; background:var(--cac-cold-red); margin-bottom:var(--cac-space-md); }
+
+    /* ── NAV ── */
+    .site-nav {
+      background: var(--cac-near-black);
+      padding: var(--cac-space-md) var(--cac-space-xl);
+      display: flex; justify-content:space-between; align-items:center;
+      border-bottom: 1px solid #1e1e1e;
+      position: sticky; top:0; z-index:100;
+    }
+    .nav-logo { font-family:var(--cac-font-editorial); color:var(--cac-surface-white); font-size:15px; font-weight:300; letter-spacing:0.12em; text-transform:uppercase; line-height:1.4; text-decoration:none; }
+    .nav-logo span { display:block; font-family:var(--cac-font-mono); font-size:10px; letter-spacing:0.22em; color:var(--cac-mid-grey); margin-top:4px; text-transform:uppercase; }
+    .nav-links { display:flex; gap:var(--cac-space-md); align-items:center; }
+    .nav-link { font-family:var(--cac-font-mono); font-size:10px; letter-spacing:0.2em; text-transform:uppercase; color:var(--cac-mid-grey); text-decoration:none; transition:color 0.15s; }
+    .nav-link:hover { color:var(--cac-cold-red); }
+    .nav-link.active { color:var(--cac-surface-white); }
+
+    /* ── URGENCY BANNER ── */
+    #urgency-banner {
+      background: var(--cac-cold-red);
+      padding: 12px var(--cac-space-xl);
+      display: flex; justify-content:space-between; align-items:center;
+      transition: opacity 0.5s;
+    }
+    #urgency-banner.hidden { display:none; }
+    #urgency-banner.expired { background: #333; }
+    .urgency-text { font-family:var(--cac-font-mono); font-size:10px; letter-spacing:0.2em; text-transform:uppercase; color:#fff; }
+    .urgency-timer { font-family:var(--cac-font-editorial); font-size:22px; color:#fff; font-weight:300; letter-spacing:0.05em; }
+    .urgency-label { font-family:var(--cac-font-mono); font-size:9px; letter-spacing:0.2em; text-transform:uppercase; color:rgba(255,255,255,0.7); text-align:right; }
+
+    /* ── ANNOUNCEMENTS ── */
+    #announcements {
+      background: var(--cac-near-black);
+      border-bottom: 1px solid #252525;
+      padding: var(--cac-space-md) var(--cac-space-xl);
+    }
+    .announcement-label { display:block; color:var(--cac-cold-red); margin-bottom:var(--cac-space-sm); }
+    .announcement-body { color: #b8b5ae; max-width: var(--cac-reading-col); line-height:1.9; }
+    .announcement-body strong { color: var(--cac-surface-white); font-weight:400; }
+
+    /* ── FLIPBOOK CONTAINER ── */
+    #schedule { background: var(--cac-surface-white); }
+    .flipbook-shell {
+      max-width: 960px;
+      margin: 0 auto;
+      border: 1px solid var(--cac-light-grey);
+      background: var(--cac-surface-white);
+      box-shadow: 0 4px 40px rgba(0,0,0,0.08);
+      overflow: hidden;
+    }
+
+    /* Book cover — closed state */
+    .book-cover {
+      background: var(--cac-near-black);
+      padding: var(--cac-space-lg) var(--cac-space-xl);
+      cursor: pointer;
+      display: flex; justify-content:space-between; align-items:center;
+      transition: background 0.2s;
+      user-select: none;
+    }
+    .book-cover:hover { background: #1a1a1a; }
+    .book-cover-title { font-family:var(--cac-font-editorial); font-size:clamp(28px,3vw,42px); font-weight:300; color:var(--cac-surface-white); letter-spacing:-0.01em; }
+    .book-cover-sub { font-family:var(--cac-font-mono); font-size:10px; letter-spacing:0.22em; text-transform:uppercase; color:var(--cac-mid-grey); margin-top:8px; }
+    .book-cover-icon { color:var(--cac-cold-red); font-size:24px; transition:transform 0.3s; flex-shrink:0; margin-left:var(--cac-space-md); }
+    .book-cover.open .book-cover-icon { transform:rotate(180deg); }
+
+    /* Book interior */
+    .book-interior {
+      display: none;
+      border-top: 2px solid var(--cac-cold-red);
+    }
+    .book-interior.open { display:block; }
+
+    /* Page navigation */
+    .book-nav {
+      display: flex; justify-content:space-between; align-items:center;
+      padding: var(--cac-space-sm) var(--cac-space-md);
+      background: var(--cac-near-black);
+      border-bottom: 1px solid #252525;
+    }
+    .book-nav-btn {
+      background: none; border: 1px solid #333; color: var(--cac-mid-grey);
+      font-family:var(--cac-font-mono); font-size:10px; letter-spacing:0.18em; text-transform:uppercase;
+      padding: 8px 18px; cursor:pointer; transition:all 0.15s;
+    }
+    .book-nav-btn:hover:not(:disabled) { border-color:var(--cac-cold-red); color:var(--cac-surface-white); }
+    .book-nav-btn:disabled { opacity:0.25; cursor:not-allowed; }
+    .book-nav-indicator { font-family:var(--cac-font-mono); font-size:10px; letter-spacing:0.18em; color:var(--cac-mid-grey); text-transform:uppercase; }
+
+    /* Pages wrapper */
+    .book-pages {
+      overflow: hidden;
+      position: relative;
+    }
+    .book-page {
+      display: none;
+      min-height: 480px;
+    }
+    .book-page.active { display:flex; }
+
+    /* Two-page spread — desktop */
+    .page-left, .page-right {
+      flex: 1;
+      padding: var(--cac-space-lg) var(--cac-space-md);
+      min-height: 480px;
+    }
+    .page-left { border-right: 1px solid var(--cac-light-grey); background: #faf9f6; }
+    .page-right { background: var(--cac-surface-white); }
+
+    /* Page labels */
+    .page-label { display:block; color:var(--cac-cold-red); margin-bottom:var(--cac-space-md); }
+
+    /* TOC styles */
+    .flip-toc-list { list-style:none; }
+    .flip-toc-item { display:grid; grid-template-columns:28px 1fr; gap:12px; align-items:baseline; padding:12px 0; border-bottom:1px solid var(--cac-light-grey); }
+    .flip-toc-item:last-child { border-bottom:none; }
+    .flip-toc-num { color:var(--cac-cold-red); font-family:var(--cac-font-mono); font-size:10px; letter-spacing:0.18em; }
+    .flip-toc-title { font-family:var(--cac-font-editorial); font-size:17px; font-weight:300; color:var(--cac-ink); line-height:1.3; }
+
+    /* Schedule styles */
+    .schedule-day-title { font-family:var(--cac-font-editorial); font-size:clamp(22px,2.5vw,32px); font-weight:300; color:var(--cac-ink); margin-bottom:var(--cac-space-md); line-height:1.1; }
+    .schedule-block { margin-bottom:var(--cac-space-sm); }
+    .schedule-time { font-family:var(--cac-font-mono); font-size:10px; letter-spacing:0.18em; color:var(--cac-cold-red); text-transform:uppercase; margin-bottom:4px; }
+    .schedule-topic { font-family:var(--cac-font-editorial); font-size:17px; font-weight:300; color:var(--cac-ink); line-height:1.3; }
+    .schedule-detail { color:var(--cac-mid-grey); font-size:11px; margin-top:3px; }
+    .schedule-break { padding:8px 0; border-top:1px dashed var(--cac-light-grey); border-bottom:1px dashed var(--cac-light-grey); margin:var(--cac-space-sm) 0; }
+    .schedule-break-text { font-family:var(--cac-font-mono); font-size:10px; letter-spacing:0.15em; color:var(--cac-mid-grey); text-transform:uppercase; }
+    .schedule-rule { width:32px; height:1px; background:var(--cac-cold-red); margin-bottom:var(--cac-space-md); }
+
+    /* Trainer flipbook page */
+    .trainer-flip-photo { width:100%; height:260px; object-fit:cover; object-position:top center; display:block; margin-bottom:var(--cac-space-md); }
+    .trainer-flip-name { font-family:var(--cac-font-editorial); font-size:28px; font-weight:300; color:var(--cac-ink); margin-bottom:4px; }
+    .trainer-flip-role { color:var(--cac-mid-grey); font-size:11px; margin-bottom:var(--cac-space-sm); }
+    .trainer-flip-creds { list-style:none; margin-top:var(--cac-space-sm); }
+    .trainer-flip-creds li { display:flex; gap:10px; padding:6px 0; border-bottom:1px solid var(--cac-light-grey); font-size:11px; color:var(--cac-mid-grey); }
+    .trainer-flip-creds li:last-child { border-bottom:none; }
+    .trainer-cred-dash { color:var(--cac-cold-red); flex-shrink:0; }
+
+    .register-cta-box { padding:var(--cac-space-md); border:1px solid var(--cac-light-grey); margin-top:var(--cac-space-md); text-align:center; }
+    .register-cta-box .t4 { color:var(--cac-mid-grey); display:block; margin-bottom:var(--cac-space-sm); }
+    .register-cta-box .t3 { color:var(--cac-ink); margin-bottom:var(--cac-space-md); }
+    .cta-btn { display:inline-block; padding:12px var(--cac-space-md); background:var(--cac-cold-red); color:var(--cac-surface-white); font-family:var(--cac-font-mono); font-size:10px; font-weight:500; letter-spacing:0.22em; text-transform:uppercase; text-decoration:none; border:none; cursor:pointer; transition:opacity 0.15s; }
+    .cta-btn:hover { opacity:0.85; }
+    .cta-btn-outline { background:none; border:1px solid var(--cac-cold-red); color:var(--cac-cold-red); }
+    .cta-btn-outline:hover { background:var(--cac-cold-red); color:#fff; opacity:1; }
+
+    /* Page ornament */
+    .page-ornament { font-family:var(--cac-font-mono); font-size:9px; letter-spacing:0.2em; color:var(--cac-light-grey); text-transform:uppercase; margin-top:var(--cac-space-lg); }
+
+    /* ── PRICING TABLE ── */
+    #pricing { background: var(--cac-surface-white); }
+    .pricing-header { margin-bottom: var(--cac-space-lg); }
+
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--cac-space-md);
+      margin-bottom: var(--cac-space-lg);
+    }
+    .pricing-card {
+      border: 1px solid var(--cac-light-grey);
+      padding: var(--cac-space-md);
+      position: relative;
+      transition: border-color 0.2s;
+    }
+    .pricing-card:hover { border-color: var(--cac-cold-red); }
+    .pricing-card.featured {
+      border-color: var(--cac-cold-red);
+      background: var(--cac-near-black);
+    }
+    .pricing-card-label { display:block; margin-bottom:var(--cac-space-sm); }
+    .pricing-card-title { font-family:var(--cac-font-editorial); font-size:22px; font-weight:400; margin-bottom:var(--cac-space-sm); line-height:1.2; }
+    .pricing-card.featured .pricing-card-title { color:var(--cac-surface-white); }
+    .pricing-tier { margin-bottom: var(--cac-space-sm); padding-bottom: var(--cac-space-sm); border-bottom:1px solid var(--cac-light-grey); }
+    .pricing-card.featured .pricing-tier { border-color:#252525; }
+    .pricing-tier:last-of-type { border-bottom:none; }
+    .pricing-pax { font-family:var(--cac-font-mono); font-size:10px; letter-spacing:0.15em; text-transform:uppercase; color:var(--cac-mid-grey); margin-bottom:4px; }
+    .pricing-amount { font-family:var(--cac-font-editorial); font-size:32px; font-weight:300; color:var(--cac-ink); line-height:1.0; }
+    .pricing-card.featured .pricing-amount { color:var(--cac-surface-white); }
+    .pricing-amount span { font-size:16px; color:var(--cac-mid-grey); }
+    .pricing-per { font-family:var(--cac-font-mono); font-size:10px; color:var(--cac-mid-grey); letter-spacing:0.1em; }
+    .pricing-early { margin-top:6px; }
+    .pricing-early-amount { font-family:var(--cac-font-editorial); font-size:22px; font-weight:300; color:var(--cac-cold-red); }
+    .pricing-early-label { font-family:var(--cac-font-mono); font-size:9px; letter-spacing:0.15em; text-transform:uppercase; color:var(--cac-cold-red); }
+    .pricing-early.expired .pricing-early-amount,
+    .pricing-early.expired .pricing-early-label { color:var(--cac-mid-grey); text-decoration:line-through; opacity:0.5; }
+    .pricing-note { font-size:11px; color:var(--cac-mid-grey); margin-top:var(--cac-space-sm); font-style:italic; line-height:1.6; }
+
+    .inhouse-card { grid-column: 1 / -1; }
+    .inhouse-grid { display:grid; grid-template-columns: 1fr 2fr; gap:var(--cac-space-md); align-items:start; }
+    .inhouse-price-block {}
+    .inhouse-amount { font-family:var(--cac-font-editorial); font-size:42px; font-weight:300; color:var(--cac-surface-white); line-height:1.0; margin-bottom:4px; }
+    .inhouse-amount span { font-size:20px; color:var(--cac-mid-grey); }
+    .inhouse-details { color:#b8b5ae; }
+    .inhouse-detail-row { display:flex; gap:12px; padding:8px 0; border-bottom:1px solid #252525; font-size:12px; }
+    .inhouse-detail-row:last-child { border-bottom:none; }
+    .inhouse-dash { color:var(--cac-cold-red); flex-shrink:0; }
+
+    /* ── GUARANTEES ROW ── */
+    .guarantees-row { display:grid; grid-template-columns:1fr 1fr; gap:var(--cac-space-md); margin-top:var(--cac-space-lg); padding-top:var(--cac-space-lg); border-top:1px solid var(--cac-light-grey); }
+    .guarantee-item { display:flex; gap:var(--cac-space-sm); align-items:flex-start; }
+    .guarantee-icon { color:var(--cac-cold-red); flex-shrink:0; font-family:var(--cac-font-editorial); font-size:22px; margin-top:2px; }
+    .guarantee-title { font-family:var(--cac-font-editorial); font-size:17px; font-weight:400; margin-bottom:4px; }
+    .guarantee-body { color:var(--cac-mid-grey); font-size:12px; line-height:1.7; }
+    .guarantee-link { color:var(--cac-cold-red); text-decoration:none; font-size:10px; letter-spacing:0.15em; text-transform:uppercase; margin-top:6px; display:inline-block; }
+    .guarantee-link:hover { text-decoration:underline; }
+
+    /* ── NOTICES ── */
+    .notices-row { margin-top:var(--cac-space-md); padding:var(--cac-space-md); border:1px solid var(--cac-light-grey); background:#faf9f6; }
+    .notice-item { display:flex; gap:12px; padding:8px 0; border-bottom:1px solid var(--cac-light-grey); font-size:12px; color:var(--cac-mid-grey); align-items:baseline; }
+    .notice-item:last-child { border-bottom:none; }
+    .notice-dash { color:var(--cac-cold-red); flex-shrink:0; }
+
+    /* ── SOCIAL PROOF ── */
+    #social-proof { background: var(--cac-near-black); border-top:none; }
+    .proof-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:var(--cac-space-md); }
+    .proof-card { padding:var(--cac-space-md); border:1px solid #252525; position:relative; }
+    .proof-card::before { content:''; position:absolute; top:0; left:0; width:32px; height:2px; background:var(--cac-cold-red); }
+    .proof-quote { font-family:var(--cac-font-editorial); font-size:17px; font-weight:300; color:#c8c5be; line-height:1.5; margin-bottom:var(--cac-space-md); font-style:italic; }
+    .proof-name { font-family:var(--cac-font-mono); font-size:10px; letter-spacing:0.18em; text-transform:uppercase; color:var(--cac-surface-white); margin-bottom:3px; }
+    .proof-role { font-family:var(--cac-font-mono); font-size:10px; letter-spacing:0.1em; color:var(--cac-mid-grey); }
+    .proof-placeholder { border-style:dashed; opacity:0.4; cursor:default; }
+    .proof-placeholder .proof-quote { color:var(--cac-mid-grey); font-style:normal; font-size:13px; font-family:var(--cac-font-mono); }
+
+    /* ── LEAD CAPTURE ── */
+    #stay-informed { background: var(--cac-surface-white); }
+    .stay-grid { display:grid; grid-template-columns:5fr 7fr; gap:var(--cac-space-lg); align-items:center; }
+    .stay-form { display:flex; flex-direction:column; gap:12px; max-width:460px; }
+    .stay-field-group { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+    .stay-field label { display:block; font-family:var(--cac-font-mono); font-size:10px; letter-spacing:0.2em; text-transform:uppercase; color:var(--cac-mid-grey); margin-bottom:4px; }
+    .stay-field input {
+      width:100%; background:none; border:1px solid var(--cac-light-grey);
+      padding:10px 14px; font-family:var(--cac-font-mono); font-size:12px; color:var(--cac-ink);
+      outline:none; transition:border-color 0.15s;
+    }
+    .stay-field input:focus { border-color:var(--cac-cold-red); }
+    .stay-submit { align-self:flex-start; }
+    .stay-disclaimer { font-size:10px; color:var(--cac-mid-grey); line-height:1.6; }
+    .stay-social { display:flex; flex-direction:column; gap:var(--cac-space-sm); }
+    .stay-social-label { display:block; color:var(--cac-mid-grey); margin-bottom:var(--cac-space-sm); }
+    .stay-social-link { display:flex; align-items:center; gap:12px; padding:14px var(--cac-space-sm); border:1px solid var(--cac-light-grey); text-decoration:none; color:var(--cac-ink); transition:border-color 0.15s; }
+    .stay-social-link:hover { border-color:var(--cac-cold-red); }
+    .stay-social-platform { font-family:var(--cac-font-mono); font-size:10px; letter-spacing:0.2em; text-transform:uppercase; color:var(--cac-cold-red); flex-shrink:0; width:80px; }
+    .stay-social-handle { font-size:12px; color:var(--cac-mid-grey); }
+    .stay-success { display:none; padding:var(--cac-space-md); border:1px solid var(--cac-light-grey); text-align:center; }
+    .stay-success.visible { display:block; }
+    .stay-success-title { font-family:var(--cac-font-editorial); font-size:22px; font-weight:300; margin-bottom:var(--cac-space-sm); }
+
+    /* ── MAIN CTA ── */
+    #main-cta { background: var(--cac-near-black); border-top:none; }
+    .main-cta-inner { display:grid; grid-template-columns:1fr 1fr; gap:var(--cac-space-lg); align-items:center; }
+    .main-cta-heading { font-family:var(--cac-font-editorial); font-size:clamp(32px,4vw,52px); font-weight:300; color:var(--cac-surface-white); line-height:1.1; margin-bottom:var(--cac-space-md); }
+    .main-cta-sub { color:#b8b5ae; margin-bottom:var(--cac-space-lg); }
+    .main-cta-btns { display:flex; flex-wrap:wrap; gap:var(--cac-space-sm); }
+    .main-cta-details { border:1px solid #252525; padding:var(--cac-space-md); }
+    .cta-detail-row { display:flex; justify-content:space-between; padding:10px 0; border-bottom:1px solid #1e1e1e; font-size:12px; }
+    .cta-detail-row:last-child { border-bottom:none; }
+    .cta-detail-label { color:var(--cac-mid-grey); font-family:var(--cac-font-mono); font-size:10px; letter-spacing:0.15em; text-transform:uppercase; }
+    .cta-detail-value { color:var(--cac-surface-white); text-align:right; }
+
+    /* ── EVENT BAR ── */
+    .event-bar { background:var(--cac-near-black); border-top:1px solid #1e1e1e; padding:var(--cac-space-md) var(--cac-space-xl); display:grid; grid-template-columns:repeat(5,1fr); gap:var(--cac-space-md); }
+    .event-bar-label { display:block; font-family:var(--cac-font-mono); font-size:10px; letter-spacing:0.2em; text-transform:uppercase; color:var(--cac-mid-grey); margin-bottom:5px; }
+    .event-bar-value { font-family:var(--cac-font-editorial); font-size:15px; font-weight:300; color:var(--cac-surface-white); }
+
+    /* ── FOOTER ── */
+    footer { background:var(--cac-near-black); border-top:1px solid #1a1a1a; padding:var(--cac-space-md) var(--cac-space-xl); display:flex; justify-content:space-between; align-items:center; }
+
+    /* ── MODAL ── */
+    .modal-overlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.75); z-index:1000; align-items:center; justify-content:center; padding:var(--cac-space-md); }
+    .modal-overlay.open { display:flex; }
+    .modal-box { background:var(--cac-surface-white); max-width:640px; width:100%; max-height:85vh; overflow-y:auto; padding:var(--cac-space-lg); position:relative; border-top:2px solid var(--cac-cold-red); }
+    .modal-close { position:absolute; top:var(--cac-space-sm); right:var(--cac-space-sm); background:none; border:none; color:var(--cac-mid-grey); font-size:18px; cursor:pointer; line-height:1; padding:6px; }
+    .modal-close:hover { color:var(--cac-cold-red); }
+    .modal-section { margin-bottom:var(--cac-space-md); padding-bottom:var(--cac-space-md); border-bottom:1px solid var(--cac-light-grey); }
+    .modal-section:last-child { border-bottom:none; margin-bottom:0; }
+    .modal-section-title { font-family:var(--cac-font-editorial); font-size:18px; font-weight:400; margin-bottom:var(--cac-space-sm); }
+    .modal-body { color:var(--cac-mid-grey); font-size:12px; line-height:1.8; }
+    .modal-body p { margin-bottom:10px; }
+    .modal-body p:last-child { margin-bottom:0; }
+    .modal-highlight { background:#faf9f6; border-left:2px solid var(--cac-cold-red); padding:var(--cac-space-sm) var(--cac-space-md); margin:var(--cac-space-sm) 0; }
+    .modal-highlight p { margin-bottom:0; }
+    .modal-small { font-size:11px; color:var(--cac-mid-grey); font-style:italic; margin-top:var(--cac-space-sm); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width:900px) {
+      :root { --cac-space-xl:32px; --cac-space-lg:48px; }
+      .site-nav { padding:var(--cac-space-sm) 24px; }
+      .nav-links .nav-link:not(:last-child) { display:none; }
+      #urgency-banner { padding:12px 24px; flex-direction:column; gap:8px; text-align:center; }
+      #announcements { padding:var(--cac-space-md) 24px; }
+      .pricing-grid { grid-template-columns:1fr; }
+      .inhouse-grid { grid-template-columns:1fr; }
+      .guarantees-row { grid-template-columns:1fr; }
+      .proof-grid { grid-template-columns:1fr; }
+      .stay-grid { grid-template-columns:1fr; }
+      .stay-field-group { grid-template-columns:1fr; }
+      .main-cta-inner { grid-template-columns:1fr; }
+      .event-bar { grid-template-columns:1fr 1fr; padding:var(--cac-space-md) 24px; }
+      footer { padding:var(--cac-space-md) 24px; flex-direction:column; gap:10px; }
+      /* Flipbook: single page on mobile */
+      .book-page.active { flex-direction:column; }
+      .page-left { border-right:none; border-bottom:1px solid var(--cac-light-grey); }
+      .book-cover { padding:var(--cac-space-md) 24px; }
+    }
+    @media (max-width:480px) {
+      .event-bar { grid-template-columns:1fr; }
+      .main-cta-btns { flex-direction:column; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ============================================================
+     CONFIG BLOCK — EDIT THIS SECTION ONLY
+     All content and URLs live here.
+     ============================================================ -->
+<script>
+const CONFIG = {
+  event: {
+    date:          "May 5–6, 2025",
+    earlybird_deadline: "2025-04-05",  // 30 days before event — YYYY-MM-DD
+    time:          "9:00am – 5:00pm",
+    city:          "Penang Island",
+    venue_status:  "Venue confirmed minimum 7 days before training date.",
+    organizer:     "Clarity Awareness CAS",
+  },
+  contact: {
+    name:    "Alan",
+    company: "Techmavie Digital",
+    email:   "lovinia@techmavie.digital",
+    phone:   "+60 18 4012108",
+  },
+  registration: {
+    url: "/register/",   // internal page
+  },
+  announcements: [
+    // Add or remove items. Leave array empty [] to hide the block.
+    "<strong>Early bird pricing now open.</strong> Secure your seat before the deadline.",
+    "City is confirmed: Penang Island. Venue will be confirmed a minimum 7 days before training date.",
+    "In-house training enquiries welcome — contact us directly for corporate scheduling.",
+  ],
+  schedule: {
+    day1: {
+      title:    "Day One",
+      subtitle: "Foundation & Framework",
+      sessions: [
+        { time:"9:00 – 10:30am",  topic:"[ADD: Session title — Module topic]",           detail:"[ADD: Brief description of what participants will cover]" },
+        { time:"10:30 – 10:45am", topic:"Morning Break",                                  break:true },
+        { time:"10:45am – 1:00pm",topic:"[ADD: Session title — Module topic]",            detail:"[ADD: Brief description of what participants will cover]" },
+        { time:"1:00 – 2:00pm",   topic:"Lunch Break",                                    break:true },
+        { time:"2:00 – 3:30pm",   topic:"[ADD: Session title — Module topic]",            detail:"[ADD: Brief description of what participants will cover]" },
+        { time:"3:30 – 3:45pm",   topic:"Afternoon Break",                                break:true },
+        { time:"3:45 – 5:00pm",   topic:"[ADD: Session title — Module topic]",            detail:"[ADD: Brief description of what participants will cover]" },
+      ]
+    },
+    day2: {
+      title:    "Day Two",
+      subtitle: "Application & Blueprint",
+      sessions: [
+        { time:"9:00 – 10:30am",  topic:"[ADD: Session title — Module topic]",           detail:"[ADD: Brief description of what participants will cover]" },
+        { time:"10:30 – 10:45am", topic:"Morning Break",                                  break:true },
+        { time:"10:45am – 1:00pm",topic:"[ADD: Session title — Module topic]",            detail:"[ADD: Brief description of what participants will cover]" },
+        { time:"1:00 – 2:00pm",   topic:"Lunch Break",                                    break:true },
+        { time:"2:00 – 3:30pm",   topic:"[ADD: Session title — Module topic]",            detail:"[ADD: Brief description of what participants will cover]" },
+        { time:"3:30 – 3:45pm",   topic:"Afternoon Break",                                break:true },
+        { time:"3:45 – 5:00pm",   topic:"[ADD: Session title — Closing & Integration]",  detail:"[ADD: Brief description of what participants will cover]" },
+      ]
+    }
+  },
+  trainer: {
+    name:  "Lovinia Mak",
+    role:  "Founder · Clarity Awareness Cognitive Architecture Systems",
+    image: "/assets/img/Lovinia_main.png",
+    credentials: [
+      "Founder, Clarity Awareness Cognitive Architecture Systems",
+      "Principal Trainer, Sales For Technical And Non-Sales Professionals",
+      "Author, <em>The Structureless Potential</em> (scheduled, July 2026)",
+      "Creator, Buying Psychology Profiling System",
+      "Creator, 4E Framework for Sales Conversations That Land",
+      "Creator, EFT for the 5 Hidden Blocks in Sales",
+    ]
+  },
+  testimonials: [
+    // Replace placeholder objects with real testimonials when available.
+    // Set placeholder:true to show as empty slot, placeholder:false to show as real.
+    { placeholder:true,  quote:"",   name:"",  role:"" },
+    { placeholder:true,  quote:"",   name:"",  role:"" },
+    { placeholder:true,  quote:"",   name:"",  role:"" },
+  ],
+  social: {
+    facebook:  "https://facebook.com/clarityawarenesscoaching",
+    linkedin:  "https://linkedin.com/in/loviniamak",
+  }
+};
+</script>
+<!-- ============================================================ END CONFIG ============================================================ -->
+
+
+<!-- NAV -->
+<nav class="site-nav">
+  <a href="/" class="nav-logo">
+    Clarity Awareness
+    <span>Cognitive Architecture Systems</span>
+  </a>
+  <div class="nav-links">
+    <a href="/" class="nav-link">Programme</a>
+    <a href="/about/" class="nav-link">About</a>
+    <a href="/articles/" class="nav-link">Articles</a>
+    <a href="/faq/" class="nav-link">FAQ</a>
+    <a href="/enquiry/" class="nav-link">Register</a>
+    <a href="/pricing/" class="nav-link active">Pricing</a>
+  </div>
+</nav>
+
+<!-- URGENCY BANNER -->
+<div id="urgency-banner">
+  <div>
+    <div class="urgency-text" id="urgency-label">Early bird pricing closes in</div>
+  </div>
+  <div style="text-align:right">
+    <div class="urgency-timer" id="urgency-timer">—</div>
+    <div class="urgency-label" id="urgency-sublabel">days remaining</div>
+  </div>
+</div>
+
+<!-- ANNOUNCEMENTS -->
+<div id="announcements-section"></div>
+
+<!-- SCHEDULE FLIPBOOK -->
+<section id="schedule">
+  <div class="container">
+    <span class="t4 section-label">Course Schedule</span>
+    <div class="flipbook-shell" id="flipbook">
+      <div class="book-cover" id="book-cover" onclick="toggleBook()" role="button" aria-expanded="false" tabindex="0">
+        <div>
+          <div class="book-cover-title">Course Schedule</div>
+          <div class="book-cover-sub">Sales For Technical &amp; Non-Sales Professionals · 2-Day Programme</div>
+        </div>
+        <div class="book-cover-icon" id="book-icon">▼</div>
+      </div>
+
+      <div class="book-interior" id="book-interior">
+        <div class="book-nav">
+          <button class="book-nav-btn" id="btn-prev" onclick="flipPage(-1)" disabled>← Previous</button>
+          <span class="book-nav-indicator" id="page-indicator">Page 1</span>
+          <button class="book-nav-btn" id="btn-next" onclick="flipPage(1)">Next →</button>
+        </div>
+
+        <div class="book-pages" id="book-pages">
+
+          <!-- PAGE 1: Left blank, Right TOC -->
+          <div class="book-page active" data-page="0">
+            <div class="page-left">
+              <!-- Intentionally blank — book convention -->
+              <div style="height:100%;display:flex;align-items:center;justify-content:center;">
+                <div style="text-align:center;opacity:0.15;">
+                  <div style="font-family:var(--cac-font-editorial);font-size:72px;font-weight:300;color:var(--cac-ink);line-height:1;">CAC</div>
+                </div>
+              </div>
+            </div>
+            <div class="page-right">
+              <span class="t4 page-label">Contents</span>
+              <div style="margin-bottom:var(--cac-space-md);">
+                <div style="font-family:var(--cac-font-editorial);font-size:clamp(22px,3vw,36px);font-weight:300;color:var(--cac-ink);margin-bottom:var(--cac-space-md);">What is<br>inside.</div>
+              </div>
+              <ol class="flip-toc-list" id="flip-toc"></ol>
+              <div class="page-ornament">Sales For Technical &amp; Non-Sales Professionals</div>
+            </div>
+          </div>
+
+          <!-- PAGE 2: Day 1 spread — injected by JS -->
+          <div class="book-page" data-page="1">
+            <div class="page-left" id="day1-left"></div>
+            <div class="page-right" id="day1-right"></div>
+          </div>
+
+          <!-- PAGE 3: Day 2 spread — injected by JS -->
+          <div class="book-page" data-page="2">
+            <div class="page-left" id="day2-left"></div>
+            <div class="page-right" id="day2-right"></div>
+          </div>
+
+          <!-- PAGE 4: Trainer + Register CTA -->
+          <div class="book-page" data-page="3">
+            <div class="page-left" id="trainer-page-left"></div>
+            <div class="page-right" id="trainer-page-right"></div>
+          </div>
+
+        </div><!-- /book-pages -->
+      </div><!-- /book-interior -->
+    </div><!-- /flipbook-shell -->
+  </div>
+</section>
+
+<!-- PRICING TABLE -->
+<section id="pricing">
+  <div class="container">
+    <span class="t4 section-label">Pricing</span>
+    <h2 class="t2" style="margin-bottom:var(--cac-space-sm);">Investment in your capability.</h2>
+    <p class="t5" style="color:var(--cac-mid-grey);max-width:var(--cac-reading-col);margin-bottom:var(--cac-space-lg);">Public and in-house options available. Early bird pricing applies until 30 days before the training date.</p>
+
+    <div class="pricing-grid">
+      <!-- PUBLIC TRAINING -->
+      <div class="pricing-card">
+        <span class="t4 pricing-card-label" style="color:var(--cac-cold-red);">Public Training</span>
+        <h3 class="pricing-card-title">Open Enrolment</h3>
+
+        <div class="pricing-tier">
+          <div class="pricing-pax">1 Participant</div>
+          <div class="pricing-amount"><span>RM</span>3,500</div>
+          <div class="pricing-per">per person</div>
+          <div class="pricing-early" id="early-1pax">
+            <div class="pricing-early-amount"><span style="font-size:13px;font-family:var(--cac-font-mono);">RM</span> 2,800</div>
+            <div class="pricing-early-label">Early bird</div>
+          </div>
+        </div>
+
+        <div class="pricing-tier">
+          <div class="pricing-pax">2 Participants</div>
+          <div class="pricing-amount"><span>RM</span>6,600</div>
+          <div class="pricing-per">for two</div>
+          <div class="pricing-early" id="early-2pax">
+            <div class="pricing-early-amount"><span style="font-size:13px;font-family:var(--cac-font-mono);">RM</span> 5,200</div>
+            <div class="pricing-early-label">Early bird</div>
+          </div>
+        </div>
+
+        <div class="pricing-tier">
+          <div class="pricing-pax">5 Participants</div>
+          <div class="pricing-amount"><span>RM</span>15,000</div>
+          <div class="pricing-per">for five</div>
+          <div class="pricing-early" id="early-5pax">
+            <div class="pricing-early-amount"><span style="font-size:13px;font-family:var(--cac-font-mono);">RM</span> 11,000</div>
+            <div class="pricing-early-label">Early bird</div>
+          </div>
+        </div>
+
+        <p class="pricing-note">* Early bird pricing is not applicable to in-house training.<br>* One organisation is limited to 7 participants for public training.<br>* Training providers wishing to send participants via HRDC grant: <a href="/" style="color:var(--cac-cold-red);">contact the organiser</a>.</p>
+      </div>
+
+      <!-- IN-HOUSE TRAINING -->
+      <div class="pricing-card featured">
+        <span class="t4 pricing-card-label" style="color:var(--cac-cold-red);">In-House Training</span>
+        <h3 class="pricing-card-title">Dedicated Corporate Programme</h3>
+        <div class="inhouse-grid">
+          <div class="inhouse-price-block">
+            <div class="inhouse-amount"><span>RM</span>22,000</div>
+            <div class="pricing-per" style="color:var(--cac-mid-grey);margin-top:6px;">full programme</div>
+            <div style="margin-top:var(--cac-space-sm);">
+              <a href="/enquiry/" class="cta-btn" style="display:block;text-align:center;margin-top:var(--cac-space-md);">Enquire Now</a>
+            </div>
+          </div>
+          <div class="inhouse-details">
+            <div class="inhouse-detail-row"><span class="inhouse-dash">—</span><span>Full 2-day programme</span></div>
+            <div class="inhouse-detail-row"><span class="inhouse-dash">—</span><span>Delivered at your premises or preferred venue</span></div>
+            <div class="inhouse-detail-row"><span class="inhouse-dash">—</span><span>Customisable to your team's context</span></div>
+            <div class="inhouse-detail-row"><span class="inhouse-dash">—</span><span>Includes all proprietary materials</span></div>
+            <div class="inhouse-detail-row"><span class="inhouse-dash">—</span><span>Invoice available for company tax deduction records</span></div>
+            <div class="inhouse-detail-row"><span class="inhouse-dash">—</span><span>Early bird pricing does not apply</span></div>
+          </div>
+        </div>
+      </div>
+    </div><!-- /pricing-grid -->
+
+    <!-- GUARANTEES -->
+    <div class="guarantees-row">
+      <div class="guarantee-item">
+        <div class="guarantee-icon">§</div>
+        <div>
+          <div class="guarantee-title">Satisfaction Guarantee</div>
+          <p class="guarantee-body">Attend the first half of Day One. If it is not what you expected, request a refund before lunch. No lengthy process — just a fair, transparent policy.</p>
+          <a href="#" class="guarantee-link" onclick="openModal('modal-guarantee'); return false;">Read guarantee terms →</a>
+        </div>
+      </div>
+      <div class="guarantee-item">
+        <div class="guarantee-icon">§</div>
+        <div>
+          <div class="guarantee-title">Refund & Transfer Policy</div>
+          <p class="guarantee-body">Plans change. Your ticket is fully transferable. A partial refund is available up to 30 days before the event. Full terms apply.</p>
+          <a href="#" class="guarantee-link" onclick="openModal('modal-refund'); return false;">Read refund policy →</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- NOTICES -->
+    <div class="notices-row">
+      <div class="notice-item"><span class="notice-dash">—</span><span>City is confirmed: <strong>Penang Island.</strong> Venue will be confirmed a minimum 7 days before the training date.</span></div>
+      <div class="notice-item"><span class="notice-dash">—</span><span>Training fees are tax-deductible under Malaysian income tax provisions. An official invoice will be issued upon registration.</span></div>
+      <div class="notice-item"><span class="notice-dash">—</span><span>For HRDC grant applications through a Training Provider, note that this programme is not currently listed as HRDC claimable. Contact the organiser for future availability.</span></div>
+    </div>
+
+  </div>
+</section>
+
+<!-- SOCIAL PROOF -->
+<section id="social-proof">
+  <div class="container">
+    <span class="t4 section-label" style="color:var(--cac-cold-red);">What Participants Say</span>
+    <h2 class="t2" style="color:var(--cac-surface-white);margin-bottom:var(--cac-space-lg);">From the room.</h2>
+    <div class="proof-grid" id="proof-grid"></div>
+  </div>
+</section>
+
+<!-- NOT READY YET — STAY INFORMED -->
+<section id="stay-informed">
+  <div class="container">
+    <div class="stay-grid">
+      <div>
+        <span class="t4 section-label">Not Ready Yet?</span>
+        <h2 class="t2" style="margin-bottom:var(--cac-space-sm);">Stay in the loop.</h2>
+        <p class="t5" style="color:var(--cac-mid-grey);max-width:420px;margin-bottom:var(--cac-space-lg);">Get notified when new training dates are announced. No newsletter, no sequences — just the one email that matters.</p>
+        <div id="stay-form-wrap">
+          <div class="stay-form">
+            <div class="stay-field-group">
+              <div class="stay-field">
+                <label for="stay-name">First Name</label>
+                <input type="text" id="stay-name" name="name" placeholder="Your name" autocomplete="given-name">
+              </div>
+              <div class="stay-field">
+                <label for="stay-email">Email</label>
+                <input type="email" id="stay-email" name="email" placeholder="you@company.com" autocomplete="email">
+              </div>
+            </div>
+            <button class="cta-btn stay-submit" onclick="submitStay()">Notify Me</button>
+            <p class="stay-disclaimer">One email when dates are confirmed. No marketing sequences. Unsubscribe any time.</p>
+          </div>
+        </div>
+        <div class="stay-success" id="stay-success">
+          <div class="stay-success-title">You are on the list.</div>
+          <p class="t6">We will reach out when the next date is confirmed. That is the only email you will receive.</p>
+        </div>
+      </div>
+      <div>
+        <span class="t4 stay-social-label">Follow for updates</span>
+        <div class="stay-social">
+          <a href="https://facebook.com/clarityawarenesscoaching" target="_blank" rel="noopener" class="stay-social-link">
+            <span class="stay-social-platform">Facebook</span>
+            <span class="stay-social-handle">clarityawarenesscoaching</span>
+          </a>
+          <a href="https://linkedin.com/in/loviniamak" target="_blank" rel="noopener" class="stay-social-link">
+            <span class="stay-social-platform">LinkedIn</span>
+            <span class="stay-social-handle">Lovinia Mak</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MAIN CTA -->
+<section id="main-cta">
+  <div class="container">
+    <div class="main-cta-inner">
+      <div>
+        <h2 class="main-cta-heading">Ready to register?</h2>
+        <p class="main-cta-sub">Seats are limited per cohort. Confirm your place before the early bird closes.</p>
+        <div class="main-cta-btns">
+          <a href="/enquiry/" class="cta-btn">Register Now</a>
+          <a href="/faq/" class="cta-btn cta-btn-outline">FAQ</a>
+        </div>
+      </div>
+      <div class="main-cta-details">
+        <div class="cta-detail-row">
+          <span class="cta-detail-label">Date</span>
+          <span class="cta-detail-value" id="cta-date">—</span>
+        </div>
+        <div class="cta-detail-row">
+          <span class="cta-detail-label">Time</span>
+          <span class="cta-detail-value" id="cta-time">—</span>
+        </div>
+        <div class="cta-detail-row">
+          <span class="cta-detail-label">City</span>
+          <span class="cta-detail-value" id="cta-city">—</span>
+        </div>
+        <div class="cta-detail-row">
+          <span class="cta-detail-label">Venue</span>
+          <span class="cta-detail-value">Confirmed 7 days prior</span>
+        </div>
+        <div class="cta-detail-row">
+          <span class="cta-detail-label">Organiser</span>
+          <span class="cta-detail-value" id="cta-org">—</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EVENT BAR -->
+<div class="event-bar">
+  <div>
+    <span class="event-bar-label">Programme</span>
+    <div class="event-bar-value"><a href="/" style="color:var(--cac-surface-white);text-decoration:none;">Programme →</a></div>
+  </div>
+  <div>
+    <span class="event-bar-label">About</span>
+    <div class="event-bar-value"><a href="/about/" style="color:var(--cac-surface-white);text-decoration:none;">Lovinia Mak →</a></div>
+  </div>
+  <div>
+    <span class="event-bar-label">Articles</span>
+    <div class="event-bar-value"><a href="/articles/" style="color:var(--cac-surface-white);text-decoration:none;">Knowledge Archive →</a></div>
+  </div>
+  <div>
+    <span class="event-bar-label">FAQ</span>
+    <div class="event-bar-value"><a href="/faq/" style="color:var(--cac-surface-white);text-decoration:none;">FAQ →</a></div>
+  </div>
+  <div>
+    <span class="event-bar-label">Register</span>
+    <div class="event-bar-value"><a href="/enquiry/" style="color:var(--cac-surface-white);text-decoration:none;">Register Now →</a></div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="t6">Clarity Awareness Cognitive Architecture Systems</div>
+  <div class="t6" style="display:flex;gap:var(--cac-space-md);">
+    <a href="/" style="color:var(--cac-mid-grey);text-decoration:none;">Programme</a>
+    <a href="/about/" style="color:var(--cac-mid-grey);text-decoration:none;">About</a>
+    <a href="/faq/" style="color:var(--cac-mid-grey);text-decoration:none;">FAQ</a>
+    <a href="/privacy-policy/" style="color:var(--cac-mid-grey);text-decoration:none;">Privacy Policy</a>
+  </div>
+  <div class="t6">Clarity Awareness CAS · Penang</div>
+</footer>
+
+<!-- MODAL: SATISFACTION GUARANTEE -->
+<div class="modal-overlay" id="modal-guarantee" onclick="closeModalOutside(event, 'modal-guarantee')">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal('modal-guarantee')" aria-label="Close">✕</button>
+    <span class="t4" style="color:var(--cac-cold-red);display:block;margin-bottom:var(--cac-space-md);">Satisfaction Guarantee</span>
+    <h2 style="font-family:var(--cac-font-editorial);font-size:28px;font-weight:300;margin-bottom:var(--cac-space-lg);">Our commitment to your experience.</h2>
+
+    <div class="modal-section">
+      <h3 class="modal-section-title">Half-Day Guarantee</h3>
+      <div class="modal-body">
+        <p>If you attend the morning session on Day One and find the programme is genuinely not what you expected, you may request a refund before the lunch break — no lengthy justification required.</p>
+        <p>We ask only that you request in person before leaving, so we have the opportunity to understand your concern.</p>
+        <div class="modal-highlight">
+          <p>Refund amount: ticket price paid, minus RM1,299 (covers venue, catering, and proprietary materials at cost). This reflects our upfront logistics commitments as a live event — not a product. We apologise that it cannot be a full refund for this reason.</p>
+        </div>
+        <p>Refunds are processed within 90 days of confirmation. The same conditions under the standard Refund Policy apply, including the participant conduct provisions.</p>
+      </div>
+    </div>
+
+    <div class="modal-section">
+      <h3 class="modal-section-title">How to Request</h3>
+      <div class="modal-body">
+        <p>Speak to the organiser before the lunch break on Day One. Alternatively, scan the QR code on the event homepage and send a written request on the day itself. Requests submitted after the lunch break will not be eligible under this guarantee.</p>
+      </div>
+    </div>
+
+    <div class="modal-section">
+      <h3 class="modal-section-title">Participant Conduct</h3>
+      <div class="modal-body">
+        <p>This guarantee is available once per participant. In keeping with professional standards that trainers and training organisations across the industry uphold, we note that information regarding refund requests and the circumstances surrounding them may be shared within professional training networks — as is standard practice for live events and certified programmes.</p>
+        <p>This is not punitive. It is the same professional due diligence that protects the quality of the training environment for all participants.</p>
+      </div>
+    </div>
+
+    <div class="modal-section">
+      <h3 class="modal-section-title">Disruption Policy</h3>
+      <div class="modal-body">
+        <p>Participants whose behaviour disrupts the training environment — including but not limited to inappropriate conduct toward other participants, staff, or the trainer — will be asked to leave and will receive a full refund of their ticket minus the same RM1,299 logistics cost. This applies regardless of how far into the programme the disruption occurs.</p>
+        <p class="modal-small">We extend this provision in both directions: we hold ourselves to the same standard of professionalism that we ask of our participants.</p>
+      </div>
+    </div>
+
+    <div style="text-align:center;margin-top:var(--cac-space-md);">
+      <a href="/faq/" style="color:var(--cac-cold-red);font-family:var(--cac-font-mono);font-size:10px;letter-spacing:0.18em;text-transform:uppercase;text-decoration:none;">Full FAQ →</a>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL: REFUND & TICKET POLICY -->
+<div class="modal-overlay" id="modal-refund" onclick="closeModalOutside(event, 'modal-refund')">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal('modal-refund')" aria-label="Close">✕</button>
+    <span class="t4" style="color:var(--cac-cold-red);display:block;margin-bottom:var(--cac-space-md);">Refund & Ticket Policy</span>
+    <h2 style="font-family:var(--cac-font-editorial);font-size:28px;font-weight:300;margin-bottom:var(--cac-space-lg);">Flexibility with responsibility.</h2>
+
+    <div class="modal-section">
+      <h3 class="modal-section-title">Refund Eligibility</h3>
+      <div class="modal-body">
+        <p>Refund requests must be submitted in writing via email to the organiser. A 50% refund of the ticket price is available provided the request is made no less than 30 days before the event date.</p>
+        <p>This reflects upfront commitments made for venue bookings, staffing, and event preparation.</p>
+      </div>
+    </div>
+
+    <div class="modal-section">
+      <h3 class="modal-section-title">Ticket Transfers — Recommended</h3>
+      <div class="modal-body">
+        <div class="modal-highlight">
+          <p>Before requesting a refund: your ticket is fully transferable to another participant at full price — regardless of whether it was purchased under early bird or group pricing. We strongly encourage this option.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal-section">
+      <h3 class="modal-section-title">Processing Time</h3>
+      <div class="modal-body">
+        <p>Approved refunds are processed within 90 days of confirmation. This ensures no overlap between event cycles.</p>
+      </div>
+    </div>
+
+    <div class="modal-section">
+      <h3 class="modal-section-title">Emergencies & Alternatives</h3>
+      <div class="modal-body">
+        <p>For unforeseen circumstances: you may transfer or resell your ticket, or attend a future training date subject to availability. Future dates are announced on the trainer's official page.</p>
+      </div>
+    </div>
+
+    <div class="modal-section">
+      <h3 class="modal-section-title">Non-Refundable Situations</h3>
+      <div class="modal-body">
+        <p>No refund will be issued for: requests made within 30 days of the event · no-shows or failure to attend · change of mind.</p>
+      </div>
+    </div>
+
+    <div class="modal-section">
+      <h3 class="modal-section-title">Professional Standards</h3>
+      <div class="modal-body">
+        <p>By purchasing a ticket, participants acknowledge that event logistics involve advance commitments. We ask that reasonable effort be made to transfer, resell, or attend an alternative session before requesting a refund.</p>
+        <p>In keeping with standard professional practice across the training and events industry, the organiser, associated training providers, brand partners, and affiliated networks reserve the right to note and share information regarding refund requests — particularly where alternatives were available but not pursued. This is consistent with how professional bodies and training organisations maintain programme integrity across the industry.</p>
+        <p class="modal-small">This measure exists to sustain the quality of every event for every participant — not as a deterrent to legitimate requests.</p>
+      </div>
+    </div>
+
+    <div style="text-align:center;margin-top:var(--cac-space-md);">
+      <a href="/faq/" style="color:var(--cac-cold-red);font-family:var(--cac-font-mono);font-size:10px;letter-spacing:0.18em;text-transform:uppercase;text-decoration:none;">Full FAQ →</a>
+    </div>
+  </div>
+</div>
+
+
+<!-- ============================================================ JAVASCRIPT ============================================================ -->
+<script>
+
+// ── EARLY BIRD LOGIC ──────────────────────────────────────────────────────────
+function checkEarlyBird() {
+  const deadline = new Date(CONFIG.event.earlybird_deadline);
+  const now = new Date();
+  const msLeft = deadline - now;
+  const daysLeft = Math.ceil(msLeft / (1000 * 60 * 60 * 24));
+  const banner = document.getElementById('urgency-banner');
+  const timer  = document.getElementById('urgency-timer');
+  const label  = document.getElementById('urgency-label');
+  const sub    = document.getElementById('urgency-sublabel');
+
+  if (msLeft <= 0) {
+    // Expired
+    ['early-1pax','early-2pax','early-5pax'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.classList.add('expired');
+    });
+    banner.classList.add('expired');
+    label.textContent = 'Early bird pricing has closed.';
+    timer.textContent = '';
+    sub.textContent   = 'Standard pricing applies.';
+  } else {
+    timer.textContent = daysLeft;
+    label.textContent = 'Early bird pricing closes in';
+    sub.textContent   = daysLeft === 1 ? 'day remaining' : 'days remaining';
+  }
+}
+
+// ── ANNOUNCEMENTS ─────────────────────────────────────────────────────────────
+function renderAnnouncements() {
+  const items = CONFIG.announcements;
+  if (!items || items.length === 0) return;
+  const wrap = document.getElementById('announcements-section');
+  wrap.innerHTML = `
+    <div id="announcements">
+      <span class="t4 announcement-label">Announcements</span>
+      ${items.map(a => `<p class="t5 announcement-body" style="margin-bottom:8px;">${a}</p>`).join('')}
+    </div>`;
+}
+
+// ── FLIPBOOK ──────────────────────────────────────────────────────────────────
+let currentPage = 0;
+const totalPages = 4;
+
+function toggleBook() {
+  const interior = document.getElementById('book-interior');
+  const cover    = document.getElementById('book-cover');
+  const isOpen   = interior.classList.contains('open');
+  interior.classList.toggle('open');
+  cover.classList.toggle('open');
+  cover.setAttribute('aria-expanded', !isOpen);
+  if (!isOpen) updateNav();
+}
+
+function flipPage(dir) {
+  const pages = document.querySelectorAll('.book-page');
+  pages[currentPage].classList.remove('active');
+  currentPage = Math.max(0, Math.min(totalPages - 1, currentPage + dir));
+  pages[currentPage].classList.add('active');
+  updateNav();
+}
+
+function updateNav() {
+  document.getElementById('btn-prev').disabled = currentPage === 0;
+  document.getElementById('btn-next').disabled = currentPage === totalPages - 1;
+  const labels = ['Table of Contents', 'Day One', 'Day Two', 'About the Trainer'];
+  document.getElementById('page-indicator').textContent = labels[currentPage] || `Page ${currentPage + 1}`;
+}
+
+// Keyboard support
+document.addEventListener('keydown', (e) => {
+  const interior = document.getElementById('book-interior');
+  if (!interior.classList.contains('open')) return;
+  if (e.key === 'ArrowRight') flipPage(1);
+  if (e.key === 'ArrowLeft')  flipPage(-1);
+});
+document.getElementById('book-cover').addEventListener('keydown', (e) => {
+  if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggleBook(); }
+});
+
+function buildScheduleSide(sessions, half) {
+  // half: 'am' = sessions 0-1-2 (before lunch), 'pm' = sessions 3-4-5-6
+  const slice = half === 'am' ? sessions.slice(0, 3) : sessions.slice(3);
+  return slice.map(s => {
+    if (s.break) {
+      return `<div class="schedule-break"><span class="schedule-break-text">${s.topic} · ${s.time}</span></div>`;
+    }
+    return `<div class="schedule-block">
+      <div class="schedule-time">${s.time}</div>
+      <div class="schedule-topic">${s.topic}</div>
+      ${s.detail ? `<div class="schedule-detail">${s.detail}</div>` : ''}
+    </div>`;
+  }).join('');
+}
+
+function renderFlipbook() {
+  const { day1, day2 } = CONFIG.schedule;
+  const t = CONFIG.trainer;
+
+  // TOC
+  const tocItems = [
+    { n:'01', t:'Table of Contents' },
+    { n:'02', t:'Day One — ' + day1.subtitle },
+    { n:'03', t:'Day Two — ' + day2.subtitle },
+    { n:'04', t:'About the Trainer' },
+  ];
+  document.getElementById('flip-toc').innerHTML = tocItems.map(i =>
+    `<li class="flip-toc-item">
+      <span class="flip-toc-num">${i.n}</span>
+      <span class="flip-toc-title">${i.t}</span>
+    </li>`
+  ).join('');
+
+  // Day 1
+  document.getElementById('day1-left').innerHTML = `
+    <span class="t4 page-label">Day One Morning</span>
+    <div class="schedule-rule"></div>
+    <h2 class="schedule-day-title">${day1.title}<br><span style="font-size:0.6em;color:var(--cac-mid-grey);">${day1.subtitle}</span></h2>
+    ${buildScheduleSide(day1.sessions, 'am')}
+    <div class="page-ornament">Morning — Day One</div>`;
+
+  document.getElementById('day1-right').innerHTML = `
+    <span class="t4 page-label">Day One Afternoon</span>
+    <div class="schedule-rule"></div>
+    ${buildScheduleSide(day1.sessions, 'pm')}
+    <div class="page-ornament">Afternoon — Day One</div>`;
+
+  // Day 2
+  document.getElementById('day2-left').innerHTML = `
+    <span class="t4 page-label">Day Two Morning</span>
+    <div class="schedule-rule"></div>
+    <h2 class="schedule-day-title">${day2.title}<br><span style="font-size:0.6em;color:var(--cac-mid-grey);">${day2.subtitle}</span></h2>
+    ${buildScheduleSide(day2.sessions, 'am')}
+    <div class="page-ornament">Morning — Day Two</div>`;
+
+  document.getElementById('day2-right').innerHTML = `
+    <span class="t4 page-label">Day Two Afternoon</span>
+    <div class="schedule-rule"></div>
+    ${buildScheduleSide(day2.sessions, 'pm')}
+    <div class="page-ornament">Afternoon — Day Two</div>`;
+
+  // Trainer page
+  document.getElementById('trainer-page-left').innerHTML = `
+    <img src="${t.image}" alt="${t.name}" class="trainer-flip-photo"
+         onerror="this.style.display='none'">
+    <span class="t4 page-label">About the Trainer</span>
+    <div class="trainer-flip-name">${t.name}</div>
+    <div class="trainer-flip-role t6">${t.role}</div>
+    <ul class="trainer-flip-creds">
+      ${t.credentials.map(c => `<li><span class="trainer-cred-dash">—</span><span>${c}</span></li>`).join('')}
+    </ul>
+    <div class="page-ornament">About the Trainer</div>`;
+
+  document.getElementById('trainer-page-right').innerHTML = `
+    <span class="t4 page-label" style="visibility:hidden;">—</span>
+    <div style="height:100%;display:flex;flex-direction:column;justify-content:space-between;">
+      <div>
+        <a href="/about/" class="t5" style="color:var(--cac-cold-red);text-decoration:none;display:block;margin-bottom:var(--cac-space-lg);">Full profile → /about/</a>
+      </div>
+      <div class="register-cta-box">
+        <span class="t4">Ready to join?</span>
+        <p class="t3" style="margin-bottom:var(--cac-space-md);">Secure your seat.</p>
+        <a href="/enquiry/" class="cta-btn" style="display:block;margin-bottom:var(--cac-space-sm);">Register Now</a>
+        <a href="/" class="cta-btn cta-btn-outline" style="display:block;">← Back to Programme</a>
+      </div>
+      <div class="page-ornament">Sales For Technical &amp; Non-Sales Professionals</div>
+    </div>`;
+}
+
+// ── SOCIAL PROOF ──────────────────────────────────────────────────────────────
+function renderProof() {
+  const grid = document.getElementById('proof-grid');
+  grid.innerHTML = CONFIG.testimonials.map(t => {
+    if (t.placeholder) {
+      return `<div class="proof-card proof-placeholder">
+        <p class="proof-quote">Testimonial coming soon.<br>Be among the first cohort.</p>
+      </div>`;
+    }
+    return `<div class="proof-card">
+      <p class="proof-quote">"${t.quote}"</p>
+      <div class="proof-name">${t.name}</div>
+      <div class="proof-role">${t.role}</div>
+    </div>`;
+  }).join('');
+}
+
+// ── CTA EVENT DETAILS ─────────────────────────────────────────────────────────
+function renderCTADetails() {
+  document.getElementById('cta-date').textContent = CONFIG.event.date;
+  document.getElementById('cta-time').textContent = CONFIG.event.time;
+  document.getElementById('cta-city').textContent = CONFIG.event.city;
+  document.getElementById('cta-org').textContent  = CONFIG.event.organizer;
+}
+
+// ── LEAD CAPTURE ──────────────────────────────────────────────────────────────
+function submitStay() {
+  const name  = document.getElementById('stay-name').value.trim();
+  const email = document.getElementById('stay-email').value.trim();
+  if (!email || !email.includes('@')) {
+    document.getElementById('stay-email').focus();
+    return;
+  }
+  // POST to Cloudflare Worker endpoint — replace URL when worker is deployed
+  fetch('https://cac-leads.clarityawarenesscoaching.workers.dev/notify', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ name, email, source: 'pricing-page', ts: new Date().toISOString() })
+  }).catch(() => {}); // Silent fail — show success regardless for UX
+  document.getElementById('stay-form-wrap').style.display = 'none';
+  document.getElementById('stay-success').classList.add('visible');
+}
+
+// ── MODALS ────────────────────────────────────────────────────────────────────
+function openModal(id) {
+  document.getElementById(id).classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeModal(id) {
+  document.getElementById(id).classList.remove('open');
+  document.body.style.overflow = '';
+}
+function closeModalOutside(e, id) {
+  if (e.target === document.getElementById(id)) closeModal(id);
+}
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') {
+    document.querySelectorAll('.modal-overlay.open').forEach(m => {
+      m.classList.remove('open');
+      document.body.style.overflow = '';
+    });
+  }
+});
+
+// ── INIT ──────────────────────────────────────────────────────────────────────
+document.addEventListener('DOMContentLoaded', () => {
+  checkEarlyBird();
+  renderAnnouncements();
+  renderFlipbook();
+  renderProof();
+  renderCTADetails();
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FAQ — Sales For Technical & Non-Sales Professionals · CAC</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --cac-near-black:    #141414;
+      --cac-ink:           #1F1F1F;
+      --cac-surface-white: #F8F7F4;
+      --cac-mid-grey:      #8A8A8A;
+      --cac-light-grey:    #E2E0DC;
+      --cac-cold-red:      #C0392B;
+      --cac-system-blue:   #1A3A5C;
+      --cac-font-editorial:'Cormorant Garamond', Georgia, serif;
+      --cac-font-mono:     'JetBrains Mono', 'Courier New', monospace;
+      --cac-space-xs:  8px;
+      --cac-space-sm:  16px;
+      --cac-space-md:  32px;
+      --cac-space-lg:  64px;
+      --cac-space-xl:  120px;
+      --cac-max-width: 1280px;
+      --cac-reading-col: 680px;
+    }
+    *, *::before, *::after { box-sizing:border-box; margin:0; padding:0; }
+    html { scroll-behavior:smooth; }
+    body {
+      background: var(--cac-surface-white);
+      color: var(--cac-ink);
+      font-family: var(--cac-font-mono);
+      font-size: 13px; font-weight:300; line-height:1.8;
+      -webkit-font-smoothing: antialiased;
+    }
+    .t1 { font-family:var(--cac-font-editorial); font-size:clamp(48px,8vw,96px); font-weight:300; letter-spacing:-0.02em; line-height:1.0; }
+    .t2 { font-family:var(--cac-font-editorial); font-size:clamp(28px,4vw,52px); font-weight:300; letter-spacing:-0.01em; line-height:1.1; }
+    .t4 { font-family:var(--cac-font-mono); font-size:10px; font-weight:500; letter-spacing:0.22em; line-height:1.6; text-transform:uppercase; }
+    .t5 { font-family:var(--cac-font-mono); font-size:13px; font-weight:300; line-height:1.8; }
+    .t6 { font-family:var(--cac-font-mono); font-size:11px; font-weight:300; line-height:1.6; color:var(--cac-mid-grey); }
+    .container { max-width:var(--cac-max-width); margin:0 auto; padding:0 var(--cac-space-xl); }
+    section { padding:var(--cac-space-lg) 0; }
+    section + section { border-top:1px solid var(--cac-light-grey); }
+    .section-label { display:block; color:var(--cac-cold-red); margin-bottom:var(--cac-space-md); }
+
+    /* ── NAV ── */
+    .site-nav {
+      background:var(--cac-near-black);
+      padding:var(--cac-space-md) var(--cac-space-xl);
+      display:flex; justify-content:space-between; align-items:center;
+      border-bottom:1px solid #1e1e1e;
+      position:sticky; top:0; z-index:100;
+    }
+    .nav-logo { font-family:var(--cac-font-editorial); color:var(--cac-surface-white); font-size:15px; font-weight:300; letter-spacing:0.12em; text-transform:uppercase; line-height:1.4; text-decoration:none; }
+    .nav-logo span { display:block; font-family:var(--cac-font-mono); font-size:10px; letter-spacing:0.22em; color:var(--cac-mid-grey); margin-top:4px; text-transform:uppercase; }
+    .nav-links { display:flex; gap:var(--cac-space-md); align-items:center; }
+    .nav-link { font-family:var(--cac-font-mono); font-size:10px; letter-spacing:0.2em; text-transform:uppercase; color:var(--cac-mid-grey); text-decoration:none; transition:color 0.15s; }
+    .nav-link:hover { color:var(--cac-cold-red); }
+    .nav-link.active { color:var(--cac-surface-white); }
+
+    /* ── PAGE HEADER ── */
+    #page-header { background:var(--cac-near-black); border-bottom:none; padding:var(--cac-space-xl) 0 var(--cac-space-lg); }
+    .page-header-inner { display:grid; grid-template-columns:5fr 7fr; gap:var(--cac-space-lg); align-items:end; }
+    .header-title { color:var(--cac-surface-white); margin-bottom:var(--cac-space-md); }
+    .header-intro { color:#b8b5ae; max-width:420px; }
+    .header-clusters { display:flex; flex-wrap:wrap; gap:8px; }
+    .cluster-chip {
+      padding:7px 16px; border:1px solid #333; background:none;
+      font-family:var(--cac-font-mono); font-size:10px; letter-spacing:0.18em; text-transform:uppercase;
+      color:var(--cac-mid-grey); cursor:pointer; transition:all 0.15s; text-decoration:none; display:inline-block;
+    }
+    .cluster-chip:hover, .cluster-chip.active { border-color:var(--cac-cold-red); color:var(--cac-surface-white); }
+
+    /* ── FAQ ROWS ── */
+    .faq-cluster { margin-bottom:var(--cac-space-lg); }
+    .faq-cluster:last-child { margin-bottom:0; }
+    .faq-cluster-label {
+      display:flex; align-items:center; gap:var(--cac-space-sm);
+      margin-bottom:var(--cac-space-md);
+      padding-bottom:var(--cac-space-sm);
+      border-bottom:2px solid var(--cac-cold-red);
+    }
+    .faq-cluster-num { color:var(--cac-cold-red); }
+    .faq-cluster-title { font-family:var(--cac-font-editorial); font-size:24px; font-weight:300; color:var(--cac-ink); }
+
+    .faq-item { border-bottom:1px solid var(--cac-light-grey); }
+    .faq-item:first-of-type { border-top:none; }
+    .faq-q {
+      display:grid; grid-template-columns:1fr auto;
+      gap:var(--cac-space-md); align-items:center;
+      padding:var(--cac-space-sm) 0;
+      cursor:pointer; user-select:none;
+      background:none; border:none; width:100%; text-align:left;
+    }
+    .faq-q:hover .faq-q-text { color:var(--cac-cold-red); }
+    .faq-q-text { font-family:var(--cac-font-editorial); font-size:19px; font-weight:300; color:var(--cac-ink); line-height:1.3; transition:color 0.15s; }
+    .faq-q-icon { color:var(--cac-cold-red); font-family:var(--cac-font-mono); font-size:16px; transition:transform 0.25s; flex-shrink:0; }
+    .faq-item.open .faq-q-icon { transform:rotate(45deg); }
+    .faq-a {
+      max-height:0; overflow:hidden;
+      transition:max-height 0.35s cubic-bezier(0.4,0,0.2,1), padding 0.25s;
+      padding:0 0 0 0;
+    }
+    .faq-item.open .faq-a { max-height:800px; padding-bottom:var(--cac-space-md); }
+    .faq-a-inner { color:var(--cac-mid-grey); font-size:13px; line-height:1.9; padding-left:0; border-left:2px solid var(--cac-light-grey); padding-left:var(--cac-space-md); }
+    .faq-a-inner p { margin-bottom:10px; }
+    .faq-a-inner p:last-child { margin-bottom:0; }
+    .faq-a-inner a { color:var(--cac-cold-red); text-decoration:none; }
+    .faq-a-inner a:hover { text-decoration:underline; }
+    .faq-a-highlight { background:#faf9f6; border-left:2px solid var(--cac-cold-red); padding:var(--cac-space-sm) var(--cac-space-md); margin:var(--cac-space-sm) 0; }
+    .faq-a-highlight p { margin-bottom:0; }
+
+    /* ── STILL HAVE QUESTIONS ── */
+    #contact-strip { background:var(--cac-near-black); border-top:none; }
+    .contact-strip-inner { display:grid; grid-template-columns:1fr 1fr; gap:var(--cac-space-lg); align-items:center; }
+    .contact-strip-heading { font-family:var(--cac-font-editorial); font-size:clamp(24px,3vw,40px); font-weight:300; color:var(--cac-surface-white); margin-bottom:var(--cac-space-sm); }
+    .contact-strip-sub { color:#b8b5ae; margin-bottom:var(--cac-space-md); }
+    .contact-detail { display:flex; gap:12px; padding:10px 0; border-bottom:1px solid #252525; font-size:12px; color:#b8b5ae; }
+    .contact-detail:last-child { border-bottom:none; }
+    .contact-detail-label { color:var(--cac-mid-grey); font-family:var(--cac-font-mono); font-size:10px; letter-spacing:0.15em; text-transform:uppercase; width:60px; flex-shrink:0; }
+    .cta-btn { display:inline-block; padding:12px var(--cac-space-md); background:var(--cac-cold-red); color:var(--cac-surface-white); font-family:var(--cac-font-mono); font-size:10px; font-weight:500; letter-spacing:0.22em; text-transform:uppercase; text-decoration:none; border:none; cursor:pointer; transition:opacity 0.15s; }
+    .cta-btn:hover { opacity:0.85; }
+    .cta-btn-outline { background:none; border:1px solid var(--cac-cold-red); color:var(--cac-cold-red); }
+    .cta-btn-outline:hover { background:var(--cac-cold-red); color:#fff; opacity:1; }
+
+    /* ── EVENT BAR ── */
+    .event-bar { background:var(--cac-near-black); border-top:1px solid #1e1e1e; padding:var(--cac-space-md) var(--cac-space-xl); display:grid; grid-template-columns:repeat(5,1fr); gap:var(--cac-space-md); }
+    .event-bar-label { display:block; font-family:var(--cac-font-mono); font-size:10px; letter-spacing:0.2em; text-transform:uppercase; color:var(--cac-mid-grey); margin-bottom:5px; }
+    .event-bar-value { font-family:var(--cac-font-editorial); font-size:15px; font-weight:300; color:var(--cac-surface-white); }
+    footer { background:var(--cac-near-black); border-top:1px solid #1a1a1a; padding:var(--cac-space-md) var(--cac-space-xl); display:flex; justify-content:space-between; align-items:center; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width:900px) {
+      :root { --cac-space-xl:32px; --cac-space-lg:48px; }
+      .site-nav { padding:var(--cac-space-sm) 24px; }
+      .nav-links .nav-link:not(:last-child) { display:none; }
+      .page-header-inner { grid-template-columns:1fr; }
+      .contact-strip-inner { grid-template-columns:1fr; }
+      .event-bar { grid-template-columns:1fr 1fr; padding:var(--cac-space-md) 24px; }
+      footer { padding:var(--cac-space-md) 24px; flex-direction:column; gap:10px; }
+    }
+    @media (max-width:480px) {
+      .event-bar { grid-template-columns:1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="site-nav">
+  <a href="/" class="nav-logo">
+    Clarity Awareness
+    <span>Cognitive Architecture Systems</span>
+  </a>
+  <div class="nav-links">
+    <a href="/" class="nav-link">Programme</a>
+    <a href="/about/" class="nav-link">About</a>
+    <a href="/articles/" class="nav-link">Articles</a>
+    <a href="/pricing/" class="nav-link">Pricing</a>
+    <a href="/register/" class="nav-link">Register</a>
+    <a href="/faq/" class="nav-link active">FAQ</a>
+  </div>
+</nav>
+
+<!-- PAGE HEADER -->
+<section id="page-header">
+  <div class="container">
+    <div class="page-header-inner">
+      <div>
+        <span class="t4 section-label">Frequently Asked Questions</span>
+        <h1 class="t2 header-title">Everything you<br>need to know.</h1>
+        <p class="t5 header-intro">If something is not answered here, contact the organiser directly from the homepage.</p>
+      </div>
+      <div>
+        <div style="margin-bottom:var(--cac-space-sm);">
+          <span class="t4" style="color:var(--cac-mid-grey);display:block;margin-bottom:var(--cac-space-sm);">Jump to section</span>
+        </div>
+        <div class="header-clusters">
+          <a href="#pricing-payment" class="cluster-chip">Pricing & Payment</a>
+          <a href="#programme" class="cluster-chip">The Programme</a>
+          <a href="#logistics" class="cluster-chip">Logistics</a>
+          <a href="#companies" class="cluster-chip">Companies & L&D</a>
+          <a href="#training-providers" class="cluster-chip">Training Providers</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ BODY -->
+<section id="faq-body">
+  <div class="container">
+
+    <!-- CLUSTER 1: PRICING & PAYMENT -->
+    <div class="faq-cluster" id="pricing-payment">
+      <div class="faq-cluster-label">
+        <span class="t4 faq-cluster-num">01</span>
+        <span class="faq-cluster-title">Pricing &amp; Payment</span>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFAQ(this)">
+          <span class="faq-q-text">What is the difference between early bird and standard pricing?</span>
+          <span class="faq-q-icon">+</span>
+        </button>
+        <div class="faq-a">
+          <div class="faq-a-inner">
+            <p>Early bird pricing is available until 30 days before the training date. Once that window closes, standard pricing applies automatically. The early bird rates are: RM2,800 per person (vs RM3,500), RM5,200 for two (vs RM6,600), and RM11,000 for five or more (vs RM15,000).</p>
+            <p>Early bird pricing is not available for in-house training, which is priced separately at RM22,000 for the full programme.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFAQ(this)">
+          <span class="faq-q-text">How many participants can one organisation send to public training?</span>
+          <span class="faq-q-icon">+</span>
+        </button>
+        <div class="faq-a">
+          <div class="faq-a-inner">
+            <p>One organisation is limited to 7 participants per public training cohort. This ensures the programme dynamic is preserved — a mix of industries and perspectives is part of how participants learn from one another.</p>
+            <p>If you need to train more than 7 from your organisation, <a href="/register/">in-house training</a> is the appropriate option.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFAQ(this)">
+          <span class="faq-q-text">What payment methods are accepted?</span>
+          <span class="faq-q-icon">+</span>
+        </button>
+        <div class="faq-a">
+          <div class="faq-a-inner">
+            <p>Payment is processed securely via Stripe. Two options are available at checkout:</p>
+            <div class="faq-a-highlight"><p>Credit or debit card (Visa, Mastercard) · Online bank transfer via FPX (Malaysian bank accounts)</p></div>
+            <p>An official invoice will be issued upon payment confirmation, suitable for company expense and tax deduction records.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFAQ(this)">
+          <span class="faq-q-text">Can I get an invoice for my company?</span>
+          <span class="faq-q-icon">+</span>
+        </button>
+        <div class="faq-a">
+          <div class="faq-a-inner">
+            <p>Yes. An official invoice is issued automatically upon registration. If your company requires a formal purchase order (PO) process before payment, contact the organiser directly via the homepage before registering.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFAQ(this)">
+          <span class="faq-q-text">What is the refund and cancellation policy?</span>
+          <span class="faq-q-icon">+</span>
+        </button>
+        <div class="faq-a">
+          <div class="faq-a-inner">
+            <p>A 50% refund is available if requested in writing no less than 30 days before the event date. No refunds are issued for requests made within 30 days, no-shows, or change of mind.</p>
+            <p>Your ticket is fully transferable to another participant — we encourage this as the first option before requesting a refund. You may resell at any price, including above what you paid.</p>
+            <p>For emergencies, you may also carry your ticket forward to a future training date, subject to availability.</p>
+            <p>Full policy: <a href="/pricing/" onclick="setTimeout(()=>{ if(window.openModal) openModal('modal-refund'); }, 300); return true;">Refund &amp; Ticket Policy →</a></p>
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFAQ(this)">
+          <span class="faq-q-text">Is there a satisfaction guarantee?</span>
+          <span class="faq-q-icon">+</span>
+        </button>
+        <div class="faq-a">
+          <div class="faq-a-inner">
+            <p>Yes. If you attend the morning session on Day One and find it genuinely not what you expected, you may request a refund before the lunch break.</p>
+            <div class="faq-a-highlight">
+              <p>The refund amount is your ticket price minus RM1,299, which covers venue, catering, and proprietary materials at cost. This is a live training event with upfront logistics commitments — not a product. We apologise that a full refund is not possible for this reason.</p>
+            </div>
+            <p>Full terms: <a href="/pricing/" onclick="setTimeout(()=>{ if(window.openModal) openModal('modal-guarantee'); }, 300); return true;">Satisfaction Guarantee →</a></p>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /cluster 1 -->
+
+
+    <!-- CLUSTER 2: THE PROGRAMME -->
+    <div class="faq-cluster" id="programme">
+      <div class="faq-cluster-label">
+        <span class="t4 faq-cluster-num">02</span>
+        <span class="faq-cluster-title">The Programme</span>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFAQ(this)">
+          <span class="faq-q-text">What exactly is covered in the two days?</span>
+          <span class="faq-q-icon">+</span>
+        </button>
+        <div class="faq-a">
+          <div class="faq-a-inner">
+            <p>The programme covers four modules: (1) Unblock Your Revenue — identifying and dissolving the 5 Hidden Blocks in sales. (2) The 4E Framework — a diagnostic, logic-based system for reading buyer psychology and structuring every sales conversation. (3) Your Authentic Selling Blueprint — building your personal language infrastructure for proposals, pitches, and positioning. (4) The Inner & Outer Game of Closing — confidence, conversation structure, and sustainable sales practice.</p>
+            <p>See the full day-by-day schedule on the <a href="/pricing/">pricing and schedule page</a>.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFAQ(this)">
+          <span class="faq-q-text">Is this sales training? I have done sales training before and it did not work.</span>
+          <span class="faq-q-icon">+</span>
+        </button>
+        <div class="faq-a">
+          <div class="faq-a-inner">
+            <p>Most sales training is built by and for people from sales backgrounds. It assumes persuasion is the mechanism and performance is the standard. This programme is built specifically for analytical, integrity-driven professionals who found that model incompatible with how they think.</p>
+            <p>The methodology is diagnostic before it is action-oriented. It mirrors the problem-solving frameworks technical professionals already trust. There are no scripts, no enthusiasm tactics, and no requirement to become someone you are not.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFAQ(this)">
+          <span class="faq-q-text">Who is this programme for?</span>
+          <span class="faq-q-icon">+</span>
+        </button>
+        <div class="faq-a">
+          <div class="faq-a-inner">
+            <p>Engineers, consultants, analysts, IT professionals, subject matter experts, freelancers, agency professionals, healthcare practitioners, legal and accounting professionals, trainers, academics commercialising research — anyone in a role where a conversation with a prospect or client could result in them walking away without committing.</p>
+            <p>Full profile on the <a href="/">programme page</a> under "Who This Is For."</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFAQ(this)">
+          <span class="faq-q-text">What do participants leave with?</span>
+          <span class="faq-q-icon">+</span>
+        </button>
+        <div class="faq-a">
+          <div class="faq-a-inner">
+            <p>A complete, working mental model for sales conversations. The 4E Framework as a repeatable diagnostic tool. A personal Authentic Selling Blueprint — your own language, not a script. Clarity on the inner blocks that were costing you, and a method to address them. Proprietary course materials included.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFAQ(this)">
+          <span class="faq-q-text">Is there post-training support?</span>
+          <span class="faq-q-icon">+</span>
+        </button>
+        <div class="faq-a">
+          <div class="faq-a-inner">
+            <p>The programme is designed to be immediately applicable without post-training hand-holding. The materials and frameworks are built for self-directed use. Follow Lovinia on <a href="https://facebook.com/clarityawarenesscoaching" target="_blank" rel="noopener">Facebook</a> or <a href="https://linkedin.com/in/loviniamak" target="_blank" rel="noopener">LinkedIn</a> for ongoing content.</p>
+            <p>Private coaching engagements are available separately. Contact the organiser if relevant.</p>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /cluster 2 -->
+
+
+    <!-- CLUSTER 3: LOGISTICS -->
+    <div class="faq-cluster" id="logistics">
+      <div class="faq-cluster-label">
+        <span class="t4 faq-cluster-num">03</span>
+        <span class="faq-cluster-title">Logistics</span>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFAQ(this)">
+          <span class="faq-q-text">Where is the training held?</span>
+          <span class="faq-q-icon">+</span>
+        </button>
+        <div class="faq-a">
+          <div class="faq-a-inner">
+            <p>The city is confirmed: <strong>Penang Island</strong>. The specific venue will be confirmed a minimum of 7 days before the training date. Registered participants will be notified directly.</p>
+            <p>Venue selection is finalised closer to the date to ensure quality and appropriate capacity. This is communicated proactively — you will not need to chase.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFAQ(this)">
+          <span class="faq-q-text">What are the training hours?</span>
+          <span class="faq-q-icon">+</span>
+        </button>
+        <div class="faq-a">
+          <div class="faq-a-inner">
+            <p>9:00am to 5:00pm both days. Morning break at 10:30am. Lunch 1:00–2:00pm. Afternoon break at 3:30pm. Participants are expected to attend the full programme for both days.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFAQ(this)">
+          <span class="faq-q-text">Is lunch and refreshments included?</span>
+          <span class="faq-q-icon">+</span>
+        </button>
+        <div class="faq-a">
+          <div class="faq-a-inner">
+            <p>Yes. Lunch and refreshments during morning and afternoon breaks are included as part of the training programme. Dietary requirements can be noted at registration.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFAQ(this)">
+          <span class="faq-q-text">What if I can only attend one day?</span>
+          <span class="faq-q-icon">+</span>
+        </button>
+        <div class="faq-a">
+          <div class="faq-a-inner">
+            <p>The programme is designed as a complete two-day arc. Day One builds the foundation; Day Two is application and integration. Attending only one day would significantly reduce the value of the programme.</p>
+            <p>If your schedule is genuinely uncertain, a ticket transfer or future-date attendance is the better option. See the <a href="#pricing-payment">refund and transfer policy above</a>.</p>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /cluster 3 -->
+
+
+    <!-- CLUSTER 4: COMPANIES & L&D -->
+    <div class="faq-cluster" id="companies">
+      <div class="faq-cluster-label">
+        <span class="t4 faq-cluster-num">04</span>
+        <span class="faq-cluster-title">Companies &amp; L&amp;D Buyers</span>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFAQ(this)">
+          <span class="faq-q-text">Is training fee tax-deductible for my company?</span>
+          <span class="faq-q-icon">+</span>
+        </button>
+        <div class="faq-a">
+          <div class="faq-a-inner">
+            <p>Yes. Training expenditure is deductible under Malaysian income tax provisions (double deduction applicable where qualifying criteria are met). An official invoice is issued upon registration and is suitable for company tax records. Consult your company's tax advisor for specific applicability.</p>
+            <div class="faq-a-highlight"><p>Companies that pay directly — rather than routing through HRDC grant applications — typically complete their compliance obligations faster and with significantly less administrative overhead.</p></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFAQ(this)">
+          <span class="faq-q-text">What about HRDC? Can we claim this under HRDF/HRD Corp?</span>
+          <span class="faq-q-icon">+</span>
+        </button>
+        <div class="faq-a">
+          <div class="faq-a-inner">
+            <p>This programme is not currently listed as HRDC claimable. HRDC-claimable programmes require advance grant approval (minimum 15 days prior to training) and are processed through registered Training Providers — a model that introduces significant scheduling and payment lead time for all parties.</p>
+            <p>For most companies, the tax deductibility route is more efficient: payment is direct, invoice is immediate, and the administrative cycle is days rather than months. If HRDC grant funding is a firm requirement for your organisation, contact the organiser on the <a href="/">homepage</a> to discuss future options.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFAQ(this)">
+          <span class="faq-q-text">We want to send our whole team. What is the best option?</span>
+          <span class="faq-q-icon">+</span>
+        </button>
+        <div class="faq-a">
+          <div class="faq-a-inner">
+            <p>If you are sending 8 or more participants, in-house training is almost certainly the better value at RM22,000 for the full programme — delivered at your premises, customisable to your team's context.</p>
+            <p>Public training is capped at 7 participants per organisation per cohort. For teams of 5–7, the group rate (RM15,000, or RM11,000 early bird) applies. <a href="/register/">Contact us</a> to discuss the right option.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFAQ(this)">
+          <span class="faq-q-text">Can the programme be customised for our industry or context?</span>
+          <span class="faq-q-icon">+</span>
+        </button>
+        <div class="faq-a">
+          <div class="faq-a-inner">
+            <p>Customisation is available for in-house training only. The core frameworks (4E, Authentic Selling Blueprint, Hidden Blocks) remain intact — they are proprietary and methodology-specific — but examples, case studies, and application exercises can be calibrated to your team's industry and selling context.</p>
+            <p>Public training follows a fixed programme to maintain cohort consistency.</p>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /cluster 4 -->
+
+
+    <!-- CLUSTER 5: TRAINING PROVIDERS -->
+    <div class="faq-cluster" id="training-providers">
+      <div class="faq-cluster-label">
+        <span class="t4 faq-cluster-num">05</span>
+        <span class="faq-cluster-title">Training Providers</span>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFAQ(this)">
+          <span class="faq-q-text">We are a Training Provider. Can we send participants to this event?</span>
+          <span class="faq-q-icon">+</span>
+        </button>
+        <div class="faq-a">
+          <div class="faq-a-inner">
+            <p>Collaboration with Training Providers who wish to send participants to public training events is something we are open to in the future. If you represent a Training Provider and are interested in a working arrangement, contact the organiser directly via the <a href="/">homepage</a>.</p>
+            <p>At present, HRDC-claimable grant applications are not being processed through this programme.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFAQ(this)">
+          <span class="faq-q-text">Can we license or white-label this programme?</span>
+          <span class="faq-q-icon">+</span>
+        </button>
+        <div class="faq-a">
+          <div class="faq-a-inner">
+            <p>The 4E Framework, Authentic Selling Blueprint, and Buying Psychology Profiling System are proprietary to Clarity Awareness Cognitive Architecture Systems. Licensing arrangements are not currently offered. Contact the organiser on the <a href="/">homepage</a> if you have a specific proposal to discuss.</p>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /cluster 5 -->
+
+  </div>
+</section>
+
+<!-- STILL HAVE QUESTIONS -->
+<section id="contact-strip">
+  <div class="container">
+    <div class="contact-strip-inner">
+      <div>
+        <span class="t4 section-label">Still Have Questions?</span>
+        <h2 class="contact-strip-heading">We answer<br>every enquiry.</h2>
+        <p class="t5 contact-strip-sub">Use the contact details on the homepage. Responses within one business day.</p>
+        <div style="display:flex;gap:var(--cac-space-sm);flex-wrap:wrap;margin-top:var(--cac-space-sm);">
+          <a href="/" class="cta-btn">Contact on Homepage</a>
+          <a href="/register/" class="cta-btn cta-btn-outline">Register Now</a>
+        </div>
+      </div>
+      <div>
+        <div class="contact-detail">
+          <span class="contact-detail-label">Email</span>
+          <span style="color:#b8b5ae;">lovinia@techmavie.digital</span>
+        </div>
+        <div class="contact-detail">
+          <span class="contact-detail-label">Phone</span>
+          <span style="color:#b8b5ae;">+60 18 4012108</span>
+        </div>
+        <div class="contact-detail">
+          <span class="contact-detail-label">Policies</span>
+          <span>
+            <a href="/pricing/" style="color:var(--cac-cold-red);text-decoration:none;font-size:11px;display:block;">Refund &amp; Ticket Policy →</a>
+            <a href="/privacy-policy/" style="color:var(--cac-cold-red);text-decoration:none;font-size:11px;display:block;margin-top:4px;">Privacy Policy →</a>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EVENT BAR -->
+<div class="event-bar">
+  <div>
+    <span class="event-bar-label">Programme</span>
+    <div class="event-bar-value"><a href="/" style="color:var(--cac-surface-white);text-decoration:none;">Programme →</a></div>
+  </div>
+  <div>
+    <span class="event-bar-label">About</span>
+    <div class="event-bar-value"><a href="/about/" style="color:var(--cac-surface-white);text-decoration:none;">Lovinia Mak →</a></div>
+  </div>
+  <div>
+    <span class="event-bar-label">Pricing</span>
+    <div class="event-bar-value"><a href="/pricing/" style="color:var(--cac-surface-white);text-decoration:none;">Pricing →</a></div>
+  </div>
+  <div>
+    <span class="event-bar-label">Articles</span>
+    <div class="event-bar-value"><a href="/articles/" style="color:var(--cac-surface-white);text-decoration:none;">Knowledge Archive →</a></div>
+  </div>
+  <div>
+    <span class="event-bar-label">Register</span>
+    <div class="event-bar-value"><a href="/register/" style="color:var(--cac-surface-white);text-decoration:none;">Register Now →</a></div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="t6">Clarity Awareness Cognitive Architecture Systems</div>
+  <div class="t6" style="display:flex;gap:var(--cac-space-md);">
+    <a href="/" style="color:var(--cac-mid-grey);text-decoration:none;">Programme</a>
+    <a href="/about/" style="color:var(--cac-mid-grey);text-decoration:none;">About</a>
+    <a href="/pricing/" style="color:var(--cac-mid-grey);text-decoration:none;">Pricing</a>
+    <a href="/privacy-policy/" style="color:var(--cac-mid-grey);text-decoration:none;">Privacy Policy</a>
+  </div>
+  <div class="t6">Clarity Awareness CAS · Penang</div>
+</footer>
+
+<script>
+function toggleFAQ(btn) {
+  const item = btn.closest('.faq-item');
+  const isOpen = item.classList.contains('open');
+  // Close all
+  document.querySelectorAll('.faq-item.open').forEach(i => i.classList.remove('open'));
+  // Open if was closed
+  if (!isOpen) item.classList.add('open');
+}
+</script>
+</body>
+</html>
