@@ -1,0 +1,6 @@
+{
+  "tags": "articles",
+  "eleventyComputed": {
+    "eleventyExcludeFromCollections": "data => data.page.filePathStem.endsWith('/index')"
+  }
+}

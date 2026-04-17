@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Articles — CAC</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --cac-near-black: #141414;
+      --cac-surface-white: #F8F7F4;
+      --cac-mid-grey: #8A8A8A;
+      --cac-cold-red: #C0392B;
+      --cac-font-editorial: 'Cormorant Garamond', Georgia, serif;
+      --cac-font-mono: 'JetBrains Mono', monospace;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: var(--cac-near-black);
+      color: var(--cac-surface-white);
+      font-family: var(--cac-font-mono);
+      overflow-x: hidden;
+      min-height: 100vh;
+    }
+    .site-nav { border-bottom: 1px solid #1e1e1e; padding: 16px 32px; display: flex; align-items: center; justify-content: space-between; }
+    .catalogue-header { padding: 64px 64px 32px; border-bottom: 1px solid #1e1e1e; }
+    .catalogue-label { font-size: 9px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--cac-cold-red); display: block; margin-bottom: 16px; }
+    .catalogue-title { font-family: var(--cac-font-editorial); font-size: 80px; font-weight: 300; line-height: 1.0; }
+
+    .carousel-section { padding: 60px 0; position: relative; overflow: hidden; }
+    
+    /* The "Ribbon" Container */
+    .carousel-outer {
+      width: 100%;
+      height: 600px;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      scrollbar-width: none;
+      display: flex;
+      align-items: center;
+      /* Padding ensures the "active" zone is hit for clones too */
+      padding: 0 calc(50vw - 150px);
+      scroll-behavior: auto; /* Managed by JS for loops */
+    }
+    .carousel-outer::-webkit-scrollbar { display: none; }
+
+    .carousel-track {
+      display: flex;
+      gap: 80px;
+      align-items: center;
+    }
+
+    .card {
+      flex: 0 0 300px;
+      height: 400px;
+      background: #1a1a1a;
+      border: 1px solid #222;
+      text-decoration: none;
+      scroll-snap-align: center;
+      transform: scale(0.85);
+      filter: brightness(0.2);
+      transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1), 
+                  filter 0.6s ease, 
+                  border-color 0.6s ease,
+                  box-shadow 0.6s ease;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .card.active { 
+      transform: scale(1.2) !important; 
+      filter: brightness(1) !important; 
+      z-index: 10; 
+      border-color: rgba(255, 255, 255, 0.8); 
+      box-shadow: 
+        0 0 15px rgba(255, 255, 255, 0.2), 
+        0 0 30px rgba(255, 255, 255, 0.15), 
+        0 0 60px rgba(255, 255, 255, 0.1), 
+        0 30px 100px rgba(0, 0, 0, 0.9);
+    }
+    
+    .card-visual { width: 100%; height: 55%; background: #000; overflow: hidden; }
+    .card-visual img { width: 100%; height: 100%; object-fit: cover; }
+    .card-body { padding: 24px; flex-grow: 1; border-top: 1px solid #222; }
+    .card-title { font-family: var(--cac-font-editorial); font-size: 18px; color: white; line-height: 1.3; }
+    .card-teaser { font-size: 10px; color: var(--cac-mid-grey); margin-top: 8px; line-height: 1.5; }
+
+    .carousel-controls { display: flex; align-items: center; justify-content: center; gap: 24px; margin-top: 40px; }
+    .carr-btn { background: none; border: 1px solid #2a2a2a; color: var(--cac-mid-grey); width: 44px; height: 44px; cursor: pointer; transition: 0.3s; }
+    .carr-btn:hover { border-color: white; color: white; }
+    .carr-dots { display: flex; gap: 8px; }
+    .carr-dot { width: 4px; height: 4px; background: #2a2a2a; border-radius: 50%; cursor: pointer; transition: 0.3s; }
+    .carr-dot.active { background: var(--cac-cold-red); width: 20px; border-radius: 2px; }
+  </style>
+</head>
+<body>
+  <nav class="site-nav"><a href="/"><img src="/assets/img/logo.png" style="height:30px;" alt="CAC"></a></nav>
+  <div class="catalogue-header">
+    <span class="catalogue-label">Reading Room</span>
+    <h1 class="catalogue-title">Articles</h1>
+  </div>
+
+  <div class="carousel-section">
+    <div class="carousel-outer" id="scroll-container">
+      <div class="carousel-track" id="carousel-track"></div>
+    </div>
+    <div class="carousel-controls">
+      <button class="carr-btn" id="btn-prev">←</button>
+      <div class="carr-dots" id="carr-dots"></div>
+      <button class="carr-btn" id="btn-next">→</button>
+    </div>
+  </div>
+
+  <script>
+    const ARTICLES = [
+      {% for art in collections.articles %}
+      { title: "{{ art.data.title }}", teaser: "{{ art.data.title }}", slug: "{{ art.url }}", image: "{{ art.data.panel_image }}" }{% if not loop.last %},{% endif %}
+      {% endfor %}
+    ];
+
+    (function() {
+      const container = document.getElementById('scroll-container');
+      const track = document.getElementById('carousel-track');
+      const dotsWrap = document.getElementById('carr-dots');
+      
+      const realCount = ARTICLES.length;
+      
+      // CREATE DOTS for real articles only
+      ARTICLES.forEach((_, i) => {
+        const dot = document.createElement('div');
+        dot.className = 'carr-dot';
+        dotsWrap.appendChild(dot);
+      });
+
+      // RIBBON LOGIC: Clone last 3 to front, first 3 to back
+      const clonesBefore = ARTICLES.slice(-3);
+      const clonesAfter = ARTICLES.slice(0, 3);
+      const fullList = [...clonesBefore, ...ARTICLES, ...clonesAfter];
+
+      fullList.forEach((art, i) => {
+        const card = document.createElement('a');
+        card.className = 'card';
+        card.href = art.slug;
+        card.innerHTML = `<div class="card-visual"><img src="${art.image}" onerror="this.style.display='none'"></div>
+          <div class="card-body"><div class="card-title">${art.title}</div><div class="card-teaser">${art.teaser}</div></div>`;
+        track.appendChild(card);
+      });
+
+      const allCards = document.querySelectorAll('.card');
+      const allDots = document.querySelectorAll('.carr-dot');
+      const cardWidth = 300 + 80; // Card + Gap
+
+      function updateFocus() {
+        const containerRect = container.getBoundingClientRect();
+        const centerLine = containerRect.left + (containerRect.width / 2);
+        
+        let closestIndex = 0;
+        let minDistance = Infinity;
+
+        allCards.forEach((card, i) => {
+          const rect = card.getBoundingClientRect();
+          const cardCenter = rect.left + (rect.width / 2);
+          const distance = Math.abs(centerLine - cardCenter);
+
+          if (distance < minDistance) {
+            minDistance = distance;
+            closestIndex = i;
+          }
+        });
+
+        // Loop Jump Check
+        const scrollLeft = container.scrollLeft;
+        const maxScroll = container.scrollWidth - container.clientWidth;
+
+        // Jump if at the "Fake" beginning or end
+        if (scrollLeft <= 5) {
+          container.scrollLeft = cardWidth * realCount;
+        } else if (scrollLeft >= maxScroll - 5) {
+          container.scrollLeft = cardWidth * 3;
+        }
+
+        // Map the focus to the correct Dot
+        let dotIndex = (closestIndex - 3) % realCount;
+        if (dotIndex < 0) dotIndex += realCount;
+
+        allCards.forEach((c, i) => c.classList.toggle('active', i === closestIndex));
+        allDots.forEach((d, i) => d.classList.toggle('active', i === dotIndex));
+      }
+
+      container.addEventListener('scroll', updateFocus);
+      
+      // Initialize at the first REAL article (index 3 because of clones)
+      window.onload = () => {
+        container.scrollLeft = cardWidth * 3;
+        setTimeout(updateFocus, 100);
+      };
+
+      document.getElementById('btn-next').onclick = () => {
+        container.scrollBy({ left: cardWidth, behavior: 'smooth' });
+      };
+      document.getElementById('btn-prev').onclick = () => {
+        container.scrollBy({ left: -cardWidth, behavior: 'smooth' });
+      };
+    })();
+  </script>
+</body>
+</html>

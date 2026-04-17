@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Register — Sales For Technical & Non-Sales Professionals · CAC</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --cac-near-black:    #141414;
+      --cac-ink:           #1F1F1F;
+      --cac-surface-white: #F8F7F4;
+      --cac-mid-grey:      #8A8A8A;
+      --cac-light-grey:    #E2E0DC;
+      --cac-cold-red:      #C0392B;
+      --cac-system-blue:   #1A3A5C;
+      --cac-font-editorial:'Cormorant Garamond', Georgia, serif;
+      --cac-font-mono:     'JetBrains Mono', 'Courier New', monospace;
+      --cac-space-xs:  8px;
+      --cac-space-sm:  16px;
+      --cac-space-md:  32px;
+      --cac-space-lg:  64px;
+      --cac-space-xl:  120px;
+      --cac-max-width: 1280px;
+      --cac-reading-col: 680px;
+    }
+    *, *::before, *::after { box-sizing:border-box; margin:0; padding:0; }
+    html { scroll-behavior:smooth; }
+    body { background:var(--cac-surface-white); color:var(--cac-ink); font-family:var(--cac-font-mono); font-size:13px; font-weight:300; line-height:1.8; -webkit-font-smoothing:antialiased; }
+    .t1 { font-family:var(--cac-font-editorial); font-size:clamp(48px,8vw,96px); font-weight:300; letter-spacing:-0.02em; line-height:1.0; }
+    .t2 { font-family:var(--cac-font-editorial); font-size:clamp(28px,4vw,52px); font-weight:300; letter-spacing:-0.01em; line-height:1.1; }
+    .t3 { font-family:var(--cac-font-editorial); font-size:clamp(20px,2.5vw,28px); font-weight:400; line-height:1.2; }
+    .t4 { font-family:var(--cac-font-mono); font-size:10px; font-weight:500; letter-spacing:0.22em; line-height:1.6; text-transform:uppercase; }
+    .t5 { font-family:var(--cac-font-mono); font-size:13px; font-weight:300; line-height:1.8; }
+    .t6 { font-family:var(--cac-font-mono); font-size:11px; font-weight:300; line-height:1.6; color:var(--cac-mid-grey); }
+    .container { max-width:var(--cac-max-width); margin:0 auto; padding:0 var(--cac-space-xl); }
+    section { padding:var(--cac-space-lg) 0; }
+    section + section { border-top:1px solid var(--cac-light-grey); }
+    .section-label { display:block; color:var(--cac-cold-red); margin-bottom:var(--cac-space-md); }
+
+    /* ── NAV ── */
+    .site-nav { background:var(--cac-near-black); padding:var(--cac-space-md) var(--cac-space-xl); display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid #1e1e1e; position:sticky; top:0; z-index:100; }
+    .nav-logo { font-family:var(--cac-font-editorial); color:var(--cac-surface-white); font-size:15px; font-weight:300; letter-spacing:0.12em; text-transform:uppercase; line-height:1.4; text-decoration:none; }
+    .nav-logo span { display:block; font-family:var(--cac-font-mono); font-size:10px; letter-spacing:0.22em; color:var(--cac-mid-grey); margin-top:4px; text-transform:uppercase; }
+    .nav-links { display:flex; gap:var(--cac-space-md); align-items:center; }
+    .nav-link { font-family:var(--cac-font-mono); font-size:10px; letter-spacing:0.2em; text-transform:uppercase; color:var(--cac-mid-grey); text-decoration:none; transition:color 0.15s; }
+    .nav-link:hover { color:var(--cac-cold-red); }
+    .nav-link.active { color:var(--cac-surface-white); }
+
+    /* ── URGENCY BANNER ── */
+    #urgency-banner { background:var(--cac-cold-red); padding:12px var(--cac-space-xl); display:flex; justify-content:space-between; align-items:center; }
+    #urgency-banner.expired { background:#333; }
+    #urgency-banner.hidden { display:none; }
+    .urgency-text { font-family:var(--cac-font-mono); font-size:10px; letter-spacing:0.2em; text-transform:uppercase; color:#fff; }
+    .urgency-timer { font-family:var(--cac-font-editorial); font-size:22px; color:#fff; font-weight:300; }
+
+    /* ── REGISTER HERO ── */
+    #reg-hero { background:var(--cac-near-black); border-bottom:none; padding:var(--cac-space-xl) 0 var(--cac-space-lg); }
+    .reg-hero-inner { display:grid; grid-template-columns:6fr 6fr; gap:var(--cac-space-lg); align-items:start; }
+    .hero-heading { color:var(--cac-surface-white); margin-bottom:var(--cac-space-md); }
+    .hero-tagline { color:#b8b5ae; max-width:420px; margin-bottom:var(--cac-space-lg); }
+    .event-pill-row { display:flex; flex-wrap:wrap; gap:10px; }
+    .event-pill { padding:8px 16px; border:1px solid #333; display:flex; flex-direction:column; gap:3px; }
+    .event-pill-label { font-family:var(--cac-font-mono); font-size:9px; letter-spacing:0.2em; text-transform:uppercase; color:var(--cac-mid-grey); }
+    .event-pill-value { font-family:var(--cac-font-editorial); font-size:15px; font-weight:300; color:var(--cac-surface-white); }
+
+    /* ── TICKET SELECTOR ── */
+    #ticket-select { background:var(--cac-surface-white); }
+    .ticket-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:var(--cac-space-md); margin-bottom:var(--cac-space-lg); }
+    .ticket-card {
+      border:1px solid var(--cac-light-grey); padding:var(--cac-space-md);
+      cursor:pointer; transition:all 0.2s; position:relative;
+      background:none;
+    }
+    .ticket-card:hover { border-color:var(--cac-cold-red); }
+    .ticket-card.selected { border-color:var(--cac-cold-red); border-width:2px; }
+    .ticket-card.featured { background:var(--cac-near-black); border-color:#333; }
+    .ticket-card.featured.selected { border-color:var(--cac-cold-red); }
+    .ticket-card input[type=radio] { position:absolute; opacity:0; pointer-events:none; }
+    .ticket-label { display:block; margin-bottom:var(--cac-space-sm); }
+    .ticket-title { font-family:var(--cac-font-editorial); font-size:20px; font-weight:300; margin-bottom:var(--cac-space-xs); }
+    .ticket-card.featured .ticket-title { color:var(--cac-surface-white); }
+    .ticket-pax-note { font-size:11px; color:var(--cac-mid-grey); margin-bottom:var(--cac-space-sm); }
+    .ticket-price-row { display:flex; align-items:baseline; gap:10px; margin-bottom:4px; }
+    .ticket-price { font-family:var(--cac-font-editorial); font-size:30px; font-weight:300; color:var(--cac-ink); line-height:1.0; }
+    .ticket-card.featured .ticket-price { color:var(--cac-surface-white); }
+    .ticket-price span { font-size:14px; color:var(--cac-mid-grey); }
+    .ticket-early { font-family:var(--cac-font-editorial); font-size:20px; color:var(--cac-cold-red); }
+    .ticket-early-label { font-family:var(--cac-font-mono); font-size:9px; letter-spacing:0.15em; text-transform:uppercase; color:var(--cac-cold-red); }
+    .ticket-early.expired { color:var(--cac-mid-grey); text-decoration:line-through; opacity:0.5; }
+    .ticket-selected-badge {
+      display:none; position:absolute; top:var(--cac-space-sm); right:var(--cac-space-sm);
+      background:var(--cac-cold-red); color:#fff; font-family:var(--cac-font-mono);
+      font-size:9px; letter-spacing:0.15em; padding:4px 10px; text-transform:uppercase;
+    }
+    .ticket-card.selected .ticket-selected-badge { display:block; }
+    .ticket-inhouse-grid { display:grid; grid-template-columns:1fr 2fr; gap:var(--cac-space-md); align-items:start; }
+    .ticket-inhouse-price { font-family:var(--cac-font-editorial); font-size:38px; font-weight:300; color:var(--cac-surface-white); line-height:1.0; margin-bottom:4px; }
+    .ticket-inhouse-price span { font-size:18px; color:var(--cac-mid-grey); }
+    .ticket-inhouse-detail { font-size:11px; color:#b8b5ae; line-height:1.8; }
+
+    /* ── PAYMENT METHOD ── */
+    .payment-section { margin-top:var(--cac-space-lg); padding-top:var(--cac-space-lg); border-top:1px solid var(--cac-light-grey); }
+    .payment-label { margin-bottom:var(--cac-space-md); }
+    .payment-methods { display:grid; grid-template-columns:1fr 1fr; gap:var(--cac-space-md); max-width:600px; }
+    .payment-btn {
+      display:flex; flex-direction:column; gap:6px;
+      padding:var(--cac-space-md); border:1px solid var(--cac-light-grey);
+      text-decoration:none; transition:all 0.15s; cursor:pointer; background:none;
+      text-align:left;
+    }
+    .payment-btn:hover { border-color:var(--cac-cold-red); }
+    .payment-btn-label { font-family:var(--cac-font-mono); font-size:10px; letter-spacing:0.2em; text-transform:uppercase; color:var(--cac-cold-red); }
+    .payment-btn-title { font-family:var(--cac-font-editorial); font-size:18px; font-weight:300; color:var(--cac-ink); }
+    .payment-btn-note { font-size:11px; color:var(--cac-mid-grey); }
+    .payment-btn-arrow { font-size:18px; color:var(--cac-cold-red); margin-top:auto; }
+
+    /* Inhouse enquiry form */
+    .inhouse-form { max-width:560px; }
+    .form-grid-2 { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:12px; }
+    .form-field { margin-bottom:12px; }
+    .form-field label { display:block; font-family:var(--cac-font-mono); font-size:10px; letter-spacing:0.2em; text-transform:uppercase; color:var(--cac-mid-grey); margin-bottom:4px; }
+    .form-field input, .form-field select, .form-field textarea {
+      width:100%; background:none; border:1px solid var(--cac-light-grey);
+      padding:10px 14px; font-family:var(--cac-font-mono); font-size:12px; color:var(--cac-ink);
+      outline:none; transition:border-color 0.15s; resize:vertical;
+    }
+    .form-field input:focus, .form-field select:focus, .form-field textarea:focus { border-color:var(--cac-cold-red); }
+    .form-field select { cursor:pointer; appearance:none; background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%238A8A8A'/%3E%3C/svg%3E"); background-repeat:no-repeat; background-position:right 12px center; }
+    .cta-btn { display:inline-block; padding:12px var(--cac-space-md); background:var(--cac-cold-red); color:var(--cac-surface-white); font-family:var(--cac-font-mono); font-size:10px; font-weight:500; letter-spacing:0.22em; text-transform:uppercase; text-decoration:none; border:none; cursor:pointer; transition:opacity 0.15s; }
+    .cta-btn:hover { opacity:0.85; }
+    .cta-btn-outline { background:none; border:1px solid var(--cac-cold-red); color:var(--cac-cold-red); }
+    .cta-btn-outline:hover { background:var(--cac-cold-red); color:#fff; opacity:1; }
+    .form-success { display:none; padding:var(--cac-space-md); border:1px solid var(--cac-light-grey); }
+    .form-success.visible { display:block; }
+    .form-success-title { font-family:var(--cac-font-editorial); font-size:22px; font-weight:300; margin-bottom:var(--cac-space-sm); }
+
+    /* ── REASSURANCE STRIP ── */
+    #reassurance { background:var(--cac-near-black); border-top:none; }
+    .reassurance-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:var(--cac-space-md); }
+    .reassurance-item { padding:var(--cac-space-md); border:1px solid #252525; }
+    .reassurance-icon { font-family:var(--cac-font-editorial); font-size:28px; color:var(--cac-cold-red); margin-bottom:var(--cac-space-sm); }
+    .reassurance-title { font-family:var(--cac-font-editorial); font-size:17px; font-weight:300; color:var(--cac-surface-white); margin-bottom:var(--cac-space-xs); }
+    .reassurance-body { font-size:12px; color:#b8b5ae; line-height:1.7; }
+    .reassurance-link { color:var(--cac-cold-red); text-decoration:none; font-size:10px; letter-spacing:0.15em; text-transform:uppercase; margin-top:var(--cac-space-sm); display:inline-block; }
+    .reassurance-link:hover { text-decoration:underline; }
+
+    /* ── EVENT BAR ── */
+    .event-bar { background:var(--cac-near-black); border-top:1px solid #1e1e1e; padding:var(--cac-space-md) var(--cac-space-xl); display:grid; grid-template-columns:repeat(5,1fr); gap:var(--cac-space-md); }
+    .event-bar-label { display:block; font-family:var(--cac-font-mono); font-size:10px; letter-spacing:0.2em; text-transform:uppercase; color:var(--cac-mid-grey); margin-bottom:5px; }
+    .event-bar-value { font-family:var(--cac-font-editorial); font-size:15px; font-weight:300; color:var(--cac-surface-white); }
+    footer { background:var(--cac-near-black); border-top:1px solid #1a1a1a; padding:var(--cac-space-md) var(--cac-space-xl); display:flex; justify-content:space-between; align-items:center; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width:900px) {
+      :root { --cac-space-xl:32px; --cac-space-lg:48px; }
+      .site-nav { padding:var(--cac-space-sm) 24px; }
+      .nav-links .nav-link:not(:last-child) { display:none; }
+      #urgency-banner { padding:12px 24px; flex-direction:column; gap:8px; }
+      .reg-hero-inner { grid-template-columns:1fr; }
+      .ticket-grid { grid-template-columns:1fr; }
+      .ticket-inhouse-grid { grid-template-columns:1fr; }
+      .payment-methods { grid-template-columns:1fr; }
+      .reassurance-grid { grid-template-columns:1fr; }
+      .form-grid-2 { grid-template-columns:1fr; }
+      .event-bar { grid-template-columns:1fr 1fr; padding:var(--cac-space-md) 24px; }
+      footer { padding:var(--cac-space-md) 24px; flex-direction:column; gap:10px; }
+    }
+    @media (max-width:480px) {
+      .event-bar { grid-template-columns:1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ============================================================
+     CONFIG BLOCK — EDIT THIS SECTION ONLY
+     ============================================================ -->
+<script>
+const CONFIG = {
+  event: {
+    date:               "May 5–6, 2025",
+    earlybird_deadline: "2025-04-05",   // YYYY-MM-DD
+    time:               "9:00am – 5:00pm",
+    city:               "Penang Island",
+    organizer:          "Clarity Awareness CAS",
+  },
+  stripe: {
+    // PUBLIC — early bird (swap to standard links when early bird closes, or leave and let JS handle display)
+    public_1pax_earlybird:  "REPLACE_WITH_STRIPE_PAYMENT_LINK_1PAX_EARLYBIRD",
+    public_1pax_standard:   "REPLACE_WITH_STRIPE_PAYMENT_LINK_1PAX_STANDARD",
+    public_2pax_earlybird:  "REPLACE_WITH_STRIPE_PAYMENT_LINK_2PAX_EARLYBIRD",
+    public_2pax_standard:   "REPLACE_WITH_STRIPE_PAYMENT_LINK_2PAX_STANDARD",
+    public_5pax_earlybird:  "REPLACE_WITH_STRIPE_PAYMENT_LINK_5PAX_EARLYBIRD",
+    public_5pax_standard:   "REPLACE_WITH_STRIPE_PAYMENT_LINK_5PAX_STANDARD",
+    // FPX variants — same amounts, different Stripe Payment Link with FPX method enabled
+    public_1pax_earlybird_fpx: "REPLACE_WITH_STRIPE_FPX_LINK_1PAX_EARLYBIRD",
+    public_1pax_standard_fpx:  "REPLACE_WITH_STRIPE_FPX_LINK_1PAX_STANDARD",
+    public_2pax_earlybird_fpx: "REPLACE_WITH_STRIPE_FPX_LINK_2PAX_EARLYBIRD",
+    public_2pax_standard_fpx:  "REPLACE_WITH_STRIPE_FPX_LINK_2PAX_STANDARD",
+    public_5pax_earlybird_fpx: "REPLACE_WITH_STRIPE_FPX_LINK_5PAX_EARLYBIRD",
+    public_5pax_standard_fpx:  "REPLACE_WITH_STRIPE_FPX_LINK_5PAX_STANDARD",
+  },
+  contact: {
+    email: "lovinia@techmavie.digital",
+    phone: "+60 18 4012108",
+  }
+};
+</script>
+<!-- ============================================================ END CONFIG ============================================================ -->
+
+
+<!-- NAV -->
+<nav class="site-nav">
+  <a href="/" class="nav-logo">
+    Clarity Awareness
+    <span>Cognitive Architecture Systems</span>
+  </a>
+  <div class="nav-links">
+    <a href="/" class="nav-link">Programme</a>
+    <a href="/about/" class="nav-link">About</a>
+    <a href="/articles/" class="nav-link">Articles</a>
+    <a href="/pricing/" class="nav-link">Pricing</a>
+    <a href="/faq/" class="nav-link">FAQ</a>
+    <a href="/register/" class="nav-link active">Register</a>
+  </div>
+</nav>
+
+<!-- URGENCY BANNER -->
+<div id="urgency-banner">
+  <div class="urgency-text" id="urgency-label">Early bird pricing closes in</div>
+  <div style="text-align:right;">
+    <div class="urgency-timer" id="urgency-timer">—</div>
+    <div style="font-family:var(--cac-font-mono);font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:rgba(255,255,255,0.7);" id="urgency-sub">days remaining</div>
+  </div>
+</div>
+
+<!-- HERO -->
+<section id="reg-hero">
+  <div class="container">
+    <div class="reg-hero-inner">
+      <div>
+        <span class="t4 section-label">Register</span>
+        <h1 class="t2 hero-heading">Sales For Technical &amp;<br>Non-Sales Professionals</h1>
+        <p class="t5 hero-tagline">Select your ticket type below. Payment is processed securely via Stripe.</p>
+        <div class="event-pill-row">
+          <div class="event-pill">
+            <span class="event-pill-label">Date</span>
+            <span class="event-pill-value" id="hero-date">—</span>
+          </div>
+          <div class="event-pill">
+            <span class="event-pill-label">Time</span>
+            <span class="event-pill-value" id="hero-time">—</span>
+          </div>
+          <div class="event-pill">
+            <span class="event-pill-label">City</span>
+            <span class="event-pill-value" id="hero-city">—</span>
+          </div>
+        </div>
+      </div>
+      <div style="padding-top:var(--cac-space-md);">
+        <div style="border:1px solid #252525;padding:var(--cac-space-md);">
+          <span class="t4" style="color:var(--cac-mid-grey);display:block;margin-bottom:var(--cac-space-sm);">Before You Register</span>
+          <div style="display:flex;flex-direction:column;gap:10px;">
+            <div style="display:flex;gap:10px;font-size:12px;color:#b8b5ae;align-items:baseline;">
+              <span style="color:var(--cac-cold-red);flex-shrink:0;">—</span>
+              <span>Venue confirmed 7 days before the training date. Registered participants are notified directly.</span>
+            </div>
+            <div style="display:flex;gap:10px;font-size:12px;color:#b8b5ae;align-items:baseline;">
+              <span style="color:var(--cac-cold-red);flex-shrink:0;">—</span>
+              <span>Your ticket is transferable to another participant at any time before the event.</span>
+            </div>
+            <div style="display:flex;gap:10px;font-size:12px;color:#b8b5ae;align-items:baseline;">
+              <span style="color:var(--cac-cold-red);flex-shrink:0;">—</span>
+              <span>Official invoice issued upon payment. Tax-deductible under Malaysian income tax provisions.</span>
+            </div>
+            <div style="display:flex;gap:10px;font-size:12px;color:#b8b5ae;align-items:baseline;">
+              <span style="color:var(--cac-cold-red);flex-shrink:0;">—</span>
+              <span>Satisfaction guarantee: request a refund before Day One lunch if the programme is not what you expected. <a href="/pricing/" style="color:var(--cac-cold-red);">Terms apply →</a></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TICKET SELECTOR + PAYMENT -->
+<section id="ticket-select">
+  <div class="container">
+    <span class="t4 section-label">Select Your Ticket</span>
+    <h2 class="t2" style="margin-bottom:var(--cac-space-sm);">Public Training</h2>
+    <p class="t5" style="color:var(--cac-mid-grey);margin-bottom:var(--cac-space-lg);">Choose the option that fits your group. One organisation is limited to 7 participants for public training. <a href="/register/#inhouse" style="color:var(--cac-cold-red);">Need more? See in-house →</a></p>
+
+    <div class="ticket-grid" id="ticket-grid">
+
+      <!-- 1 PAX -->
+      <label class="ticket-card" for="t-1pax" onclick="selectTicket('1pax')">
+        <input type="radio" name="ticket" id="t-1pax" value="1pax">
+        <div class="ticket-selected-badge">Selected</div>
+        <span class="t4 ticket-label" style="color:var(--cac-cold-red);">Individual</span>
+        <div class="ticket-title">1 Participant</div>
+        <div class="ticket-pax-note">One seat. Full 2-day programme.</div>
+        <div class="ticket-price-row">
+          <div class="ticket-price"><span>RM</span>3,500</div>
+        </div>
+        <div class="ticket-early" id="e-1pax">
+          <span>RM 2,800</span>
+          <div class="ticket-early-label">Early bird</div>
+        </div>
+      </label>
+
+      <!-- 2 PAX -->
+      <label class="ticket-card" for="t-2pax" onclick="selectTicket('2pax')">
+        <input type="radio" name="ticket" id="t-2pax" value="2pax">
+        <div class="ticket-selected-badge">Selected</div>
+        <span class="t4 ticket-label" style="color:var(--cac-cold-red);">Pair</span>
+        <div class="ticket-title">2 Participants</div>
+        <div class="ticket-pax-note">Two seats from one organisation.</div>
+        <div class="ticket-price-row">
+          <div class="ticket-price"><span>RM</span>6,600</div>
+        </div>
+        <div class="ticket-early" id="e-2pax">
+          <span>RM 5,200</span>
+          <div class="ticket-early-label">Early bird</div>
+        </div>
+      </label>
+
+      <!-- 5 PAX -->
+      <label class="ticket-card" for="t-5pax" onclick="selectTicket('5pax')">
+        <input type="radio" name="ticket" id="t-5pax" value="5pax">
+        <div class="ticket-selected-badge">Selected</div>
+        <span class="t4 ticket-label" style="color:var(--cac-cold-red);">Group</span>
+        <div class="ticket-title">5 Participants</div>
+        <div class="ticket-pax-note">Five seats. Best value for teams.</div>
+        <div class="ticket-price-row">
+          <div class="ticket-price"><span>RM</span>15,000</div>
+        </div>
+        <div class="ticket-early" id="e-5pax">
+          <span>RM 11,000</span>
+          <div class="ticket-early-label">Early bird</div>
+        </div>
+      </label>
+
+      <!-- INHOUSE -->
+      <label class="ticket-card featured" for="t-inhouse" id="inhouse" onclick="selectTicket('inhouse')">
+        <input type="radio" name="ticket" id="t-inhouse" value="inhouse">
+        <div class="ticket-selected-badge">Selected</div>
+        <span class="t4 ticket-label" style="color:var(--cac-cold-red);">Corporate</span>
+        <div class="ticket-inhouse-grid">
+          <div>
+            <div class="ticket-inhouse-price"><span>RM</span>22,000</div>
+            <div style="font-family:var(--cac-font-mono);font-size:9px;letter-spacing:0.12em;color:var(--cac-mid-grey);text-transform:uppercase;margin-top:4px;">Full programme</div>
+          </div>
+          <div class="ticket-inhouse-detail">
+            In-house training — delivered at your premises or preferred venue. Customisable to your team. Includes all proprietary materials. Invoice suitable for tax records. Early bird pricing does not apply.
+          </div>
+        </div>
+      </label>
+
+    </div><!-- /ticket-grid -->
+
+    <p style="font-size:11px;color:var(--cac-mid-grey);margin-top:-8px;margin-bottom:var(--cac-space-lg);font-style:italic;">Early bird pricing is not applicable to in-house training.</p>
+
+    <!-- PAYMENT SECTION — public tickets -->
+    <div class="payment-section" id="payment-public">
+      <span class="t4 payment-label" style="color:var(--cac-mid-grey);display:block;margin-bottom:var(--cac-space-sm);">Select Payment Method</span>
+      <p class="t5" style="color:var(--cac-mid-grey);margin-bottom:var(--cac-space-md);max-width:520px;">Choose how you would like to pay. Both options are processed securely via Stripe. An invoice is issued automatically upon completion.</p>
+      <div class="payment-methods">
+        <a class="payment-btn" id="btn-card" href="#" target="_blank" rel="noopener">
+          <span class="payment-btn-label">Option 1</span>
+          <span class="payment-btn-title">Credit / Debit Card</span>
+          <span class="payment-btn-note">Visa · Mastercard · All major cards</span>
+          <span class="payment-btn-arrow">→</span>
+        </a>
+        <a class="payment-btn" id="btn-fpx" href="#" target="_blank" rel="noopener">
+          <span class="payment-btn-label">Option 2</span>
+          <span class="payment-btn-title">FPX Bank Transfer</span>
+          <span class="payment-btn-note">Malaysian bank accounts · Online transfer</span>
+          <span class="payment-btn-arrow">→</span>
+        </a>
+      </div>
+      <p style="font-size:11px;color:var(--cac-mid-grey);margin-top:var(--cac-space-sm);">Please select a ticket above first. Clicking a payment button before selecting a ticket will prompt you to choose.</p>
+    </div>
+
+    <!-- IN-HOUSE ENQUIRY FORM -->
+    <div class="payment-section" id="payment-inhouse" style="display:none;">
+      <span class="t4" style="color:var(--cac-cold-red);display:block;margin-bottom:var(--cac-space-sm);">In-House Training Enquiry</span>
+      <h3 class="t3" style="margin-bottom:var(--cac-space-md);">Tell us about your team.</h3>
+      <div class="inhouse-form" id="inhouse-form">
+        <div class="form-grid-2">
+          <div class="form-field">
+            <label for="ih-name">Your Name</label>
+            <input type="text" id="ih-name" placeholder="Full name" autocomplete="name">
+          </div>
+          <div class="form-field">
+            <label for="ih-email">Work Email</label>
+            <input type="email" id="ih-email" placeholder="you@company.com" autocomplete="email">
+          </div>
+        </div>
+        <div class="form-grid-2">
+          <div class="form-field">
+            <label for="ih-company">Company</label>
+            <input type="text" id="ih-company" placeholder="Organisation name">
+          </div>
+          <div class="form-field">
+            <label for="ih-phone">Phone</label>
+            <input type="tel" id="ih-phone" placeholder="+60 ...">
+          </div>
+        </div>
+        <div class="form-grid-2">
+          <div class="form-field">
+            <label for="ih-pax">Number of Participants</label>
+            <input type="number" id="ih-pax" placeholder="e.g. 12" min="1">
+          </div>
+          <div class="form-field">
+            <label for="ih-date">Preferred Date Range</label>
+            <input type="text" id="ih-date" placeholder="e.g. Q3 2025, flexible">
+          </div>
+        </div>
+        <div class="form-field">
+          <label for="ih-notes">Anything else we should know?</label>
+          <textarea id="ih-notes" rows="3" placeholder="Industry, team context, specific objectives..."></textarea>
+        </div>
+        <button class="cta-btn" onclick="submitInhouse()">Send Enquiry</button>
+        <p style="font-size:11px;color:var(--cac-mid-grey);margin-top:10px;">We respond within one business day.</p>
+      </div>
+      <div class="form-success" id="inhouse-success">
+        <div class="form-success-title">Enquiry received.</div>
+        <p class="t6">We will be in touch within one business day to discuss your team's requirements and confirm availability.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- REASSURANCE STRIP -->
+<section id="reassurance">
+  <div class="container">
+    <div class="reassurance-grid">
+      <div class="reassurance-item">
+        <div class="reassurance-icon">§</div>
+        <div class="reassurance-title">Satisfaction Guarantee</div>
+        <p class="reassurance-body">Attend Day One morning. Request a refund before lunch if it is not what you expected. Refund is ticket price minus RM1,299 (venue, catering, materials at cost).</p>
+        <a href="/pricing/" class="reassurance-link">Full terms →</a>
+      </div>
+      <div class="reassurance-item">
+        <div class="reassurance-icon">§</div>
+        <div class="reassurance-title">Transferable Ticket</div>
+        <p class="reassurance-body">Plans change. Your ticket is fully transferable to another participant at any time before the event. Resell at any price, including above what you paid.</p>
+        <a href="/faq/#pricing-payment" class="reassurance-link">Transfer policy →</a>
+      </div>
+      <div class="reassurance-item">
+        <div class="reassurance-icon">§</div>
+        <div class="reassurance-title">Secure Payment</div>
+        <p class="reassurance-body">Payment is processed via Stripe — the same infrastructure used by major platforms globally. Card and FPX options available. Invoice issued automatically.</p>
+        <a href="/faq/#pricing-payment" class="reassurance-link">Payment FAQ →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EVENT BAR -->
+<div class="event-bar">
+  <div>
+    <span class="event-bar-label">Programme</span>
+    <div class="event-bar-value"><a href="/" style="color:var(--cac-surface-white);text-decoration:none;">Programme →</a></div>
+  </div>
+  <div>
+    <span class="event-bar-label">About</span>
+    <div class="event-bar-value"><a href="/about/" style="color:var(--cac-surface-white);text-decoration:none;">Lovinia Mak →</a></div>
+  </div>
+  <div>
+    <span class="event-bar-label">Pricing</span>
+    <div class="event-bar-value"><a href="/pricing/" style="color:var(--cac-surface-white);text-decoration:none;">Pricing →</a></div>
+  </div>
+  <div>
+    <span class="event-bar-label">FAQ</span>
+    <div class="event-bar-value"><a href="/faq/" style="color:var(--cac-surface-white);text-decoration:none;">FAQ →</a></div>
+  </div>
+  <div>
+    <span class="event-bar-label">Articles</span>
+    <div class="event-bar-value"><a href="/articles/" style="color:var(--cac-surface-white);text-decoration:none;">Knowledge Archive →</a></div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="t6">Clarity Awareness Cognitive Architecture Systems</div>
+  <div class="t6" style="display:flex;gap:var(--cac-space-md);">
+    <a href="/" style="color:var(--cac-mid-grey);text-decoration:none;">Programme</a>
+    <a href="/faq/" style="color:var(--cac-mid-grey);text-decoration:none;">FAQ</a>
+    <a href="/privacy-policy/" style="color:var(--cac-mid-grey);text-decoration:none;">Privacy Policy</a>
+  </div>
+  <div class="t6">Clarity Awareness CAS · Penang</div>
+</footer>
+
+<script>
+let selectedTicket = null;
+let earlyBirdActive = true;
+
+// ── EARLY BIRD ────────────────────────────────────────────────────────────────
+function checkEarlyBird() {
+  const deadline = new Date(CONFIG.event.earlybird_deadline);
+  const now      = new Date();
+  const msLeft   = deadline - now;
+  const daysLeft = Math.ceil(msLeft / (1000 * 60 * 60 * 24));
+  const banner   = document.getElementById('urgency-banner');
+
+  if (msLeft <= 0) {
+    earlyBirdActive = false;
+    ['e-1pax','e-2pax','e-5pax'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.classList.add('expired');
+    });
+    banner.classList.add('expired');
+    document.getElementById('urgency-label').textContent = 'Early bird pricing has closed.';
+    document.getElementById('urgency-timer').textContent = '';
+    document.getElementById('urgency-sub').textContent   = 'Standard pricing applies.';
+  } else {
+    document.getElementById('urgency-timer').textContent = daysLeft;
+    document.getElementById('urgency-label').textContent = 'Early bird pricing closes in';
+    document.getElementById('urgency-sub').textContent   = daysLeft === 1 ? 'day remaining' : 'days remaining';
+  }
+}
+
+// ── TICKET SELECTION ──────────────────────────────────────────────────────────
+function selectTicket(type) {
+  selectedTicket = type;
+  document.querySelectorAll('.ticket-card').forEach(c => c.classList.remove('selected'));
+  const card = document.querySelector(`[for="t-${type}"]`) || document.getElementById(`t-${type}`)?.closest('.ticket-card');
+  if (card) card.classList.add('selected');
+
+  const pubPayment    = document.getElementById('payment-public');
+  const inhousePayment= document.getElementById('payment-inhouse');
+
+  if (type === 'inhouse') {
+    pubPayment.style.display    = 'none';
+    inhousePayment.style.display= 'block';
+  } else {
+    pubPayment.style.display    = 'block';
+    inhousePayment.style.display= 'none';
+    updatePaymentLinks(type);
+  }
+}
+
+function updatePaymentLinks(type) {
+  const s  = CONFIG.stripe;
+  const eb = earlyBirdActive;
+
+  const cardMap = {
+    '1pax': eb ? s.public_1pax_earlybird : s.public_1pax_standard,
+    '2pax': eb ? s.public_2pax_earlybird : s.public_2pax_standard,
+    '5pax': eb ? s.public_5pax_earlybird : s.public_5pax_standard,
+  };
+  const fpxMap = {
+    '1pax': eb ? s.public_1pax_earlybird_fpx : s.public_1pax_standard_fpx,
+    '2pax': eb ? s.public_2pax_earlybird_fpx : s.public_2pax_standard_fpx,
+    '5pax': eb ? s.public_5pax_earlybird_fpx : s.public_5pax_standard_fpx,
+  };
+
+  const cardLink = cardMap[type] || '#';
+  const fpxLink  = fpxMap[type]  || '#';
+
+  document.getElementById('btn-card').href = cardLink;
+  document.getElementById('btn-fpx').href  = fpxLink;
+}
+
+// Guard: if no ticket selected, prevent payment link click
+['btn-card','btn-fpx'].forEach(id => {
+  document.getElementById(id).addEventListener('click', function(e) {
+    if (!selectedTicket || selectedTicket === 'inhouse') {
+      e.preventDefault();
+      document.getElementById('ticket-grid').scrollIntoView({ behavior:'smooth', block:'center' });
+    }
+  });
+});
+
+// ── IN-HOUSE FORM ─────────────────────────────────────────────────────────────
+function submitInhouse() {
+  const name    = document.getElementById('ih-name').value.trim();
+  const email   = document.getElementById('ih-email').value.trim();
+  const company = document.getElementById('ih-company').value.trim();
+  if (!name || !email || !company) {
+    alert('Please fill in your name, email, and company name.');
+    return;
+  }
+  const payload = {
+    type:    'inhouse-enquiry',
+    name, email, company,
+    phone:   document.getElementById('ih-phone').value.trim(),
+    pax:     document.getElementById('ih-pax').value.trim(),
+    date:    document.getElementById('ih-date').value.trim(),
+    notes:   document.getElementById('ih-notes').value.trim(),
+    ts:      new Date().toISOString()
+  };
+  // POST to Cloudflare Worker — replace URL when worker deployed
+  fetch('https://cac-leads.clarityawarenesscoaching.workers.dev/enquiry', {
+    method:  'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body:    JSON.stringify(payload)
+  }).catch(() => {});
+  document.getElementById('inhouse-form').style.display   = 'none';
+  document.getElementById('inhouse-success').classList.add('visible');
+}
+
+// ── EVENT DETAILS ─────────────────────────────────────────────────────────────
+function renderDetails() {
+  document.getElementById('hero-date').textContent = CONFIG.event.date;
+  document.getElementById('hero-time').textContent = CONFIG.event.time;
+  document.getElementById('hero-city').textContent = CONFIG.event.city;
+}
+
+// ── INIT ──────────────────────────────────────────────────────────────────────
+document.addEventListener('DOMContentLoaded', () => {
+  checkEarlyBird();
+  renderDetails();
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sales For Technical & Non-Sales Professionals — CAC</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --cac-near-black:    #141414;
+      --cac-ink:           #1F1F1F;
+      --cac-surface-white: #F8F7F4;
+      --cac-mid-grey:      #8A8A8A;
+      --cac-light-grey:    #E2E0DC;
+      --cac-cold-red:      #C0392B;
+      --cac-system-blue:   #1A3A5C;
+      --cac-font-editorial: 'Cormorant Garamond', Georgia, serif;
+      --cac-font-mono:      'JetBrains Mono', 'Courier New', monospace;
+      --cac-space-xs:  8px;
+      --cac-space-sm:  16px;
+      --cac-space-md:  32px;
+      --cac-space-lg:  64px;
+      --cac-space-xl:  120px;
+      --cac-space-2xl: 200px;
+      --cac-max-width:   1280px;
+      --cac-reading-col: 680px;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--cac-surface-white);
+      color: var(--cac-ink);
+      font-family: var(--cac-font-mono);
+      font-size: 13px;
+      font-weight: 300;
+      line-height: 1.8;
+      -webkit-font-smoothing: antialiased;
+    }
+    .t1 { font-family: var(--cac-font-editorial); font-size: clamp(48px, 8vw, 96px); font-weight: 300; letter-spacing: -0.02em; line-height: 1.0; }
+    .t2 { font-family: var(--cac-font-editorial); font-size: clamp(28px, 4vw, 52px); font-weight: 300; letter-spacing: -0.01em; line-height: 1.1; }
+    .t3 { font-family: var(--cac-font-editorial); font-size: clamp(20px, 2.5vw, 28px); font-weight: 400; line-height: 1.2; }
+    .t4 { font-family: var(--cac-font-mono); font-size: 10px; font-weight: 500; letter-spacing: 0.22em; line-height: 1.6; text-transform: uppercase; }
+    .t5 { font-family: var(--cac-font-mono); font-size: 13px; font-weight: 300; line-height: 1.8; }
+    .t6 { font-family: var(--cac-font-mono); font-size: 11px; font-weight: 300; line-height: 1.6; color: var(--cac-mid-grey); }
+    .container { max-width: var(--cac-max-width); margin: 0 auto; padding: 0 var(--cac-space-xl); }
+    section { padding: var(--cac-space-lg) 0; }
+    section + section { border-top: 1px solid var(--cac-light-grey); }
+    .two-col { display: grid; grid-template-columns: 4fr 8fr; gap: var(--cac-space-lg); }
+    .three-col { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--cac-space-md); }
+    .section-label { display: block; color: var(--cac-cold-red); margin-bottom: var(--cac-space-md); }
+    .section-heading { margin-bottom: var(--cac-space-md); max-width: var(--cac-reading-col); }
+    .section-intro { max-width: var(--cac-reading-col); margin-bottom: var(--cac-space-lg); color: var(--cac-mid-grey); }n    .section-intro-row { display: flex; justify-content: space-between; align-items: flex-start; }n    .pricing-table-link { color: #1A3A5C; text-decoration: none; font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; white-space: nowrap; padding-left: 2rem; }n    .pricing-table-link:hover { text-decoration: underline; }
+    .red-rule { width: 48px; height: 2px; background: var(--cac-cold-red); margin-bottom: var(--cac-space-md); }
+    .placeholder { color: #3a3a3a; font-style: italic; }
+    #cover {
+      background: var(--cac-near-black);
+      min-height: 100vh;
+      display: grid;
+      grid-template-rows: auto 1fr;
+      padding: var(--cac-space-lg) var(--cac-space-xl);
+      position: relative;
+      overflow: hidden;
+    }
+    .cover-header { display: flex; justify-content: space-between; align-items: flex-start; }
+    .cover-logo-text { font-family: var(--cac-font-editorial); color: var(--cac-surface-white); font-size: 15px; font-weight: 300; letter-spacing: 0.12em; text-transform: uppercase; line-height: 1.4; }
+    .cover-logo-sub { display: block; font-family: var(--cac-font-mono); font-size: 10px; letter-spacing: 0.22em; color: var(--cac-mid-grey); margin-top: 4px; text-transform: uppercase; }
+    .cover-body { display: grid; grid-template-columns: 1fr 1fr; gap: var(--cac-space-lg); align-items: end; padding: var(--cac-space-lg) 0; }
+    .cover-label { color: var(--cac-cold-red); margin-bottom: var(--cac-space-md); display: block; }
+    .cover-title { color: var(--cac-surface-white); margin-bottom: var(--cac-space-md); }
+    .cover-rule { width: 64px; height: 1px; background: var(--cac-cold-red); margin-bottom: var(--cac-space-md); }
+    .cover-tagline { color: var(--cac-mid-grey); max-width: 420px; }
+    .cover-photo { min-height: 560px; overflow: hidden; position: relative; }
+    .cover-photo img { width: 100%; height: 100%; object-fit: cover; object-position: top center; }
+    .cover-photo-placeholder { width: 100%; height: 100%; background: #222; display: flex; align-items: center; justify-content: center; color: var(--cac-mid-grey); font-family: var(--cac-font-mono); font-size: 10px; letter-spacing: 0.2em; text-align: center; }
+    #toc { background: var(--cac-surface-white); }
+    .toc-grid { display: grid; grid-template-columns: 3fr 9fr; gap: var(--cac-space-lg); align-items: start; }
+    .toc-list { list-style: none; }
+    .toc-item { display: grid; grid-template-columns: 32px 1fr auto; gap: var(--cac-space-sm); align-items: baseline; padding: 14px 0; border-bottom: 1px solid var(--cac-light-grey); }
+    .toc-item:last-child { border-bottom: none; }
+    .toc-number { color: var(--cac-cold-red); }
+    .toc-title { font-family: var(--cac-font-editorial); font-size: 20px; font-weight: 300; color: var(--cac-ink); text-decoration: none; transition: color 0.15s; }
+    .toc-title:hover { color: var(--cac-cold-red); }
+    .toc-arrow { color: var(--cac-mid-grey); font-size: 11px; }
+    .audience-group { margin-bottom: var(--cac-space-md); }
+    .audience-group-title { font-family: var(--cac-font-editorial); font-size: 18px; font-weight: 400; margin-bottom: var(--cac-space-xs); }
+    .audience-list { list-style: none; }
+    .audience-list li { padding: 4px 0 4px 14px; border-left: 2px solid var(--cac-light-grey); margin-bottom: 3px; color: var(--cac-mid-grey); font-size: 12px; }
+    .fit-box { padding: var(--cac-space-md); border: 1px solid var(--cac-light-grey); }
+    .fit-list { list-style: none; color: var(--cac-mid-grey); }
+    .fit-list li { padding: 8px 0 8px 18px; border-bottom: 1px solid var(--cac-light-grey); position: relative; font-size: 12px; }
+    .fit-list li:last-child { border-bottom: none; }
+    .fit-list li::before { content: '→'; position: absolute; left: 0; color: var(--cac-cold-red); }
+    .reframe-item { display: grid; grid-template-columns: 1fr 1fr; margin-bottom: 2px; border: 1px solid var(--cac-light-grey); }
+    .reframe-from, .reframe-to { padding: var(--cac-space-md); }
+    .reframe-from { border-right: 1px solid var(--cac-light-grey); }
+    .reframe-col-label { display: block; margin-bottom: 10px; color: var(--cac-mid-grey); }
+    .reframe-to .reframe-col-label { color: var(--cac-cold-red); }
+    .reframe-text { font-family: var(--cac-font-editorial); font-size: 19px; font-weight: 300; line-height: 1.4; color: var(--cac-mid-grey); }
+    .reframe-to .reframe-text { color: var(--cac-near-black); font-weight: 400; }
+    .module-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--cac-space-md); }
+    .module-card { border: 1px solid var(--cac-light-grey); padding: var(--cac-space-md); }
+    .module-index { display: block; color: var(--cac-cold-red); margin-bottom: var(--cac-space-sm); }
+    .module-title { font-family: var(--cac-font-editorial); font-size: 22px; font-weight: 400; margin-bottom: var(--cac-space-sm); line-height: 1.2; }
+    .module-body { color: var(--cac-mid-grey); }
+    .ba-section { margin-bottom: var(--cac-space-lg); }
+    .ba-title { margin-bottom: var(--cac-space-sm); padding-bottom: var(--cac-space-xs); border-bottom: 1px solid var(--cac-light-grey); }
+    .ba-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--cac-space-md); margin-top: var(--cac-space-sm); }
+    .ba-col-label { display: block; margin-bottom: 10px; color: var(--cac-mid-grey); }
+    .ba-after .ba-col-label { color: var(--cac-cold-red); }
+    .ba-list { list-style: none; }
+    .ba-list li { padding: 7px 0 7px 18px; border-bottom: 1px solid var(--cac-light-grey); position: relative; font-size: 12px; }
+    .ba-list li:last-child { border-bottom: none; }
+    .ba-before .ba-list li::before { content: '—'; position: absolute; left: 0; color: var(--cac-light-grey); }
+    .ba-after .ba-list li::before { content: '→'; position: absolute; left: 0; color: var(--cac-cold-red); }
+    .diff-item { display: grid; grid-template-columns: 3fr 9fr; gap: var(--cac-space-md); padding: var(--cac-space-md) 0; border-bottom: 1px solid var(--cac-light-grey); align-items: start; }
+    .diff-item:last-child { border-bottom: none; }
+    .diff-title { font-family: var(--cac-font-editorial); font-size: 18px; font-weight: 400; line-height: 1.3; }
+    .timeline-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--cac-space-md); }
+    .timeline-card { padding: var(--cac-space-md); border: 1px solid var(--cac-light-grey); position: relative; }
+    .timeline-card::before { content: ''; position: absolute; top: 0; left: 0; width: 32px; height: 2px; background: var(--cac-cold-red); }
+    .timeline-period { display: block; color: var(--cac-cold-red); margin-bottom: var(--cac-space-sm); margin-top: var(--cac-space-xs); }
+    .timeline-title { font-family: var(--cac-font-editorial); font-size: 17px; font-weight: 400; margin-bottom: var(--cac-space-sm); }
+    .timeline-list { list-style: none; color: var(--cac-mid-grey); }
+    .timeline-list li { padding: 4px 0 4px 14px; position: relative; font-size: 12px; }
+    .timeline-list li::before { content: '·'; position: absolute; left: 0; color: var(--cac-cold-red); }
+    #trainer { background: var(--cac-near-black); color: var(--cac-surface-white); border-top: none; }
+    .trainer-grid { display: grid; grid-template-columns: 5fr 7fr; gap: var(--cac-space-lg); align-items: start; }
+    .trainer-photo { height: 620px; overflow: hidden; }
+    .trainer-photo img { width: 100%; height: 100%; object-fit: cover; object-position: top center; }
+    .trainer-photo-placeholder { width: 100%; height: 100%; background: #222; display: flex; align-items: center; justify-content: center; color: var(--cac-mid-grey); font-family: var(--cac-font-mono); font-size: 10px; letter-spacing: 0.2em; }
+    .trainer-content { padding-top: var(--cac-space-md); }
+    #trainer .section-label { color: var(--cac-cold-red); }
+    .trainer-name { font-family: var(--cac-font-editorial); font-size: clamp(36px, 4vw, 52px); font-weight: 300; color: var(--cac-surface-white); margin-bottom: var(--cac-space-xs); line-height: 1.1; }
+    .trainer-role { color: var(--cac-mid-grey); margin-bottom: var(--cac-space-md); }
+    .trainer-rule { width: 64px; height: 1px; background: var(--cac-cold-red); margin-bottom: var(--cac-space-md); }
+    .trainer-bio p { color: #b8b5ae; margin-bottom: var(--cac-space-sm); }
+    .trainer-credentials { margin-top: var(--cac-space-md); padding-top: var(--cac-space-md); border-top: 1px solid #252525; }
+    .trainer-cred-list { list-style: none; margin-top: var(--cac-space-sm); }
+    .trainer-cred-list li { display: flex; align-items: baseline; gap: 12px; padding: 7px 0; border-bottom: 1px solid #252525; color: #b8b5ae; font-size: 12px; }
+    .trainer-cred-list li:last-child { border-bottom: none; }
+    .cred-dash { color: var(--cac-cold-red); flex-shrink: 0; }
+    .not-for-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--cac-space-md); }
+    .not-for-card { padding: var(--cac-space-md); border: 1px solid var(--cac-light-grey); }
+    .not-for-card-title { font-family: var(--cac-font-editorial); font-size: 16px; font-weight: 400; margin: var(--cac-space-xs) 0 var(--cac-space-sm); }
+    .not-for-list { list-style: none; }
+    .not-for-list li { padding: 5px 0 5px 16px; position: relative; color: var(--cac-mid-grey); font-size: 12px; }
+    .not-for-list li::before { content: '×'; position: absolute; left: 0; color: var(--cac-light-grey); }
+    #cta { background: var(--cac-near-black); color: var(--cac-surface-white); border-top: none; }
+    .cta-headline { margin-bottom: var(--cac-space-lg); }
+    .cta-headline-text { font-family: var(--cac-font-editorial); font-size: clamp(32px, 5vw, 56px); font-weight: 300; color: var(--cac-surface-white); line-height: 1.1; }
+    .cta-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--cac-space-md); }
+    .cta-block { padding: var(--cac-space-md); border: 1px solid #252525; }
+    .cta-block-label { display: block; color: var(--cac-cold-red); margin-bottom: var(--cac-space-sm); }
+    .cta-block-title { font-family: var(--cac-font-editorial); font-size: 20px; font-weight: 300; color: var(--cac-surface-white); margin-bottom: var(--cac-space-md); }
+    .cta-field { margin-bottom: 14px; }
+    .cta-field-label { display: block; font-family: var(--cac-font-mono); font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--cac-mid-grey); margin-bottom: 4px; }
+    .cta-field-value { color: #c8c5be; font-size: 13px; }
+    .cta-register-btn { display: inline-block; margin-top: var(--cac-space-sm); padding: 12px var(--cac-space-md); background: var(--cac-cold-red); color: var(--cac-surface-white); font-family: var(--cac-font-mono); font-size: 10px; font-weight: 500; letter-spacing: 0.22em; text-transform: uppercase; text-decoration: none; border: none; cursor: pointer; }
+    .qr-placeholder { width: 220px; height: 220px; border: 1px solid #2a2a2a; display: flex; align-items: center; justify-content: center; margin-top: var(--cac-space-sm); }
+    .qr-placeholder span { color: #3a3a3a; font-size: 10px; letter-spacing: 0.1em; text-align: center; font-family: var(--cac-font-mono); text-transform: uppercase; }
+    .event-bar { background: var(--cac-near-black); border-top: 1px solid #1e1e1e; padding: var(--cac-space-md) var(--cac-space-xl); display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--cac-space-md); }
+    .event-bar-label { display: block; font-family: var(--cac-font-mono); font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--cac-mid-grey); margin-bottom: 5px; }
+    .event-bar-value { font-family: var(--cac-font-editorial); font-size: 15px; font-weight: 300; color: var(--cac-surface-white); }
+    footer { background: var(--cac-near-black); border-top: 1px solid #1a1a1a; padding: var(--cac-space-md) var(--cac-space-xl); display: flex; justify-content: space-between; align-items: center; }
+    @media (max-width: 900px) {
+      :root { --cac-space-xl: 32px; --cac-space-lg: 48px; }
+      #cover { padding: 48px 24px; min-height: 100svh; }
+      .cover-body { grid-template-columns: 1fr; }
+      .cover-photo { height: 360px; order: -1; }
+      .toc-grid { grid-template-columns: 1fr; }
+      .two-col { grid-template-columns: 1fr; }
+      .three-col { grid-template-columns: 1fr; }
+      .module-grid { grid-template-columns: 1fr; }
+      .ba-grid { grid-template-columns: 1fr; }
+      .reframe-item { grid-template-columns: 1fr; }
+      .reframe-from { border-right: none; border-bottom: 1px solid var(--cac-light-grey); }
+      .diff-item { grid-template-columns: 1fr; gap: var(--cac-space-xs); }
+      .timeline-grid { grid-template-columns: 1fr 1fr; }
+      .trainer-grid { grid-template-columns: 1fr; }
+      .trainer-photo { height: 400px; }
+      .not-for-grid { grid-template-columns: 1fr; }
+      .cta-grid { grid-template-columns: 1fr; }
+      .event-bar { grid-template-columns: 1fr 1fr; padding: var(--cac-space-md) 24px; }
+      footer { padding: var(--cac-space-md) 24px; flex-direction: column; gap: 10px; }
+    }
+    @media (max-width: 480px) {
+      .timeline-grid { grid-template-columns: 1fr; }
+      .event-bar { grid-template-columns: 1fr; }
+    }
+    @media print {
+      :root { --cac-space-xl: 18mm; --cac-space-lg: 12mm; --cac-space-md: 8mm; }
+      body { font-size: 11px; }
+      #cover { min-height: 100vh; page-break-after: always; }
+      #toc { page-break-after: always; }
+      .module-card, .ba-section, .timeline-card, .reframe-item { page-break-inside: avoid; }
+      section { page-break-inside: avoid; }
+      a { color: inherit; text-decoration: none; }
+      .cta-register-btn { display: none; }
+      .trainer-photo { height: auto; max-height: 180mm; }
+      @page {
+        margin: 18mm 20mm; size: A4;
+        @bottom-center { content: counter(page); font-family: 'JetBrains Mono', monospace; font-size: 9px; color: #8A8A8A; letter-spacing: 0.2em; }
+        @bottom-right { content: "CLARITY AWARENESS COGNITIVE ARCHITECTURE SYSTEMS"; font-family: 'JetBrains Mono', monospace; font-size: 8px; color: #8A8A8A; letter-spacing: 0.12em; }
+      }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ============================================================
+     CONFIG BLOCK — EDIT THIS SECTION ONLY
+     Controls: Event Details box, Contact box, QR box
+     Do not edit HTML below this script block.
+     ============================================================ -->
+<script>
+const CONFIG = {
+  event: {
+    date:      "May 5-7",
+    time:      "9am - 5pm",
+    venue:     "TBC - Georgetown or Bayan Lepas",
+    city:      "Penang island",
+    organizer: "Clarity Awareness CAS",
+  },
+  affiliate: {
+    name:    "Alan",
+    company: "Techmavie Digital",
+    email:   "lovinia@techmavie.digital",
+    phone:   "+60 18 4012108",
+  },
+  registration: {
+    url:      "",
+    cta_text: "Register Now",
+    qr_image: "",
+  },
+  meta: {
+    version: "2.0",
+    updated: "April 2026",
+  }
+};
+
+document.addEventListener("DOMContentLoaded", () => {
+  const inject = (selector, value, fallback) => {
+    document.querySelectorAll(selector).forEach(el => {
+      if (value) { el.textContent = value; el.classList.remove("placeholder"); }
+      else { el.textContent = fallback; el.classList.add("placeholder"); }
+    });
+  };
+  inject("[data-f='date']",      CONFIG.event.date,        "Date TBC");
+  inject("[data-f='time']",      CONFIG.event.time,        "Time TBC");
+  inject("[data-f='venue']",     CONFIG.event.venue,       "Venue TBC");
+  inject("[data-f='city']",      CONFIG.event.city,        "City TBC");
+  inject("[data-f='organizer']", CONFIG.event.organizer,   "Organizer TBC");
+  inject("[data-f='aff-name']",  CONFIG.affiliate.name,    "Contact TBC");
+  inject("[data-f='aff-co']",    CONFIG.affiliate.company, "Company TBC");
+  inject("[data-f='aff-email']", CONFIG.affiliate.email,   "Email TBC");
+  inject("[data-f='aff-phone']", CONFIG.affiliate.phone,   "Phone TBC");
+  inject("[data-f='cta-text']",  CONFIG.registration.cta_text, "Register Now");
+  inject("[data-f='version']",   CONFIG.meta.version,      "1.0");
+  if (CONFIG.registration.qr_image) {
+    document.querySelectorAll("[data-f='qr']").forEach(el => {
+      el.innerHTML = `<img src="${CONFIG.registration.qr_image}" style="width:100%;height:100%;object-fit:contain;" alt="QR Code">`;
+    });
+  }
+  document.querySelectorAll("[data-f='reg-link']").forEach(el => {
+    if (CONFIG.registration.url) el.href = CONFIG.registration.url;
+  });
+});
+</script>
+
+<!-- COVER -->
+<div id="cover">
+  <div class="cover-header">
+    <div>
+      <div class="cover-logo-text">Clarity Awareness</div>
+      <span class="cover-logo-sub">Cognitive Architecture Systems</span>
+    </div>
+    <div class="t6" style="text-align:right; color: var(--cac-mid-grey);">
+      Programme Overview &nbsp;·&nbsp; v<span data-f="version">1.0</span>
+    </div>
+  </div>
+  <div class="cover-body">
+    <div>
+      <span class="cover-label t4">Training Programme</span>
+      <h1 class="t1 cover-title">Sales For<br>Technical &<br>Non-Sales<br>Professionals</h1>
+      <div class="cover-rule"></div>
+      <p class="t5 cover-tagline">A skills blueprint and mindset rewire for professionals in business development roles. One conversation framework. Every sales situation.</p>
+    </div>
+    <div class="cover-photo">
+      <img src="/assets/img/coverphoto_salesfortechnical_brochure.png" alt="cover photo"
+           onerror="this.outerHTML='<div class=\'cover-photo-placeholder\'>LOVINIA MAK<br>PHOTO</div>'">
+    </div>
+  </div>
+</div>
+
+<!-- TABLE OF CONTENTS -->
+<section id="toc">
+  <div class="container">
+    <div class="toc-grid">
+      <div>
+        <span class="t4 section-label">Contents</span>
+        <h2 class="t2" style="color: var(--cac-ink);">What is<br>inside.</h2>
+      </div>
+      <ol class="toc-list">
+        <li class="toc-item"><span class="toc-number t4">01</span><a href="#problem" class="toc-title">The Problem</a><span class="toc-arrow t4">↓</span></li>
+        <li class="toc-item"><span class="toc-number t4">02</span><a href="#audience" class="toc-title">Who This Is For</a><span class="toc-arrow t4">↓</span></li>
+        <li class="toc-item"><span class="toc-number t4">03</span><a href="#reframe" class="toc-title">The Reframe</a><span class="toc-arrow t4">↓</span></li>
+        <li class="toc-item"><span class="toc-number t4">04</span><a href="#modules" class="toc-title">What You Will Learn</a><span class="toc-arrow t4">↓</span></li>
+        <li class="toc-item"><span class="toc-number t4">05</span><a href="#beforeafter" class="toc-title">Before & After</a><span class="toc-arrow t4">↓</span></li>
+        <li class="toc-item"><span class="toc-number t4">06</span><a href="#different" class="toc-title">Why This Course Is Different</a><span class="toc-arrow t4">↓</span></li>
+        <li class="toc-item"><span class="toc-number t4">07</span><a href="#timeline" class="toc-title">Transformation Timeline</a><span class="toc-arrow t4">↓</span></li>
+        <li class="toc-item"><span class="toc-number t4">08</span><a href="#trainer" class="toc-title">About the Trainer</a><span class="toc-arrow t4">↓</span></li>
+        <li class="toc-item"><span class="toc-number t4">09</span><a href="#notfor" class="toc-title">This Is Not For You If</a><span class="toc-arrow t4">↓</span></li>
+        <li class="toc-item"><span class="toc-number t4">10</span><a href="#cta" class="toc-title">Register</a><span class="toc-arrow t4">↓</span></li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<!-- 01 THE PROBLEM -->
+<section id="problem">
+  <div class="container">
+    <div class="two-col">
+      <div>
+        <span class="t4 section-label">01 — The Problem</span>
+        <h2 class="t2">Technical competence does not equal revenue.</h2>
+      </div>
+      <div>
+        <div class="red-rule"></div>
+        <p class="t5" style="margin-bottom: var(--cac-space-sm);">Most sales training was built by — and for — people from sales backgrounds. Insurance. Real estate. FMCG. B2B. It assumes you want to sell and just need better techniques. It treats persuasion as the mechanism and performance as the standard.</p>
+        <p class="t5 section-intro" style="margin-bottom: var(--cac-space-sm);">That is why it does not work for engineers, consultants, analysts, and subject matter experts. You are not resistant to selling because you lack capability. You are resistant because the methodology conflicts with how you think and who you are.</p>
+        <p class="t5" style="color: var(--cac-ink);">This course addresses that gap directly. A systematic, logical, problem-solving approach to sales — structured the same way technical work is structured. <strong style="font-weight:400;">Not charm-based. Not manipulation-based. Not performance-based.</strong></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 02 WHO THIS IS FOR -->
+<section id="audience">
+  <div class="container">
+    <span class="t4 section-label">02 — Who This Is For</span>
+    <h2 class="t2 section-heading">Built for professionals who lead with expertise, not salesmanship.</h2>
+    <div class="three-col" style="margin-top: var(--cac-space-md);">
+      <div>
+        <div class="audience-group">
+          <p class="audience-group-title">Technical Professionals</p>
+          <ul class="audience-list t5">
+            <li>Software developers, engineers, architects</li>
+            <li>IT consultants securing contracts</li>
+            <li>Data scientists presenting recommendations</li>
+            <li>Product managers bridging technical and market</li>
+            <li>Technical founders and CTOs</li>
+          </ul>
+        </div>
+        <div class="audience-group">
+          <p class="audience-group-title">Subject Matter Experts</p>
+          <ul class="audience-list t5">
+            <li>Management consultants and strategists</li>
+            <li>Healthcare professionals</li>
+            <li>Legal, accounting, audit professionals</li>
+            <li>Academics commercialising research</li>
+            <li>Trainers and educators selling programmes</li>
+          </ul>
+        </div>
+      </div>
+      <div>
+        <div class="audience-group">
+          <p class="audience-group-title">Operational & Support</p>
+          <ul class="audience-list t5">
+            <li>Project managers securing resources</li>
+            <li>HR professionals requiring executive buy-in</li>
+            <li>Operations managers pitching improvements</li>
+            <li>Customer success managers driving renewals</li>
+          </ul>
+        </div>
+        <div class="audience-group" style="margin-top: var(--cac-space-md);">
+          <p class="audience-group-title">Creative & Professional Services</p>
+          <ul class="audience-list t5">
+            <li>Designers, architects, writers</li>
+            <li>Freelancers and solopreneurs</li>
+            <li>Agency professionals uncomfortable with selling</li>
+          </ul>
+        </div>
+      </div>
+      <div>
+        <div class="fit-box">
+          <span class="t4" style="color: var(--cac-cold-red); display:block; margin-bottom: var(--cac-space-sm);">You Are in the Right Place If</span>
+          <ul class="fit-list t5">
+            <li>You have real conversations with prospects or clients</li>
+            <li>You need to understand what motivates a buying decision</li>
+            <li>You handle objections — even simple ones</li>
+            <li>You influence a purchase decision</li>
+            <li>The person in front of you could walk away without buying</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 03 THE REFRAME -->
+<section id="reframe">
+  <div class="container">
+    <span class="t4 section-label">03 — The Reframe</span>
+    <h2 class="t2 section-heading">Sell as yourself. Not despite yourself.</h2>
+    <div style="margin-top: var(--cac-space-md);">
+      <div class="reframe-item">
+        <div class="reframe-from"><span class="reframe-col-label t4">From</span><p class="reframe-text">"I'm a technical professional, not a salesperson."</p></div>
+        <div class="reframe-to"><span class="reframe-col-label t4">To</span><p class="reframe-text">"I'm a technical expert who is competent at client conversations."</p></div>
+      </div>
+      <div class="reframe-item">
+        <div class="reframe-from"><span class="reframe-col-label t4">From</span><p class="reframe-text">"Selling means becoming someone I'm not."</p></div>
+        <div class="reframe-to"><span class="reframe-col-label t4">To</span><p class="reframe-text">"My expertise is my sales advantage. I sell as myself — not despite myself."</p></div>
+      </div>
+      <div class="reframe-item">
+        <div class="reframe-from"><span class="reframe-col-label t4">From</span><p class="reframe-text">"Sales feels fake and conflicts with who I am."</p></div>
+        <div class="reframe-to"><span class="reframe-col-label t4">To</span><p class="reframe-text">"I can sell with full integrity as the technical expert I am."</p></div>
+      </div>
+      <div class="reframe-item">
+        <div class="reframe-from"><span class="reframe-col-label t4">From</span><p class="reframe-text">"Sales is something I have to do — and dread."</p></div>
+        <div class="reframe-to"><span class="reframe-col-label t4">To</span><p class="reframe-text">"Sales is a professional capability I own. A toolset that compounds my value."</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 04 WHAT YOU WILL LEARN -->
+<section id="modules">
+  <div class="container">
+    <span class="t4 section-label">04 — What You Will Learn</span>
+    <h2 class="t2 section-heading">Four modules. One through-line.</h2>
+    <div class="section-intro-row"><p class="t5 section-intro">Every module connects to the same outcome: the ability to sell with precision, integrity, and without losing yourself in the process. <a href="/pricing/" class="pricing-table-link"><b>Pricing Table</b></a></p></div>
+    <div class="module-grid">
+      <div class="module-card"><span class="module-index t4">Module 01</span><h3 class="module-title">Unblock Your Revenue</h3><p class="t5 module-body">Identify the 5 Hidden Blocks operating beneath awareness — the real reason some people appear to have a natural talent for sales and others do not. Take inventory of what is costing you at the subconscious level. Learn to dissolve blocks rapidly so they stop sabotaging your results and your confidence.</p></div>
+      <div class="module-card"><span class="module-index t4">Module 02</span><h3 class="module-title">The 4E Framework: Why People Buy</h3><p class="t5 module-body">A systematic, diagnostically-oriented framework built for how technical minds already work. Learn to read your client's buying mindset in 90 seconds or less. Develop clarity on what your prospect needs to hear — versus what you are inclined to tell them. Not charm-based. Logical and repeatable.</p></div>
+      <div class="module-card"><span class="module-index t4">Module 03</span><h3 class="module-title">Your Authentic Selling Blueprint</h3><p class="t5 module-body">Build the language infrastructure that is specifically yours: what to say, how to say it, and why it works. Debug your approach iteratively through real-world practice built into the training. Use this blueprint as the foundation for your proposals, website, pitches, and presentations.</p></div>
+      <div class="module-card"><span class="module-index t4">Module 04</span><h3 class="module-title">The Inner & Outer Game of Closing</h3><p class="t5 module-body">Understand what must be in place before you close — and what happens when it is not. Inner game: confidence and clarity. Outer game: the marketing question and conversation structure. Build long-term stamina in sales without burnout. Close naturally, ethically, without manipulation.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 05 BEFORE & AFTER -->
+<section id="beforeafter">
+  <div class="container">
+    <span class="t4 section-label">05 — Before & After</span>
+    <h2 class="t2 section-heading">What shifts — and how.</h2>
+    <p class="t5 section-intro">Eight dimensions of transformation. Each one the result of structural change, not motivation or mindset hacks.</p>
+    <div class="ba-section">
+      <h3 class="ba-title t3">Identity & Inner State</h3>
+      <div class="ba-grid">
+        <div class="ba-before"><span class="ba-col-label t4">Before</span><ul class="ba-list t5"><li>Sales feels like a betrayal of professional identity</li><li>Feel like selling requires becoming someone fake or pushy</li><li>Believe sales conflicts with professional integrity</li></ul></div>
+        <div class="ba-after"><span class="ba-col-label t4">After</span><ul class="ba-list t5"><li>Sell as a technical expert — not despite being one</li><li>Sales becomes a professional capability, not an identity crisis to avoid</li><li>Confidence to sell with full integrity and authenticity</li></ul></div>
+      </div>
+    </div>
+    <div class="ba-section">
+      <h3 class="ba-title t3">Conversation Control</h3>
+      <div class="ba-grid">
+        <div class="ba-before"><span class="ba-col-label t4">Before</span><ul class="ba-list t5"><li>Over-explain and information-dump because you don't know where to start</li><li>Prospects say "interesting" or "let me think about it" and disappear</li><li>Conversations feel scattered — you are reacting, not leading</li></ul></div>
+        <div class="ba-after"><span class="ba-col-label t4">After</span><ul class="ba-list t5"><li>Clear 4E framework you can use every single time</li><li>Guide prospects from confusion to clarity to a clear decision</li><li>Prospects tell you what they need to hear instead of you guessing</li></ul></div>
+      </div>
+    </div>
+    <div class="ba-section">
+      <h3 class="ba-title t3">Client Understanding</h3>
+      <div class="ba-grid">
+        <div class="ba-before"><span class="ba-col-label t4">Before</span><ul class="ba-list t5"><li>Lead with what you find impressive about your solution</li><li>Explain features that don't land, confused why prospects don't "get it"</li><li>Selling based on how you would buy, not how they buy</li></ul></div>
+        <div class="ba-after"><span class="ba-col-label t4">After</span><ul class="ba-list t5"><li>Read your client's buying mindset in 90 seconds or less</li><li>Speak the language your prospect actually responds to</li><li>Empathise so deeply they feel genuinely understood</li></ul></div>
+      </div>
+    </div>
+    <div class="ba-section">
+      <h3 class="ba-title t3">Value Communication</h3>
+      <div class="ba-grid">
+        <div class="ba-before"><span class="ba-col-label t4">Before</span><ul class="ba-list t5"><li>You sound like everyone else in your field</li><li>Default to competing on price — can't communicate differentiation</li><li>Website, proposals, and pitches feel flat or templated</li></ul></div>
+        <div class="ba-after"><span class="ba-col-label t4">After</span><ul class="ba-list t5"><li>Your Authentic Selling Blueprint: language you use again and again</li><li>Foundation for all your sales and marketing content</li><li>Prospects choose you based on fit, not price</li></ul></div>
+      </div>
+    </div>
+    <div class="ba-section">
+      <h3 class="ba-title t3">Closing & Asking for Action</h3>
+      <div class="ba-grid">
+        <div class="ba-before"><span class="ba-col-label t4">Before</span><ul class="ba-list t5"><li>Wait for them to signal readiness — they never do</li><li>Fear rejection, so you avoid asking directly</li><li>Deals stall in "I'll get back to you" limbo forever</li></ul></div>
+        <div class="ba-after"><span class="ba-col-label t4">After</span><ul class="ba-list t5"><li>Ask for action confidently — you have earned the right through genuine service</li><li>Walk prospects toward a decision: yes or no, not confusion</li><li>The close becomes a natural conversation step</li></ul></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 06 WHY DIFFERENT -->
+<section id="different">
+  <div class="container">
+    <div class="two-col">
+      <div>
+        <span class="t4 section-label">06 — Why This Course Is Different</span>
+        <h2 class="t2">Built for a different mind.</h2>
+      </div>
+      <div>
+        <div class="red-rule"></div>
+        <div class="diff-item"><h3 class="diff-title">Problem-solving over persuasion</h3><p class="t5" style="color: var(--cac-mid-grey);">The 4E Framework is diagnostic before it is action-oriented. It mirrors the methodologies technical professionals already trust and use. Not charm-based. Not relationship-based. Systematic and logical.</p></div>
+        <div class="diff-item"><h3 class="diff-title">Identity-compatible selling</h3><p class="t5" style="color: var(--cac-mid-grey);">This course does not ask you to fake it until you make it. It asks you to sell as yourself — leveraging the expertise you already have. Your technical competence is the asset, not the obstacle.</p></div>
+        <div class="diff-item"><h3 class="diff-title">Intellectual rigour over emotional manipulation</h3><p class="t5" style="color: var(--cac-mid-grey);">No enthusiasm scripts. No energy tactics. No "believe in yourself" content. Grounded in buyer psychology, value articulation, and structural frameworks.</p></div>
+        <div class="diff-item"><h3 class="diff-title">Ethics as strategy</h3><p class="t5" style="color: var(--cac-mid-grey);">Walking away from poor-fit clients is not just the right thing — it is what professionals do. Integrity is positioned here as a competitive advantage, not a constraint.</p></div>
+        <div class="diff-item"><h3 class="diff-title">Presence over performance. Credibility over charisma.</h3><p class="t5" style="color: var(--cac-mid-grey);">This directly counters what technical people resist most about conventional sales: the performative aspect. You show up as yourself — and that is the strategy.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 07 TRANSFORMATION TIMELINE -->
+<section id="timeline">
+  <div class="container">
+    <span class="t4 section-label">07 — Transformation Timeline</span>
+    <h2 class="t2 section-heading">What you can expect, and when.</h2>
+    <p class="t5 section-intro">The skill compounds. Small inputs produce large outputs over time.</p>
+    <div class="timeline-grid">
+      <div class="timeline-card"><span class="timeline-period t4">0 — 2 Weeks</span><h3 class="timeline-title">Immediate</h3><ul class="timeline-list"><li>Clear mental model of what sales actually is</li><li>Reduced anxiety — not eliminated, but manageable</li><li>4E structure ready to apply immediately</li><li>Language for value without discomfort</li></ul></div>
+      <div class="timeline-card"><span class="timeline-period t4">1 — 3 Months</span><h3 class="timeline-title">Short-term</h3><ul class="timeline-list"><li>Discovery conversations that feel like problem-solving</li><li>Confident qualifying questions</li><li>Cleaner good-fit vs. poor-fit identification</li><li>Improved close rate on existing opportunities</li></ul></div>
+      <div class="timeline-card"><span class="timeline-period t4">3 — 6 Months</span><h3 class="timeline-title">Medium-term</h3><ul class="timeline-list"><li>Repeatable personal selling process</li><li>Objections handled without stress</li><li>Faster closes, clearer value communication</li><li>Transfers into stakeholder management</li></ul></div>
+      <div class="timeline-card"><span class="timeline-period t4">6 Months +</span><h3 class="timeline-title">Long-term</h3><ul class="timeline-list"><li>Not trying to sell — selling</li><li>Ability to mentor others on technical selling</li><li>Strategic positioning and differentiation thinking</li><li>Sustainable sales effort without burnout</li></ul></div>
+    </div>
+  </div>
+</section>
+
+<!-- 08 ABOUT THE TRAINER -->
+<section id="trainer">
+  <div class="container">
+    <div class="trainer-grid">
+      <div class="trainer-photo">
+        <img src="/assets/img/Lovinia_main.png" alt="Lovinia Mak"
+             onerror="this.outerHTML='<div class=\'trainer-photo-placeholder\'>PHOTO</div>'">
+      </div>
+      <div class="trainer-content">
+        <span class="t4 section-label">08 — About the Trainer</span>
+        <h2 class="trainer-name">Lovinia Mak</h2>
+        <p class="trainer-role t4">Founder · Clarity Awareness Cognitive Architecture Systems</p>
+        <div class="trainer-rule"></div>
+        <div class="trainer-bio">
+          <p class="t5">Lovinia came from advertising, sales, market research, corporate communications and content editing before becoming an ESL practitioner, coach and corporate trainer. As a business owner, Lovinia learned to sell without becoming someone she was not — and then spent years trying to understand why that was so difficult for so many technically excellent, brilliant people.</p>
+          <p class="t5">The answer was not ability. It was misalignment. Traditional sales training is built by and for a different kind of mind. It assumes persuasion is the mechanism and performance is the standard. For analytical, integrity-driven professionals, it does not just fail to help — it actively conflicts with who they are.</p>
+          <p class="t5">That gap is why this programme exists.</p>
+        </div>
+        <div class="trainer-credentials">
+          <span class="t4" style="color: var(--cac-mid-grey);">Credentials</span>
+          <ul class="trainer-cred-list">
+            <li><span class="cred-dash">—</span>Founder, Clarity Awareness Cognitive Architecture Systems</li>
+            <li><span class="cred-dash">—</span>Principal Trainer, Sales For Technical And Non-Sales Professionals</li>
+            <li><span class="cred-dash">—</span>Author, <em>The Structureless Potential (scheduled, July 2026) </em></li>
+            <li><span class="cred-dash">—</span>Creator, Buying Psychology Profiling system, 4E Framework for Sales Conversations That Land</li>
+            <li><span class="cred-dash">—</span>Creator, Emotional Freedom Technique for the 5 Hidden Blocks in Sales  </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 09 NOT FOR YOU IF -->
+<section id="notfor">
+  <div class="container">
+    <span class="t4 section-label">09 — This Is Not For You If</span>
+    <h2 class="t2 section-heading">Clarity on fit is part of the methodology.</h2>
+    <p class="t5 section-intro">Knowing who this is not for is as important as knowing who it is for.</p>
+    <div class="not-for-grid">
+      <div class="not-for-card"><span class="t4" style="color: var(--cac-mid-grey);">If you want shortcuts</span><h3 class="not-for-card-title">You want results without practice.</h3><ul class="not-for-list"><li>Get-rich-quick schemes or overnight formulas</li><li>Scripts that close everyone regardless of fit</li><li>Passive learning you can absorb without doing</li></ul></div>
+      <div class="not-for-card"><span class="t4" style="color: var(--cac-mid-grey);">If you are in the wrong role</span><h3 class="not-for-card-title">Your role has no consultative element.</h3><ul class="not-for-list"><li>High-volume transactional sales (100+ daily interactions)</li><li>Pure order-taking with no advisory component</li><li>Roles requiring rigid scripts with zero autonomy</li></ul></div>
+      <div class="not-for-card"><span class="t4" style="color: var(--cac-mid-grey);">If you believe in old-school tactics</span><h3 class="not-for-card-title">You want to sell to anyone regardless of fit.</h3><ul class="not-for-list"><li>Pressure tactics and closing tricks</li><li>Techniques to make people buy what they don't need</li><li>Performance-based persuasion over credibility</li></ul></div>
+    </div>
+  </div>
+</section>
+
+<!-- 10 CTA -->
+<section id="cta">
+  <div class="container">
+    <div class="cta-headline">
+      <span class="t4" style="color: var(--cac-cold-red); display:block; margin-bottom: var(--cac-space-sm);">10 — Register</span>
+      <h2 class="cta-headline-text">Ready to sell with<br>integrity and confidence?</h2>
+    </div>
+    <div class="cta-grid">
+      <div class="cta-block">
+        <span class="cta-block-label t4">Event Details</span>
+        <h3 class="cta-block-title">Programme Information</h3>
+        <div class="cta-field"><span class="cta-field-label">Date</span><span class="t5 cta-field-value" data-f="date">Date TBC</span></div>
+        <div class="cta-field"><span class="cta-field-label">Time</span><span class="t5 cta-field-value" data-f="time">Time TBC</span></div>
+        <div class="cta-field"><span class="cta-field-label">Venue</span><span class="t5 cta-field-value" data-f="venue">Venue TBC</span></div>
+        <div class="cta-field"><span class="cta-field-label">City</span><span class="t5 cta-field-value" data-f="city">City TBC</span></div>
+        <div class="cta-field"><span class="cta-field-label">Organised by</span><span class="t5 cta-field-value" data-f="organizer">Organizer TBC</span></div>
+      </div>
+      <div class="cta-block">
+        <span class="cta-block-label t4"> Group Price</span>
+        <h3 class="cta-block-title">Speak To A Human </h3>
+        <div class="cta-field"><span class="cta-field-label">Name</span><span class="t5 cta-field-value" data-f="aff-name">Contact TBC</span></div>
+        <div class="cta-field"><span class="cta-field-label">Company</span><span class="t5 cta-field-value" data-f="aff-co">Company TBC</span></div>
+        <div class="cta-field"><span class="cta-field-label">Email</span><span class="t5 cta-field-value" data-f="aff-email">Email TBC</span></div>
+        <div class="cta-field"><span class="cta-field-label">Phone</span><span class="t5 cta-field-value" data-f="aff-phone">Phone TBC</span></div>
+        <a href="#" data-f="reg-link" class="cta-register-btn"><span data-f="cta-text">Register Now</span></a>
+      </div>
+      <div class="cta-block">
+        <span class="cta-block-label t4"> Questions </span>
+        <h3 class="cta-block-title">Quick Support</h3>
+        <p class="t5" style="color: var(--cac-mid-grey); margin-bottom: var(--cac-space-sm);">Scan the QR code for event day support.</p>
+        <div class="qr-placeholder" data-f="qr">
+          <span>QR Code<br>Placeholder</span>
+        </div>
+        <div style="text-align: center; margin-top: var(--cac-space-sm);">
+          <a href="#" class="t4" style="color: var(--cac-cold-red); text-decoration: none;">FAQ</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EVENT BAR — STATIC, NOT CONFIG-CONTROLLED -->
+<div class="event-bar">
+  <div>
+    <span class="event-bar-label">About Your Trainer</span>
+    <div class="event-bar-value"><a href="/about/" style="color:var(--cac-surface-white);text-decoration:none;">Lovinia Mak →</a></div>
+  </div>
+  <div>
+    <span class="event-bar-label">Read More</span>
+    <div class="event-bar-value"><a href="/articles/" style="color:var(--cac-surface-white);text-decoration:none;">Articles →</a></div>
+  </div>
+  <div>
+    <span class="event-bar-label">Coming Soon</span>
+    <div style="display:inline-block;margin-top:6px;padding:8px 18px;border:1px solid var(--cac-cold-red);color:var(--cac-cold-red);font-family:var(--cac-font-mono);font-size:10px;letter-spacing:0.18em;text-transform:uppercase;box-shadow:0 0 10px #C0392B55;">Coming Soon</div>
+  </div>
+  <div>
+    <span class="event-bar-label">Follow Me</span>
+    <div style="display:flex;flex-direction:column;gap:6px;margin-top:4px;">
+      <a href="https://facebook.com/clarityawarenesscoaching" target="_blank" style="color:var(--cac-surface-white);font-family:var(--cac-font-mono);font-size:11px;text-decoration:none;letter-spacing:0.08em;">Facebook →</a>
+      <a href="https://linkedin.com/in/loviniamak" target="_blank" style="color:var(--cac-surface-white);font-family:var(--cac-font-mono);font-size:11px;text-decoration:none;letter-spacing:0.08em;">LinkedIn →</a>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+
+	
+
+<section id="archive" style="padding: 80px 20px; background: #080808; border-top: 1px solid #1a1a1a;">
+  <div style="max-width: 1200px; margin: 0 auto;">
+    <h2 style="font-family: var(--cac-font-editorial); color: #ffffff; font-size: 28px; margin-bottom: 40px; letter-spacing: -0.02em;">Knowledge Archive</h2>
+    <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 25px;">
+      {% for post in collections.all %}
+        {% if post.url contains "/articles/" and post.url != "/articles/" %}
+          <a href="{{ post.url }}" style="text-decoration: none; padding: 24px; border: 1px solid #1a1a1a; background: #0a0a0a; display: block; transition: all 0.3s ease;">
+            <div style="font-family: var(--cac-font-mono); font-size: 10px; color: var(--cac-cold-red); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1px;">Knowledge Insight</div>
+            <div style="font-family: var(--cac-font-editorial); color: #ffffff; font-size: 18px; line-height: 1.4;">{{ post.data.title | default: "Untitled Article" }} →</div>
+          </a>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<footer style="padding: 60px 20px; text-align: center; background: #050505; border-top: 1px solid #111;">
+  <div style="font-family: var(--cac-font-mono); font-size: 11px; color: #666; margin-bottom: 15px;">Clarity Awareness Cognitive Architecture Systems</div>
+  <div>
+    <a href="/privacy-policy/" style="color: #888; text-decoration: none; margin: 0 15px; font-size: 11px; font-family: var(--cac-font-mono);">Privacy Policy</a>
+    <a href="/about/" style="color: #888; text-decoration: none; margin: 0 15px; font-size: 11px; font-family: var(--cac-font-mono);">About</a>
+  </div>
+</footer>
+</body>
+</html>
